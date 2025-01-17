@@ -1,5 +1,5 @@
 export default function StadiumFood() {
   return (
-    <div>StadiumFood</div>
+    <div>주변 맛집</div>
   )
 }

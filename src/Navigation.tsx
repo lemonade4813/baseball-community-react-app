@@ -31,7 +31,6 @@ const MenuItem = styled.li`
 
     &.active {
       background-color: #007bff;
-      color: #ffffff;
     }
 
     &:hover {
@@ -91,6 +90,14 @@ const Navigation = () => {
             className={({ isActive }) => (isActive ? "active" : undefined)}
           >
             게시판
+          </NavLink>
+        </MenuItem>
+        <MenuItem>
+          <NavLink
+            to="/chat"
+            className={({ isActive }) => (isActive ? "active" : undefined)}
+          >
+            채팅방
           </NavLink>
         </MenuItem>
         <MenuItem>

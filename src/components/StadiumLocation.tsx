@@ -1,5 +1,5 @@
 export default function StadiumLocation() {
   return (
-    <div>StadiumLocation</div>
+    <div>경기장 위치</div>
   )
 }
