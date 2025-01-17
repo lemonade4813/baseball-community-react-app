@@ -6,6 +6,8 @@ import Stadium from './components/Stadium'
 import StadiumLocation from './components/StadiumLocation'
 import StadiumFood from './components/StadiumFood'
 import Chat from './components/Chat'
+import Login from './components/Login'
+import Signup from './components/Signup'
 
 const routes = createBrowserRouter([
     {
@@ -15,6 +17,8 @@ const routes = createBrowserRouter([
         { path: "schedule", element: <Schedule /> },
         { path: "posts", element: <Posts /> },
         { path : "chat", element : <Chat/>},
+        { path : "login", element : <Login/>},
+        { path : "signup", element : <Signup/>},
         { path: "stadium", element: <Stadium /> , 
             children : [
                 {path : 'location', element : <StadiumLocation/>},
@@ -22,6 +26,7 @@ const routes = createBrowserRouter([
             ]},
       ],
     },
+   
 ])
 
 export default routes;
