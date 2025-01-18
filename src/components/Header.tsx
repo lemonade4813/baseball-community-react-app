@@ -27,7 +27,7 @@ const AuthLinksWrapper = styled.div`
     display : flex;
     gap : 24px;
     margin-right : 30px;
-    font-size : 20px;
+    font-size : 16px;
 
     & > :first-child {
         border-right : 2px solid #D3D3D3;
@@ -37,7 +37,7 @@ const AuthLinksWrapper = styled.div`
 `
 
 
-export default function HeaderComponent() {
+export default function Header() {
     return (
         <HeaderContainer>
             <TitleWrapper>

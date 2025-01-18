@@ -1,5 +1,5 @@
 import { Navigate, createBrowserRouter } from 'react-router-dom'
-import Schedule from './components/Schedule'
+import Schedule from './components/Schedules'
 import App from './App'
 import Posts from './components/Posts'
 import Stadium from './components/Stadium'
@@ -19,7 +19,7 @@ const routes = createBrowserRouter([
         { path : "chat", element : <Chat/>},
         { path : "login", element : <Login/>},
         { path : "signup", element : <Signup/>},
-        { path: "stadium", element: <Stadium /> , 
+        { path : "stadium", element: <Stadium /> , 
             children : [
                 {path : 'location', element : <StadiumLocation/>},
                 {path : 'food', element : <StadiumFood/>}

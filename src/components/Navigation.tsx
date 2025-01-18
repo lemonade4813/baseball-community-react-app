@@ -81,7 +81,7 @@ const Navigation = () => {
             to="/schedule"
             className={({ isActive }) => (isActive ? "active" : undefined)}
           >
-            경기일정
+            경기 일정
           </NavLink>
         </MenuItem>
         <MenuItem>
