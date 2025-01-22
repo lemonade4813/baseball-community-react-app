@@ -1,4 +1,4 @@
-import { Navigate, createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter } from 'react-router-dom'
 import Schedule from './components/Schedules'
 import App from './App'
 import Posts from './components/Posts'
@@ -8,6 +8,7 @@ import StadiumFood from './components/StadiumFood'
 import Chat from './components/Chat'
 import Login from './components/Login'
 import Signup from './components/Signup'
+import ChatRoom from './components/ChatRoom'
 
 const routes = createBrowserRouter([
     {
@@ -17,6 +18,7 @@ const routes = createBrowserRouter([
         { path: "schedule", element: <Schedule /> },
         { path: "posts", element: <Posts /> },
         { path : "chat", element : <Chat/>},
+        { path : "chat/:team", element : <ChatRoom/>},
         { path : "login", element : <Login/>},
         { path : "signup", element : <Signup/>},
         { path : "stadium", element: <Stadium /> , 
