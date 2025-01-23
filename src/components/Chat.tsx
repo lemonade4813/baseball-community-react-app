@@ -43,6 +43,7 @@ const ChatTypeButton = ({ team }: { team: string }) => {
 };
 
 export default function Chat() {
+
   return (
     <div>
       <div style={{ marginBottom: "20px", fontSize: "20px", fontWeight: "bold" }}>

@@ -25,18 +25,29 @@ const teamImgList = [
     {src : Heroes, name : '키움 히어로즈'},
 ]
 
-
 const TeamListWrapper = styled.div`
+  width : 90%;
   display : flex;
   gap : 20px;
   margin-left : 20px;
   margin-right : 20px;
   justify-content : space-between;
+  border-radius : 8px;
+  background-color : #BFDAF7;
+  padding : 8px;
+
+  & > * {
+      border-right : 1px solid #999999;
+      padding-right : 5px;
+
+      &:last-child{
+        border-right : none;
+      }
+  }
 `
 
 
 export default function TeamList() {
-  
   
   return (
     <TeamListWrapper>
