@@ -3,8 +3,10 @@ import TeamList from "./TeamList";
 import { useSchedulesQuery } from "../hooks/queries/useScheduleQuery";
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { ko } from "date-fns/locale";
+
+import { ScheduleFilterOption, Team, filterItems } from "../util/filterItems";
 
 
 const SchedulesContainer = styled.main`
@@ -13,16 +15,16 @@ const SchedulesContainer = styled.main`
     align-items : center;
 `
 
-interface ISchedule {
+// interface ISchedule {
 
-  date : string;
-  day : string;
-  time : string;
-  awayTeam : string;
-  homeTeam : string;
-  notes : string;
+//   date : string;
+//   day : string;
+//   time : string;
+//   awayTeam : string;
+//   homeTeam : string;
+//   notes : string;
 
-} []
+// } []
 
 const Table = styled.div`
   width : 80%;
@@ -127,17 +129,28 @@ const TeamSelectWrapper = styled.div`
 
 export default function Schedule() {
 
-  const { data : games, error, isLoading } = useSchedulesQuery();
+  const { data : schedules , error, isLoading } = useSchedulesQuery();
 
   const [date, setDate] = useState(new Date());
 
+  const [creteria, setCretria] = useState<ScheduleFilterOption>({ team : '' })
+
+  const filteredItems = useMemo(() => {
+    if(schedules){
+      return filterItems(schedules, creteria)
+    }},
+   [ schedules, creteria ])
+    
+  const handleTeam = (team : Team) => {
+      setCretria({ team })
+  }
 
   return (
     <SchedulesContainer>
       <Title>2025 KBO 경기 일정</Title>
       <TeamSelectWrapper>
         <p>팀 선택</p>
-        <TeamList/>
+        <TeamList onClick={handleTeam} selectedTeam={creteria.team}/>
       </TeamSelectWrapper>     
       <DatepickerWrapper>
         <p>월 선택</p>
@@ -158,7 +171,7 @@ export default function Schedule() {
           <Th>홈팀</Th>
           <Th>비고</Th>
         </Tr>
-        {games?.map((game : ISchedule) => 
+        {filteredItems?.map((game : any) => 
           <Tr>
             <Td>{game.date}</Td>
             <Td>{game.day}</Td>
