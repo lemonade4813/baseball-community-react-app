@@ -7,6 +7,13 @@ import { useMemo, useState } from "react";
 import { ko } from "date-fns/locale";
 
 import { ScheduleFilterOption, Team, filterItems } from "../util/filterItems";
+import { SelectGroup } from "./compound/select/SelectGroup";
+import { Option } from "./compound/select/Option";
+import { InputGroup } from "./compound/input/InputGroup";
+import { Input } from "./compound/input/Input";
+import { CheckboxGroup } from "./compound/checkbox/CheckboxGroup";
+import { Checkbox } from "./compound/checkbox/Checkbox";
+import Label from "./compound/input/Label";
 
 
 const SchedulesContainer = styled.main`
@@ -151,7 +158,7 @@ export default function Schedule() {
       <TeamSelectWrapper>
         <p>팀 선택</p>
         <TeamList onClick={handleTeam} selectedTeam={creteria.team}/>
-      </TeamSelectWrapper>     
+      </TeamSelectWrapper>  
       <DatepickerWrapper>
         <p>월 선택</p>
         <DatePicker 
