@@ -64,8 +64,8 @@ export default function TeamList( props : ITeamList) {
 
   return (
     <TeamListWrapper>
-        {teamImgList.map((team) => 
-            <TeamItem {...props} {...team}  />
+        {teamImgList.map((team, index) => 
+            <TeamItem key={index} {...props} {...team}  />
         )}
     </TeamListWrapper>
   )

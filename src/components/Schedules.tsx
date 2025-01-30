@@ -6,14 +6,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { useMemo, useState } from "react";
 import { ko } from "date-fns/locale";
 
-import { ScheduleFilterOption, Team, filterItems } from "../util/filterItems";
-import { SelectGroup } from "./compound/select/SelectGroup";
-import { Option } from "./compound/select/Option";
-import { InputGroup } from "./compound/input/InputGroup";
-import { Input } from "./compound/input/Input";
-import { CheckboxGroup } from "./compound/checkbox/CheckboxGroup";
-import { Checkbox } from "./compound/checkbox/Checkbox";
-import Label from "./compound/input/Label";
+import { ScheduleFilterOption, ScheduleItem, Team, filterItems } from "../util/filterItems";
 
 
 const SchedulesContainer = styled.main`
@@ -138,18 +131,27 @@ export default function Schedule() {
 
   const { data : schedules , error, isLoading } = useSchedulesQuery();
 
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(new Date()); 
 
   const [creteria, setCretria] = useState<ScheduleFilterOption>({ team : '' })
 
-  const filteredItems = useMemo(() => {
-    if(schedules){
-      return filterItems(schedules, creteria)
-    }},
-   [ schedules, creteria ])
+  const filteredItems = useMemo<ScheduleItem[]>(() => {
+    if (schedules) {
+      return filterItems<ScheduleItem, ScheduleFilterOption>(schedules, creteria);
+    }
+    return [];
+  }, [schedules, creteria]);
     
   const handleTeam = (team : Team) => {
       setCretria({ team })
+  }
+
+  if(isLoading){
+    return <p>로딩 중입니다.</p>
+  }
+
+  if(error){
+    return <p>{`에러가 발생했습니다. ${error.message}`}</p>
   }
 
   return (
@@ -178,8 +180,8 @@ export default function Schedule() {
           <Th>홈팀</Th>
           <Th>비고</Th>
         </Tr>
-        {filteredItems?.map((game : any) => 
-          <Tr>
+        {filteredItems?.map((game, index : number) => 
+          <Tr key={index}>
             <Td>{game.date}</Td>
             <Td>{game.day}</Td>
             <Td>{game.time}</Td>

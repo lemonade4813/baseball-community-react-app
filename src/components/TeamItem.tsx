@@ -2,7 +2,7 @@ import { css, styled } from "styled-components"
 import { Team } from "../util/filterItems"
 
 
-const TeamItemWrapper = styled.div<{isSelected : boolean}>`
+const TeamItemWrapper = styled.button<{isSelected : boolean}>`
     display : flex;
     align-items : center;
     width : 120px;
