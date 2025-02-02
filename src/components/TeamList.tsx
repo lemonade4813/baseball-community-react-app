@@ -21,7 +21,6 @@ type TeamImgList = {
 }[]
 
 const teamImgList : TeamImgList = [
-    {src : BaseBall, name : '전체 일정', team : ''},
     {src : Bears, name : '두산 베어스', team : '두산'},
     {src : Dinos, name : 'NC 다이노스', team : 'NC'},
     {src : Eagles, name : '한화 이글스', team : '한화'},
@@ -33,6 +32,21 @@ const teamImgList : TeamImgList = [
     {src : Wiz, name : 'KT 위즈', team : 'KT'},
     {src : Heroes, name : '키움 히어로즈', team : '키움'},
 ]
+
+const teamImgListSchdulePage : TeamImgList  = [
+  {src : BaseBall, name : '전체', team : ''},
+  {src : Bears, name : '두산 베어스', team : '두산'},
+  {src : Dinos, name : 'NC 다이노스', team : 'NC'},
+  {src : Eagles, name : '한화 이글스', team : '한화'},
+  {src : Giants, name : '롯데 자이언츠', team : '롯데'},
+  {src : Tigers, name : '기아 타이거즈', team : 'KIA'},
+  {src : Landers, name : 'SSG 랜더스', team : 'SSG'},
+  {src : Lions, name : '삼성 라이온스', team : '삼성'},
+  {src : Twins, name : 'LG 트윈스', team : 'LG'},
+  {src : Wiz, name : 'KT 위즈', team : 'KT'},
+  {src : Heroes, name : '키움 히어로즈', team : '키움'},
+]
+
 
 const TeamListWrapper = styled.div`
   width : 90%;
@@ -56,16 +70,18 @@ interface ITeamList{
 
   onClick : (i : Team)=> void;
   selectedTeam : string;
+  isSchedulePage? : boolean;
 
 }
 
-export default function TeamList( props : ITeamList) {
+export default function TeamList( {isSchedulePage, ...rest} : ITeamList) {
   
+  const teamList = isSchedulePage? teamImgListSchdulePage : teamImgList;
 
   return (
     <TeamListWrapper>
-        {teamImgList.map((team, index) => 
-            <TeamItem key={index} {...props} {...team}  />
+        {teamList.map((team, index) => 
+            <TeamItem key={index} {...rest} {...team}  />
         )}
     </TeamListWrapper>
   )

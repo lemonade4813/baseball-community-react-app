@@ -1,5 +1,5 @@
 import { FC, ReactNode } from "react";
-import { useCheckboxGroupContext } from "./checkBoxGroupContext";
+import { useCheckboxGroupContext } from "./checkboxGroupContext";
 import { styled } from "styled-components";
 
 interface CheckboxProps {

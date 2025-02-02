@@ -1,5 +1,5 @@
 import { ReactNode, FC } from "react";
-import CheckboxContext from "./checkBoxGroupContext"
+import CheckboxContext from "./checkboxGroupContext"
 import Label from "./Label";
 import { Checkbox } from "./Checkbox";
 
