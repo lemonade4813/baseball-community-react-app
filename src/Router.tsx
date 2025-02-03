@@ -9,6 +9,8 @@ import Chat from './components/Chat'
 import Login from './components/Login'
 import Signup from './components/Signup'
 import ChatRoom from './components/ChatRoom'
+import PostDetail from './components/PostDetail'
+import PostWrite from './components/PostWrite'
 
 const routes = createBrowserRouter([
     {
@@ -17,6 +19,9 @@ const routes = createBrowserRouter([
       children: [
         { path: "schedule", element: <Schedule /> },
         { path: "posts", element: <Posts /> },
+        { path : "posts/detail/:id", element : <PostDetail/>},
+        { path : "posts/write", element : <PostWrite/>},
+        { path : "posts/edit/:id", element : <PostWrite isEditMode/>},
         { path : "chat", element : <Chat/>},
         { path : "chat/:team", element : <ChatRoom/>},
         { path : "login", element : <Login/>},

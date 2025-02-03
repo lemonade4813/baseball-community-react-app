@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import TeamList from "./TeamList";
 import { styled } from "styled-components";
+import { axiosInstance } from "../util/axiosIntance";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
 const ACCEPTED_FILE_TYPES = ["image/jpeg", "image/png", "image/jpg"];
@@ -60,8 +61,8 @@ export default function Signup() {
     }
 
     try {
-      const res = await axios.post("http://localhost:8080/users/register", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
+      const res = await axiosInstance.post("/posts", formData, {
+        headers : {"Content-Type" : "application/json"}
       });
       console.log("status:", res.status);
     } catch (e) {
