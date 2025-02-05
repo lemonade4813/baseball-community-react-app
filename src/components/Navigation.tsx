@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Nav = styled.nav`
   background-color: #343a40;
-  padding: 10px 20px;
+  padding: 10px 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 `;
 
@@ -26,7 +26,6 @@ const MenuItem = styled.li`
     border-radius: 5px;
     transition: background-color 0.3s ease, color 0.3s ease;
     display : inline-block;
-    width : 200px;
     text-align : center;
 
     &.active {

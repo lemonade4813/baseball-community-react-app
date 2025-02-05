@@ -159,7 +159,7 @@ export default function Schedule() {
       <Title>2025 KBO 경기 일정</Title>
       <TeamSelectWrapper>
         <p>팀 선택</p>
-        <TeamList onClick={handleTeam} selectedTeam={creteria.team}/>
+        <TeamList onClick={handleTeam} selectedTeam={creteria.team} isSchedulePage/>
       </TeamSelectWrapper>  
       <DatepickerWrapper>
         <p>월 선택</p>

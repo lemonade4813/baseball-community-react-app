@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
 import { axiosInstance } from "../util/axiosIntance";
-import { Button, Input, InputWrapper, Label, Textarea } from "../styles/Styles";
+import { Button, H2, Input, InputWrapper, Label, Textarea } from "../styles/Styles";
 
 export default function PostWrite({isEditMode} : {isEditMode? : boolean}) {
   
@@ -11,10 +11,6 @@ export default function PostWrite({isEditMode} : {isEditMode? : boolean}) {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
   
-
-    console.log(title);
-    console.log(content);
-
     useEffect(() => {
         if (isEditMode && id) {
           axiosInstance(`/posts/${id}`)
@@ -27,7 +23,7 @@ export default function PostWrite({isEditMode} : {isEditMode? : boolean}) {
   
       const handleSubmit = async () => {
         const method = isEditMode ? 'PUT' : 'POST';
-        const url = isEditMode ? `/posts/${id}` : '/posts'  ;
+        const url = isEditMode ? `/posts/${id}` : '/posts';
 
         console.log(url);
         console.log(method)
@@ -50,7 +46,9 @@ export default function PostWrite({isEditMode} : {isEditMode? : boolean}) {
     
       return (
         <div>
-          <h2 style={{fontWeight : '600', fontSize : '24px', marginTop : '48px', marginBottom : '24px'}}>{isEditMode ? "게시글 수정" : "새 게시글 작성"}</h2>
+          <H2 style={{ marginTop : '48px', marginBottom : '24px'}}>
+            {isEditMode ? "게시글 수정" : "새 게시글 작성"}
+          </H2>
           <InputWrapper>
             <Label htmlFor="title">제목</Label>
             <Input
@@ -69,7 +67,11 @@ export default function PostWrite({isEditMode} : {isEditMode? : boolean}) {
                 onChange={(e) => setContent(e.target.value)}
             />
           </InputWrapper>
-          <Button style={{marginTop : '20px'}} onClick={handleSubmit}>{isEditMode ? "수정하기" : "작성하기"}</Button>
+          <div style={{textAlign : 'right', marginTop : '20px'}}>
+            <Button onClick={handleSubmit} style={{width : '120px'}}>
+              {isEditMode ? "수정하기" : "작성하기"}
+            </Button>
+          </div>
         </div>
       );
 }

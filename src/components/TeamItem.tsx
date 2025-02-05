@@ -5,17 +5,19 @@ import { Team } from "../util/filterItems"
 const TeamItemWrapper = styled.button<{isSelected : boolean}>`
     display : flex;
     align-items : center;
+    flex-wrap : wrap;
+
     width : 120px;
-    height : 60px;
     gap : 8px;
     cursor : pointer;
     font-size : 14px;
     padding-top : 4px;
     padding-left : 10px;
-    padding-top : 4px;
-    background-color : #BFDAF7;
+    background-color : transparent;
+
     border : none;
-    border-right : 1px solid black;
+    line-height : 150%;
+    border : 2px solid #DDD;
 
     ${({ isSelected }) =>
       isSelected &&
@@ -24,24 +26,11 @@ const TeamItemWrapper = styled.button<{isSelected : boolean}>`
           color: #fff;
         `};
         
-    line-height : 150%;
-   
-    &:first-child {
-      border-top-left-radius : 8px;
-      border-bottom-left-radius : 8px;
-    }
-
-    &:last-child {
-      border-top-right-radius : 8px;
-      border-bottom-right-radius : 8px;
-    }
-
-    &:first-child > p {
-      font-size : 18px;
-    }
+    
 `
 
-export default function TeamItem({name, src, team, onClick, selectedTeam} : {name : string, src : string, team : Team, onClick : (i : Team)=> void, selectedTeam : string}) {
+export default function TeamItem({name, src, team, onClick, selectedTeam} :
+                                  {name : string, src : string, team : Team, onClick : (value : Team)=> void, selectedTeam : string}) {
   
   const teamName = name.split(' ');
 

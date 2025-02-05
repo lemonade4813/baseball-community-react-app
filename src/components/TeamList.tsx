@@ -49,16 +49,16 @@ const teamImgListSchdulePage : TeamImgList  = [
 
 
 const TeamListWrapper = styled.div`
-  width : 90%;
+
   display : flex;
-  margin-left : 20px;
-  margin-right : 20px;
-  justify-content : space-between;
+  flex-wrap : wrap;
 
 
   & > * {
-      border-right : 1px solid #999999;
       padding-right : 5px;
+      margin-right : 20px;
+      margin-bottom : 20px;
+      border-radius : 8px;
 
       &:last-child{
         border-right : none;

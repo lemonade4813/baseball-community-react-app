@@ -1,5 +1,6 @@
-import axios from "axios";
 import { useForm } from "react-hook-form";
+import { axiosInstance } from "../util/axiosIntance";
+import { Button, Container, Flex, H2, Input, Label } from "../styles/Styles";
 
 type LoginInputs = {
   userId: string;
@@ -15,7 +16,7 @@ export default function Login() {
 
   const submitLoginInfo = async (data: LoginInputs) => {
     try {
-      const response = await axios.post("http://localhost:8080/users/login", data);
+      const response = await axiosInstance.post("/users/login", data);
       console.log("로그인 성공", response.data);
     } catch (e) {
       if (e instanceof Error) {
@@ -25,39 +26,44 @@ export default function Login() {
   };
 
   return (
+    <Container>
     <form onSubmit={handleSubmit(submitLoginInfo)}>
-      <div>로그인</div>
-
-      <label htmlFor="userId">아이디</label>
-      <input
-        id="userId"
-        {...register("userId", {
-          required: "아이디를 입력하세요.",
-          pattern: {
-            value: /^(?=.*[a-z])(?=.*\d)[a-z\d]{6,}$/,
-            message: "아이디는 최소 6자 이상, 영소문자와 숫자를 포함해야 합니다.",
-          },
-        })}
-        placeholder="아이디를 입력하세요"
-      />
-      {errors.userId && <p>{errors.userId.message}</p>}
-
-      <label htmlFor="password">패스워드</label>
-      <input
-        id="password"
-        type="password"
-        {...register("password", {
-          required: "패스워드를 입력하세요.",
-          pattern: {
-            value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-            message: "패스워드는 최소 8자 이상, 영문과 숫자를 포함해야 합니다.",
-          },
-        })}
-        placeholder="패스워드를 입력하세요"
-      />
-      {errors.password && <p>{errors.password.message}</p>}
-        
-      <button type="submit">로그인</button>
+      <H2>로그인</H2>
+      <Flex style={{marginTop : '20px'}}>
+        <Label htmlFor="userId">아이디</Label>
+        <Input
+          id="userId"
+          {...register("userId", {
+            required: "아이디를 입력하세요.",
+            pattern: {
+              value: /^(?=.*[a-z])(?=.*\d)[a-z\d]{6,}$/,
+              message: "아이디는 최소 6자 이상, 영소문자와 숫자를 포함해야 합니다.",
+            },
+          })}
+          placeholder="아이디를 입력하세요"
+        />
+        {errors.userId && <p>{errors.userId.message}</p>}
+      </Flex>
+      <Flex style={{marginTop : '20px'}}>
+        <Label htmlFor="password">패스워드</Label>
+        <Input
+          id="password"
+          type="password"
+          {...register("password", {
+            required: "패스워드를 입력하세요.",
+            pattern: {
+              value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+              message: "패스워드는 최소 8자 이상, 영문과 숫자를 포함해야 합니다.",
+            },
+          })}
+          placeholder="패스워드를 입력하세요"
+        />
+        {errors.password && <p>{errors.password.message}</p>}
+      </Flex>
+      <div style={{textAlign : 'center'}}>
+        <Button type="submit" style={{width : '150px', marginTop : '20px'}}>로그인</Button>
+      </div>
     </form>
+    </Container>
   );
 }

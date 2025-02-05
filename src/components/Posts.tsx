@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react"
-import { axiosInstance } from "../util/axiosIntance";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { H2 } from "../styles/Styles";
+import { useFetch } from "../hooks/api/useFetch";
 
 const Button = styled.button`
   width : 120px;
@@ -11,39 +11,68 @@ const Button = styled.button`
   background-color : #B80000;
   color : #FFF;
   cursor : pointer;
-
-
 `
+
+const Table = styled.table`
+    width: 100%;
+    text-align: center;
+`;
+
+const Tr = styled.tr`
+    height: 36px;
+`;
+
+const Th = styled.th`
+    border: 1px solid #DDD;
+    vertical-align: middle;
+`;
+
+const Td = styled.td`
+    border: 1px solid #DDD;
+    vertical-align: middle;
+    text-align: center;
+`;
+
+
+interface IPost {
+    id : string;
+    title : string;
+    author : string;
+    content : string;
+    createdAt : string;
+}
 
 export default function Posts() {
 
-  const [posts, setPosts] = useState<any>([]);
-
   const navigate = useNavigate();
 
-  useEffect(() => {
-    axiosInstance('/posts')
-      .then((res) => setPosts(res.data))
-      .catch((e) => console.error('조회에 실패하였습니다.', e.message));
-  }, []);
+  const {data : posts, refetch, loading } = useFetch<IPost[]>('/posts');
+
+  if(loading){
+    return <p>로딩 중입니다.</p>
+  }
 
   return (
     <div>
-      <h2>게시판</h2>
-      <Button onClick={()=> navigate('/posts/write')}>게시글 작성</Button>
-      <table>
-        <tr>
-          <th>제목</th>
-          <th>작성자</th>
-          <th>작성일자</th>
-        </tr>
-        {posts.map((post : any) =>
-          <tr onClick={()=> navigate(`/posts/detail/${post.id}`)}>
-            <td>{post.title}</td>
-            <td>{post.author}</td>
-            <td>{post.createdAt}</td>
-          </tr>)}
-        </table>
+      <H2>게시판</H2>
+      <Table style={{marginTop : '24px'}}>
+        <Tr>
+          <Th>제목</Th>
+          <Th>작성자</Th>
+          <Th>내용</Th>
+          <Th>작성일자</Th>
+        </Tr>
+        {posts?.map((post) =>
+          <Tr key={post.id} onClick={()=> navigate(`/posts/detail/${post.id}`)}>
+            <Td>{post.title}</Td>
+            <Td>{post.author}</Td>
+            <Td>{post.content.substring(0,10)}</Td>
+            <Td>{post.createdAt}</Td>
+          </Tr>)}
+        </Table>
+        <div style={{textAlign : 'right', marginTop : '20px'}}>
+          <Button onClick={()=> navigate('/posts/write')}>게시글 작성</Button>
+        </div>
       </div>
   )
 }
