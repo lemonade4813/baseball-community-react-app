@@ -1,6 +1,10 @@
 import { useForm } from "react-hook-form";
-import { axiosInstance } from "../util/axiosIntance";
 import { Button, Container, Flex, H2, Input, Label } from "../styles/Styles";
+import { useNavigate } from "react-router-dom";
+import axiosInstance from "../util/axiosIntance";
+import { setAccessToken } from "../util/auth";
+import { useAuth } from "../contexts/auth/Authcontext";
+
 
 type LoginInputs = {
   userId: string;
@@ -14,10 +18,23 @@ export default function Login() {
     formState: { errors },
   } = useForm<LoginInputs>();
 
-  const submitLoginInfo = async (data: LoginInputs) => {
+  const navigate = useNavigate();
+
+  const  {setIsLogined} = useAuth();
+
+  const submitLoginInfo = async (formData: LoginInputs) => {
     try {
-      const response = await axiosInstance.post("/users/login", data);
-      console.log("로그인 성공", response.data);
+     
+      const {data, status} = await axiosInstance.post("/users/login", formData, 
+                              {
+                                headers : {
+                                  "Content-Type" : 'application/json'}
+                              });
+      if(status === 200){
+          setAccessToken(data);
+          setIsLogined(true);
+          navigate('/schedule');
+      }
     } catch (e) {
       if (e instanceof Error) {
         console.log(e.message);

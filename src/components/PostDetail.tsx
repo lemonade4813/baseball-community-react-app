@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
-import { axiosInstance } from "../util/axiosIntance";
 import { Button, Flex, H2, Input, Label, Textarea } from "../styles/Styles";
+import axiosInstance from "../util/axiosIntance";
 
 export default function PostDetail() {
 

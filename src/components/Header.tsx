@@ -1,6 +1,9 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { styled } from "styled-components";
 import BallSvg from "../assets/baseball.svg";
+import { removeAccessToken } from "../util/auth";
+import LogoutSvg from "../assets/logout.svg";
+import { useAuth } from "../contexts/auth/Authcontext";
 
 const HeaderContainer = styled.header`
     height : 64px;    
@@ -29,7 +32,7 @@ const AuthLinksWrapper = styled.div`
     margin-right : 30px;
     font-size : 16px;
 
-    & > :first-child {
+    & > a:first-child {
         border-right : 2px solid #D3D3D3;
         padding-right : 20px;
 
@@ -38,6 +41,20 @@ const AuthLinksWrapper = styled.div`
 
 
 export default function Header() {
+
+    const navigate = useNavigate();
+
+    const { isLogined, setIsLogined } = useAuth();
+
+    const handleLogout = () => {
+
+        removeAccessToken();
+        setIsLogined(false);
+        navigate('/schedule');
+
+    }
+
+
     return (
         <HeaderContainer>
             <TitleWrapper>
@@ -47,8 +64,17 @@ export default function Header() {
                 <img src={BallSvg} width={30}/>
             </TitleWrapper>
             <AuthLinksWrapper>
-                <Link to="/login">로그인</Link>
-                <Link to="/signup">회원가입</Link>
+                {!isLogined ? 
+                    <>
+                        <Link to="/login">로그인</Link>
+                        <Link to="/signup">회원가입</Link>
+                    </>
+                    :
+                    <div style={{display : 'flex',alignItems : 'center', gap : '8px'}}>
+                        <img src={LogoutSvg} onClick={handleLogout} width={24} height={24}/>
+                        <p>로그아웃</p>
+                    </div>
+                }
             </AuthLinksWrapper>
         </HeaderContainer>
     );

@@ -1,7 +1,11 @@
-import axios from "axios"
+import axiosInstance from "../util/axiosIntance";
+
 
 export const fetchSchedules = async () => {
-    const { data } = await axios.get('http://localhost:8080/schedule');
+
+    const headers = {'Content-type' : "application/json"};
+
+    const { data } = await axiosInstance.get('/schedule',{ headers , withCredentials : true});
 
     return data.data;
 }

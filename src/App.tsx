@@ -4,6 +4,7 @@ import Navigation from './components/Navigation';
 import Header from './components/Header';
 import { styled } from 'styled-components';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { AuthProvider } from './contexts/auth/Authcontext';
 
 const Container = styled.div`
     width : 80vw;
@@ -18,6 +19,7 @@ function App() {
   const queryClient = new QueryClient();
 
   return (
+    <AuthProvider>
     <QueryClientProvider client={queryClient}>
       <Container>
         <Header/>
@@ -27,6 +29,7 @@ function App() {
         {/* </Main> */}
       </Container>
     </QueryClientProvider>
+    </AuthProvider>
   )
 }
 

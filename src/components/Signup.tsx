@@ -2,8 +2,8 @@ import { useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import TeamList from "./TeamList";
 import { styled } from "styled-components";
-import { axiosInstance } from "../util/axiosIntance";
 import { Container, Flex, H2, Input, Label } from "../styles/Styles";
+import axiosInstance from "../util/axiosIntance";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
 const ACCEPTED_FILE_TYPES = ["image/jpeg", "image/png", "image/jpg"];
@@ -24,18 +24,19 @@ const ErrorMessage = styled.p`
 `
 
 const SubmitButton = styled.button<{ isValid: boolean }>`
-${({ isValid }) => 
-      isValid && `
-        background-color: #B80000;
-        color: #FFF;
-      `
-}
+
   border: none;
   height: 40px;
   width: 100%;
   border-radius: 8px;
   background-color : #D3D3D3;
   margin-top : 20px;
+  ${({ isValid }) => 
+      isValid && `
+        background-color: #B80000;
+        color: #FFF;
+      `
+}
 `;
 
 
@@ -64,9 +65,9 @@ export default function Signup() {
 
     try {
       const res = await axiosInstance.post("/users/register", formData, {
-        headers : {"Content-Type" : "application/json"}
+        headers : {"Content-Type" : "multipart-formdata"}
       });
-      console.log("status:", res.status);
+      console.log(res.statusText)
     } catch (e) {
       if(e instanceof Error){
         console.error("Error:", e);
@@ -77,6 +78,8 @@ export default function Signup() {
   const handleImageClick = () => {
     profileImageRef.current?.click();
   };
+
+  console.log(isValid)
 
   return (
     <Container>

@@ -11,6 +11,7 @@ import Signup from './components/Signup'
 import ChatRoom from './components/ChatRoom'
 import PostDetail from './components/PostDetail'
 import PostWrite from './components/PostWrite'
+import ProtectedRoute from './components/ProtectedRoute'
 
 const routes = createBrowserRouter([
     {
@@ -20,8 +21,13 @@ const routes = createBrowserRouter([
         { path: "schedule", element: <Schedule /> },
         { path: "posts", element: <Posts /> },
         { path : "posts/detail/:id", element : <PostDetail/>},
-        { path : "posts/write", element : <PostWrite/>},
-        { path : "posts/edit/:id", element : <PostWrite isEditMode/>},
+        { path : "posts/write", element : <ProtectedRoute>
+                                            <PostWrite/>
+                                          </ProtectedRoute>  
+                                          },
+        { path : "posts/edit/:id", element : <ProtectedRoute>
+                                                <PostWrite isEditMode/>
+                                             </ProtectedRoute>},
         { path : "chat", element : <Chat/>},
         { path : "chat/:team", element : <ChatRoom/>},
         { path : "login", element : <Login/>},

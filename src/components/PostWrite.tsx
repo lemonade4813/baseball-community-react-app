@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
-import { axiosInstance } from "../util/axiosIntance";
+import axiosInstance from "../util/axiosIntance";
 import { Button, H2, Input, InputWrapper, Label, Textarea } from "../styles/Styles";
+import { getAccessToken } from "../util/auth";
 
 export default function PostWrite({isEditMode} : {isEditMode? : boolean}) {
   
@@ -25,13 +26,13 @@ export default function PostWrite({isEditMode} : {isEditMode? : boolean}) {
         const method = isEditMode ? 'PUT' : 'POST';
         const url = isEditMode ? `/posts/${id}` : '/posts';
 
-        console.log(url);
-        console.log(method)
+        const token = getAccessToken();
+
         try{
             const { status } = await axiosInstance(url, {
                     method,
                     data : { title, content, author : 'user'},
-                    headers: { "Content-Type": "application/json" },
+                    headers: { "Content-Type": "application/json", Authorization : `Bearer ${token}` },
             });
             console.log(status);
             navigate('/posts');

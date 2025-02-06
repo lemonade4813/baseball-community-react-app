@@ -46,7 +46,7 @@ export default function Posts() {
 
   const navigate = useNavigate();
 
-  const {data : posts, refetch, loading } = useFetch<IPost[]>('/posts');
+  const {data : posts , refetch, loading } = useFetch<IPost[]>('/posts');
 
   if(loading){
     return <p>로딩 중입니다.</p>
@@ -62,13 +62,20 @@ export default function Posts() {
           <Th>내용</Th>
           <Th>작성일자</Th>
         </Tr>
-        {posts?.map((post) =>
-          <Tr key={post.id} onClick={()=> navigate(`/posts/detail/${post.id}`)}>
-            <Td>{post.title}</Td>
-            <Td>{post.author}</Td>
-            <Td>{post.content.substring(0,10)}</Td>
-            <Td>{post.createdAt}</Td>
-          </Tr>)}
+        {Array.isArray(posts) ? (
+          posts.map((post) => (
+            <Tr key={post.id} onClick={() => navigate(`/posts/detail/${post.id}`)}>
+              <Td>{post.title}</Td>
+              <Td>{post.author}</Td>
+              <Td>{post.content.substring(0, 10)}</Td>
+              <Td>{post.createdAt}</Td>
+            </Tr>
+          ))
+      ) : (
+        <Tr>
+          <Td colSpan={4}>게시글이 없습니다.</Td>
+        </Tr>
+      )}
         </Table>
         <div style={{textAlign : 'right', marginTop : '20px'}}>
           <Button onClick={()=> navigate('/posts/write')}>게시글 작성</Button>
