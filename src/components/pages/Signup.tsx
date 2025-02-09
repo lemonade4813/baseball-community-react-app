@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import TeamList from "./TeamList";
+import TeamList from "./segments/TeamList";
 import { styled } from "styled-components";
-import { Container, Flex, H2, Input, Label } from "../styles/Styles";
-import axiosInstance from "../util/axiosIntance";
+import { Container, Flex, H2, Input, Label } from "../../styles/Styles";
+import axiosInstance from "../../util/axiosIntance";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
 const ACCEPTED_FILE_TYPES = ["image/jpeg", "image/png", "image/jpg"];
@@ -59,15 +59,25 @@ export default function Signup() {
     formData.append("team", data.team);
     formData.append("nickname", data.nickname);
     
-    if (data.profileImage && data.profileImage[0]) {
-      formData.append("profileImage", data.profileImage[0]);
+
+    // if (data.profileImage && data.profileImage[0]) {
+    //   formData.append("profileImage", data.profileImage[0]);
+    // }
+
+    if (profileImageRef.current && profileImageRef.current?.files?.[0]) {
+      formData.append("profileImage", profileImageRef.current?.files?.[0]);
     }
+
+    for (const x of formData) {
+      console.log(x);
+     };
 
     try {
       const res = await axiosInstance.post("/users/register", formData, {
         headers : {"Content-Type" : "multipart-formdata"}
       });
       console.log(res.statusText)
+      console.log(res.config)
     } catch (e) {
       if(e instanceof Error){
         console.error("Error:", e);

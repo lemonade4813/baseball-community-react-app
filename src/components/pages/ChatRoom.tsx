@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import stompClient from "../socket";
+import stompClient from "../../socket";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { getTeamImages } from "../util/getTeamImage";
+import { getTeamImages } from "../../util/getTeamImage";
 import { styled } from "styled-components";
 
 

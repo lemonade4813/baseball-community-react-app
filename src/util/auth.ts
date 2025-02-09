@@ -1,11 +1,11 @@
 export const getAccessToken = (): string | null => {
-    return localStorage.getItem('accesstoken');
-  };
+    return sessionStorage.getItem('accessToken');
+};
   
 export const setAccessToken = (token: string) => {
-    localStorage.setItem('accesstoken', token);
-  };
+    sessionStorage.setItem('accessToken', token);
+};
   
 export const removeAccessToken = () => {
-    localStorage.removeItem('accesstoken');
-  };
+    sessionStorage.removeItem('accessToken');
+};

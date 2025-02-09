@@ -3,6 +3,16 @@ import { ReactNode, FC } from "react";
 import InputGroupContext from "./inputGroupContext";
 import Label from "./Label";
 import { Input } from "./Input";
+import { styled } from "styled-components";
+
+const InputGroupContainer = styled.div`
+
+    display : flex;
+    justify-content : center;
+    align-items : center;
+
+`
+
 
 interface InputGroupProps {
   children: ReactNode;
@@ -22,7 +32,7 @@ export const InputGroup: InputGroupComponent = ({ children, values, onChange }) 
 
   return (
     <InputGroupContext.Provider value={{ values, handleInputChange }}>
-      <div>{children}</div>
+      <InputGroupContainer>{children}</InputGroupContainer>
     </InputGroupContext.Provider>
   );
 };

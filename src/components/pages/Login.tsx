@@ -1,10 +1,8 @@
 import { useForm } from "react-hook-form";
-import { Button, Container, Flex, H2, Input, Label } from "../styles/Styles";
+import { Button, Container, Flex, H2, Input, Label } from "../../styles/Styles";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from "../util/axiosIntance";
-import { setAccessToken } from "../util/auth";
-import { useAuth } from "../contexts/auth/Authcontext";
-
+import axiosInstance from "../../util/axiosIntance";
+import { useUserInfo } from "../../store/useUserInfoStore";
 
 type LoginInputs = {
   userId: string;
@@ -20,7 +18,7 @@ export default function Login() {
 
   const navigate = useNavigate();
 
-  const  {setIsLogined} = useAuth();
+  const setUserInfo = useUserInfo((state) => state.setUserInfo);
 
   const submitLoginInfo = async (formData: LoginInputs) => {
     try {
@@ -31,8 +29,12 @@ export default function Login() {
                                   "Content-Type" : 'application/json'}
                               });
       if(status === 200){
-          setAccessToken(data);
-          setIsLogined(true);
+          setUserInfo({
+            nickname: data.nickname,
+            profileImagePath: data.profileImagePath,
+            isLogined: true,
+          });
+          sessionStorage.setItem('accessToken' ,data.accessToken);
           navigate('/schedule');
       }
     } catch (e) {

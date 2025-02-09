@@ -1,12 +1,12 @@
 import { styled } from "styled-components";
-import TeamList from "./TeamList";
-import { useSchedulesQuery } from "../hooks/queries/useScheduleQuery";
+import TeamList from "./segments/TeamList";
+import { useSchedulesQuery } from "../../hooks/queries/useScheduleQuery";
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
 import { useMemo, useState } from "react";
 import { ko } from "date-fns/locale";
 
-import { ScheduleFilterOption, ScheduleItem, Team, filterItems } from "../util/filterItems";
+import { ScheduleFilterOption, ScheduleItem, Team, filterItems } from "../../util/filterItems";
 
 
 const SchedulesContainer = styled.main`

@@ -1,7 +1,7 @@
 // import './App.css'
 import { Outlet } from 'react-router-dom';
-import Navigation from './components/Navigation';
-import Header from './components/Header';
+import Navigation from './components/ui/Navigation';
+import Header from './components/ui/Header';
 import { styled } from 'styled-components';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from './contexts/auth/Authcontext';

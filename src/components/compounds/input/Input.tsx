@@ -25,6 +25,7 @@ export const Input: FC<InputProps> = ({ name, placeholder }) => {
     return (
       <InputField
         type="text"
+        id={name}
         name={name}
         placeholder={placeholder}
         value={values[name] || ""}

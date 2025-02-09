@@ -1,7 +1,7 @@
 import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useSchedulesQuery } from "../../hooks/queries/useScheduleQuery";
-import Schedule from "../Schedules";
+import Schedule from "../pages/Schedules";
 import { vi } from "vitest";
 
 vi.mock("../../hooks/queries/useScheduleQuery");

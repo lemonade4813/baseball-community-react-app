@@ -29,8 +29,8 @@ export const Textarea = styled.textarea`
 export const Button = styled.button`
     border : none;
     background-color : #B80000;
-    height : 48px;
-    width : 100%;
+    width : 120px;
+    height : 40px;
     border-radius : 8px;
     color : white;
 `
@@ -43,9 +43,9 @@ export const Flex = styled.div`
 `
 
 export const Container = styled.main`
-    display : flex;
-    align-items: center;
-    justify-content : center;
+    // display : flex;
+    // align-items: center;
+    // justify-content : center;
 
 `
 

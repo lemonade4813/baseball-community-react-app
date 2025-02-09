@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { getTeamImages } from "../util/getTeamImage";
+import { getTeamImages } from "../../util/getTeamImage";
+import { Container } from "../../styles/Styles";
 
 const ButtonWrapper = styled.button`
   width: 80%;
@@ -45,7 +46,7 @@ const ChatTypeButton = ({ team }: { team: string }) => {
 export default function Chat() {
 
   return (
-    <div>
+    <Container>
       <div style={{ marginBottom: "20px", fontSize: "20px", fontWeight: "bold" }}>
         채팅방
       </div>
@@ -53,6 +54,6 @@ export default function Chat() {
         <ChatTypeButton team="tigers" />
         <ChatTypeButton team="lions" />
       </ChatTypeWrapper>
-    </div>
+    </Container>
   );
 }

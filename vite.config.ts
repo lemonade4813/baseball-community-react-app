@@ -14,5 +14,15 @@ const vitestConfig: ViteUserConfig = {
 export default defineConfig({
   plugins: [react()],
   ...vitestConfig,
+  resolve : {
+    alias : [
+      {find : "@", replacement : "/src"},
+      {find : "@assets", replacement : "/src/assets"},
+      {find : "@components", replacement :"/src/components"},
+      {find : "@hooks", replacement :"/src/hooks"},
+      {find : "@store", replacement :"/src/store"},
+      {find : "@util", replacement :"/src/util"},
+    ]
+  },
   define : {'global' : {}},
 })

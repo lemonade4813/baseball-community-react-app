@@ -1,6 +1,7 @@
-import axios, { AxiosRequestConfig } from "axios";
+import { AxiosRequestConfig } from "axios";
 import { useCallback, useEffect, useState } from "react";
 import axiosInstance from "../../util/axiosIntance";
+import { getAccessToken } from "../../util/auth";
 
 export const useFetch = <T>(url: string, config?: AxiosRequestConfig) => {
     
@@ -12,8 +13,10 @@ export const useFetch = <T>(url: string, config?: AxiosRequestConfig) => {
       setLoading(true);
       setError(null);
   
+      const accessToken = getAccessToken();
 
-      const headers = {Authorization : `Bearer ${localStorage.getItem('token')}`, 'Content-type' : "application/json"};
+      const headers = { Authorization : `Bearer ${accessToken}`, 
+                        'Content-type' : "application/json"};
       
       try {
         const response = await axiosInstance.get<T>(url, {headers});
