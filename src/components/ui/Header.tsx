@@ -1,8 +1,7 @@
 import { Link, useNavigate } from "react-router-dom"
 import { styled } from "styled-components";
-import BallSvg from "../../assets/baseball.svg";
-import LogoutSvg from "../../assets/logout.svg";
-
+import BallSvg from "@assets/baseball.svg";
+import LogoutSvg from "@assets/logout.svg";
 import axiosInstance from "../../util/axiosIntance";
 import { useUserInfo } from "../../store/useUserInfoStore";
 import { useShallow }  from 'zustand/shallow';
@@ -95,13 +94,14 @@ export default function Header() {
                         <Link to="/signup">회원가입</Link>
                     </>
                     :
-                    <Flex style={{alignItems : 'center', gap : '16px'}}>
+                    <Flex style={{ gap : '16px'}}>
                         {`${nickname}님 환영합니다.`}
                         {profileImagePath && 
                             <img 
                                 width={48} 
                                 height={48} 
-                                src={`http://localhost:8080${profileImagePath}`}
+                                src={`${import.meta.env.VITE_API_BASE_URL}${profileImagePath}`}
+                                style={{borderRadius : '999px'}}
                             />}
                         <Flex style={{gap : '8px', cursor : 'pointer'}} onClick={handleLogout}>
                             <img src={LogoutSvg}  width={24} height={24}/>

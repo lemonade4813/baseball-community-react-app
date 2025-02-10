@@ -1,59 +1,75 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { getTeamImages } from "../../util/getTeamImage";
-import { Container } from "../../styles/Styles";
+import { Container, H2 } from "../../styles/Styles";
+import { useUserInfo } from "../../store/useUserInfoStore";
+import BaseBallSvg from "@assets/baseball.svg";
+import { teamImgListAll } from "../../util/teamList";
 
 const ButtonWrapper = styled.button`
-  width: 80%;
-  background-color: #bfdaF7;
-  box-shadow: 1px 1px 1px 1px #555555;
-  border-radius: 36px;
-  height: 150px;
+  background: linear-gradient(135deg, #6eb3f7, #4a90e2);
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 50px;
+  width : 320px;
+  height: 80px;
   border: none;
   font-size: 24px;
+  font-weight: bold;
   display: flex;
   align-items: center;
-  gap: 15px;
-  padding: 0 20px;
+  gap: 20px;
+  padding: 0 25px;
   cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  color: #ffffff;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+  }
 
   img {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
   }
 `;
 
 const ChatTypeWrapper = styled.div`
   display: flex;
-  gap: 20px;
+  flex-direction : column;
+  gap: 40px;
+  justify-content: center;
+  margin-top: 40px;
 `;
 
-const ChatTypeButton = ({ team }: { team: string }) => {
+const ChatTypeButton = ({ team }: { team?: string }) => {
   const navigate = useNavigate();
 
   const handleNavigate = () => {
-    navigate(`/chat/${team}`);
+    navigate(`/chat/${team || "common"}`);
   };
+
+  const myTeamObj = teamImgListAll.find((t) => t.team === team);
 
   return (
     <ButtonWrapper onClick={handleNavigate}>
-      <img src={getTeamImages(team)?.src} alt={`${team} logo`} />
-      <p>{getTeamImages(team)?.name} 채팅방 이동</p>
+      <img src={myTeamObj?.src || BaseBallSvg} alt={`${team || "전체"} logo`} />
+      <p>{myTeamObj?.name || "전체"} 채팅방</p>
     </ButtonWrapper>
   );
 };
 
 export default function Chat() {
+  const myTeam = useUserInfo((state) => state.team);
 
   return (
     <Container>
-      <div style={{ marginBottom: "20px", fontSize: "20px", fontWeight: "bold" }}>
-        채팅방
+      <div>
+        <H2>채팅방</H2>
+        <ChatTypeWrapper>
+          <ChatTypeButton />
+          {myTeam && <ChatTypeButton team={myTeam} />}
+        </ChatTypeWrapper>
       </div>
-      <ChatTypeWrapper>
-        <ChatTypeButton team="tigers" />
-        <ChatTypeButton team="lions" />
-      </ChatTypeWrapper>
     </Container>
   );
 }

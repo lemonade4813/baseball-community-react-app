@@ -5,10 +5,15 @@ import { Team } from "../../../util/filterItems"
 const TeamItemWrapper = styled.button<{isSelected : boolean}>`
     display : flex;
     align-items : center;
+    justify-content : center;
     flex-wrap : wrap;
+    gap : 40px;
 
-    width : 120px;
-    gap : 8px;
+
+
+    width : 200px;
+    height : 48px;
+
     cursor : pointer;
     font-size : 14px;
     padding-top : 4px;
@@ -25,29 +30,30 @@ const TeamItemWrapper = styled.button<{isSelected : boolean}>`
           background-color: red;
           color: #fff;
         `};
-        
-    
 `
 
-export default function TeamItem({name, src, team, onClick, selectedTeam} :
+export default function TeamItem({name, src, team, onClick, selectedTeam, onClose} :
                                   {name : string, 
                                    src : string, 
                                    team : Team, 
                                    onClick : (value : Team)=> void, 
+                                   onClose : () => void;
                                    selectedTeam : string}) {
   
-  const teamName = name.split(' ');
 
   return (
     <TeamItemWrapper 
         type="button" 
-        onClick={() => onClick(team)} 
+        onClick={() => 
+                  {
+                    onClick(team)
+                    onClose();
+                  }} 
         isSelected={selectedTeam === team}
     >
-        <img src={src} width={40} height={40}/>
+        <img src={src} width={24} height={24}/>
         <div>
-          <p>{teamName[0]}</p>
-          <p>{teamName[1]}</p>
+          <p>{name}</p>
         </div>
     </TeamItemWrapper>
   )

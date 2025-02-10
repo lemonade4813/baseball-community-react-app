@@ -20,6 +20,7 @@ export default function Login() {
 
   const setUserInfo = useUserInfo((state) => state.setUserInfo);
 
+
   const submitLoginInfo = async (formData: LoginInputs) => {
     try {
      
@@ -33,6 +34,7 @@ export default function Login() {
             nickname: data.nickname,
             profileImagePath: data.profileImagePath,
             isLogined: true,
+            team : data.team
           });
           sessionStorage.setItem('accessToken' ,data.accessToken);
           navigate('/schedule');

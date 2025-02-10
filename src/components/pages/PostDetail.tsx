@@ -82,11 +82,11 @@ export default function PostDetail() {
             <H2>게시글 상세</H2>
               <Flex style={{marginTop : '20px'}}>
                 <Label htmlFor="title">제목</Label>
-                <Input id="title" value={title}/>
+                <Input id="title" value={title} readOnly/>
               </Flex>
               <Flex style={{marginTop : '20px'}}>
                 <Label htmlFor="content">내용</Label>
-                <Textarea id="content" value={content}/>
+                <Textarea id="content" value={content} readOnly/>
               </Flex>
               {id && 
                 <Flex style={{marginTop : '20px', justifyContent : 'flex-end'}}>

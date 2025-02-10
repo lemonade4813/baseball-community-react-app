@@ -2,8 +2,8 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 const Nav = styled.nav`
-  background-color: #343a40;
-  padding: 10px 10px;
+  background-color: #4b0e29; /* 와인색 */
+  padding: 8px 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 `;
 
@@ -17,7 +17,9 @@ const Menu = styled.ul`
 
 const MenuItem = styled.li`
   position: relative;
-  display : flex;
+  display: flex;
+  flex: 1;
+  text-align: center;
 
   a {
     text-decoration: none;
@@ -25,15 +27,17 @@ const MenuItem = styled.li`
     padding: 10px 15px;
     border-radius: 5px;
     transition: background-color 0.3s ease, color 0.3s ease;
-    display : inline-block;
-    text-align : center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 
     &.active {
-      background-color: #007bff;
+      background-color: #721f40; /* 더 어두운 와인색 */
     }
 
     &:hover {
-      background-color: #0056b3;
+      background-color: #5e1435; /* 중간 와인색 */
       color: #ffffff;
     }
   }
@@ -61,11 +65,11 @@ const SubMenu = styled.ul`
     a {
       display: block;
       padding: 8px 12px;
-      color: #333;
+      color: #4b0e29; /* 와인색 */
 
       &:hover {
         background-color: #f1f1f1;
-        color: #007bff;
+        color: #721f40;
       }
     }
   }
@@ -76,50 +80,32 @@ const Navigation = () => {
     <Nav>
       <Menu>
         <MenuItem>
-          <NavLink
-            to="/schedule"
-            className={({ isActive }) => (isActive ? "active" : undefined)}
-          >
+          <NavLink to="/schedule" className={({ isActive }) => (isActive ? "active" : undefined)}>
             경기 일정
           </NavLink>
         </MenuItem>
         <MenuItem>
-          <NavLink
-            to="/posts"
-            className={({ isActive }) => (isActive ? "active" : undefined)}
-          >
+          <NavLink to="/posts" className={({ isActive }) => (isActive ? "active" : undefined)}>
             게시판
           </NavLink>
         </MenuItem>
         <MenuItem>
-          <NavLink
-            to="/chat"
-            className={({ isActive }) => (isActive ? "active" : undefined)}
-          >
+          <NavLink to="/chat" className={({ isActive }) => (isActive ? "active" : undefined)}>
             채팅방
           </NavLink>
         </MenuItem>
         <MenuItem>
-          <NavLink
-            to="/stadium/location"
-            className={({ isActive }) => (isActive ? "active" : undefined)}
-          >
+          <NavLink to="/stadium/location" className={({ isActive }) => (isActive ? "active" : undefined)}>
             경기장 정보
           </NavLink>
           <SubMenu>
             <li>
-              <NavLink
-                to="/stadium/location"
-                className={({ isActive }) => (isActive ? "active" : undefined)}
-              >
+              <NavLink to="/stadium/location" className={({ isActive }) => (isActive ? "active" : undefined)}>
                 경기장 위치
               </NavLink>
             </li>
             <li>
-              <NavLink
-                to="/stadium/food"
-                className={({ isActive }) => (isActive ? "active" : undefined)}
-              >
+              <NavLink to="/stadium/food" className={({ isActive }) => (isActive ? "active" : undefined)}>
                 주변 맛집
               </NavLink>
             </li>

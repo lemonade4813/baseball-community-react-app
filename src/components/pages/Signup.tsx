@@ -4,6 +4,8 @@ import TeamList from "./segments/TeamList";
 import { styled } from "styled-components";
 import { Container, Flex, H2, Input, Label } from "../../styles/Styles";
 import axiosInstance from "../../util/axiosIntance";
+import { useModalStore } from "../../store/useModalStore";
+import { useNavigate } from "react-router-dom";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
 const ACCEPTED_FILE_TYPES = ["image/jpeg", "image/png", "image/jpg"];
@@ -49,6 +51,9 @@ export default function Signup() {
     formState: { errors, isValid },
   } = useForm<LoginInputs>({mode : "onChange"});
 
+  const { openModal } = useModalStore();
+  const navigate = useNavigate();
+
   const [profileImage, setProfileImage] = useState<string | null>(null);
   const profileImageRef = useRef<HTMLInputElement | null>(null);
 
@@ -76,8 +81,11 @@ export default function Signup() {
       const res = await axiosInstance.post("/users/register", formData, {
         headers : {"Content-Type" : "multipart-formdata"}
       });
-      console.log(res.statusText)
-      console.log(res.config)
+
+      if(res.status === 200){
+        openModal("회원가입에 성공했습니다. ", () => navigate("/login"));
+      }
+      
     } catch (e) {
       if(e instanceof Error){
         console.error("Error:", e);
@@ -93,7 +101,7 @@ export default function Signup() {
 
   return (
     <Container>
-    <form onSubmit={handleSubmit(fetchLoginInfo)} style={{width : '50%'}}>
+    <form onSubmit={handleSubmit(fetchLoginInfo)} style={{width : '50%', display : 'flex', flexDirection : 'column', justifyContent : 'center'}}>
       <H2>회원가입</H2>
       <Flex style={{marginTop : '20px'}}>
         <Label htmlFor="userId">아이디</Label>
@@ -130,13 +138,13 @@ export default function Signup() {
       </Flex>
       {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
       <Flex style={{marginTop : '20px'}}>
-        <p style={{width :'120px'}}>팀 선택</p>
+        <p style={{width :'80px'}}>팀 선택</p>
         <Controller
           name="team"
           control={control}
           rules={{ required: "팀을 선택하세요." }}
           render={({ field }) => (
-            <TeamList onClick={field.onChange} selectedTeam={field.value} />
+            <TeamList onClick={field.onChange} selectedTeam={field.value}/>
           )}
         />
       </Flex>

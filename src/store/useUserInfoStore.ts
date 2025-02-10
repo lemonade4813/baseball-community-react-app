@@ -6,6 +6,7 @@ export interface IUserInfoState {
   nickname: string | null;
   profileImagePath: string | null;
   isLogined: boolean;
+  team : null;
   setUserInfo : (userInfo: Partial<IUserInfoState>) => void;
   reset: () => void;
 }
@@ -17,12 +18,14 @@ export const useUserInfo = create<IUserInfoState>()(
       nickname: null,
       profileImagePath: null,
       isLogined: false,
+      team : null,
       setUserInfo: (auth) => set((state) => ({ ...state, ...auth })),
       reset : () =>
         set({
           nickname: null,
           profileImagePath: null,
           isLogined: false,
+          team : null
         }),
     }),
     { name: "userInfo", storage: createJSONStorage(() => sessionStorage) }

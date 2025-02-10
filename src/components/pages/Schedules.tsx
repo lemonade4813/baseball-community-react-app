@@ -3,10 +3,12 @@ import TeamList from "./segments/TeamList";
 import { useSchedulesQuery } from "../../hooks/queries/useScheduleQuery";
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { ko } from "date-fns/locale";
 
-import { ScheduleFilterOption, ScheduleItem, Team, filterItems } from "../../util/filterItems";
+import { ScheduleTeamOption, ScheduleFilterOption, ScheduleItem, Team, filterItems } from "../../util/filterItems";
+import { Flex } from "../../styles/Styles";
+import Calendar from "@assets/calendar.svg";
 
 
 const SchedulesContainer = styled.main`
@@ -15,21 +17,12 @@ const SchedulesContainer = styled.main`
     align-items : center;
 `
 
-// interface ISchedule {
-
-//   date : string;
-//   day : string;
-//   time : string;
-//   awayTeam : string;
-//   homeTeam : string;
-//   notes : string;
-
-// } []
-
 const Table = styled.div`
   width : 80%;
   font-size : 18px;
   margin-top : 40px;
+  height : 480px;
+  overflow-y : auto;
 `
 
 const Tr = styled.tr`
@@ -82,15 +75,23 @@ const DatepickerWrapper = styled.div`
    gap : 20px;
    width : 400px;
 
+  .react-datepicker{
+    border : none;
+  }
+
+
   .react-datepicker__input-container input{
-    height : 40px;
+    height : 48px;
     width : 160px;
-    background : #FFFFCC;
-    border-radius : 8px;
-    border : 1px solid #FFD400;
+    // background : #FFFFCC;
+    border-radius : 16px;
+    border : 1px solid #D3D3D3;
     padding-left : 8px;
     font-size : 16px;
-
+    background-image : url(${Calendar});
+    background-repeat: no-repeat;
+    background-position: right 16px center; 
+    background-size: 20px; 
   }
 
   .react-datepicker__header {
@@ -102,8 +103,9 @@ const DatepickerWrapper = styled.div`
   }
 
   .react-datepicker__month-container{
-    background-color : #FFE0B2;
-    border : 1px solid #FF7043;
+
+    border : 1px solid #D3D3D3;
+    border-radius : 16px;
   }
 
   .react-datepicker__month-text {
@@ -116,14 +118,12 @@ const DatepickerWrapper = styled.div`
   .react-datepicker__triangle{
     display : none;
   }
-
 `
 
 const TeamSelectWrapper = styled.div`
   display : flex;
   align-items : center;
   gap : 20px;
-  margin-bottom : 32px;
 
 `
 
@@ -131,19 +131,24 @@ export default function Schedule() {
 
   const { data : schedules , error, isLoading } = useSchedulesQuery();
 
-  const [date, setDate] = useState(new Date()); 
+  const [date, setDate] = useState<Date | undefined>(undefined); 
 
-  const [creteria, setCretria] = useState<ScheduleFilterOption>({ team : '' })
+  const [{team}, setSelectedTeam] = useState<ScheduleTeamOption>({ team : '' })
 
-  const filteredItems = useMemo<ScheduleItem[]>(() => {
+  const [filteredItems, setFilteredItems] = useState<ScheduleItem[]>([]);
+
+  useEffect(()=>{
     if (schedules) {
-      return filterItems<ScheduleItem, ScheduleFilterOption>(schedules, creteria);
+      const items = filterItems<ScheduleItem, ScheduleFilterOption>(schedules, 
+                                                                      { team , 
+                                                                        month : date ? String(date.getMonth()+1) : undefined
+                                                                      });
+      setFilteredItems(items);
     }
-    return [];
-  }, [schedules, creteria]);
-    
+  },[schedules, team, date])
+
   const handleTeam = (team : Team) => {
-      setCretria({ team })
+      setSelectedTeam({ team })
   }
 
   if(isLoading){
@@ -157,9 +162,10 @@ export default function Schedule() {
   return (
     <SchedulesContainer>
       <Title>2025 KBO 경기 일정</Title>
+      <Flex style={{alignItems : 'center'}}>
       <TeamSelectWrapper>
         <p>팀 선택</p>
-        <TeamList onClick={handleTeam} selectedTeam={creteria.team} isSchedulePage/>
+        <TeamList onClick={handleTeam} selectedTeam={team} isSchedulePage/>
       </TeamSelectWrapper>  
       <DatepickerWrapper>
         <p>월 선택</p>
@@ -168,9 +174,11 @@ export default function Schedule() {
             selected={date}
             dateFormat="yyyy년 MM월"
             showMonthYearPicker
-            locale={ko}    
+            locale={ko}  
+            placeholderText="월을 선택해주세요"  
         />
         </DatepickerWrapper>
+        </Flex>
       <Table>
         <Tr>
           <Th>날짜</Th>
@@ -182,7 +190,7 @@ export default function Schedule() {
         </Tr>
         {filteredItems?.map((game, index : number) => 
           <Tr key={index}>
-            <Td>{game.date}</Td>
+            <Td>{game.month}.{game.date}</Td>
             <Td>{game.day}</Td>
             <Td>{game.time}</Td>
             <Td>{game.awayTeam}</Td>

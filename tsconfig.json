@@ -4,6 +4,6 @@
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
   ],
-  "compilerOptions": {"types": ["vitest/client", "jest", "@testing-library/jest-dom"]},
-  
+  "compilerOptions": {"types": ["vitest/client", "jest", "@testing-library/jest-dom"] 
+  },
 }

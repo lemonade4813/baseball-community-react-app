@@ -42,18 +42,21 @@ export default function Posts() {
 
   return (
     <Container>
-      <H2>게시판</H2>
-      <Flex>
-        <PostSearchComponent creteria={creteria} setCreteria={setCreteria} />
-        <Button onClick={handleCreteria}>조회</Button>
-      </Flex>
-      {loading ? (
-        <p>로딩 중입니다.</p>
-      ) : 
-        <PostItem posts={posts}/>
-      }
-      <div style={{ textAlign: "right", marginTop: "20px" }}>
-        <Button onClick={() => navigate("/posts/write")}>게시글 작성</Button>
+      <div style={{width : '90%'}}>
+        <H2>게시판</H2>
+        <Flex>
+          <PostSearchComponent creteria={creteria} setCreteria={setCreteria} />
+          <Button onClick={handleCreteria}>조회</Button>
+          <Button onClick={() => navigate("/posts/write")}>게시글 작성</Button>
+        </Flex>
+        {loading ? (
+          <p>로딩 중입니다.</p>
+        ) : 
+          <PostItem posts={posts}/>
+        }
+      
+          
+      
       </div>
     </Container>
   );

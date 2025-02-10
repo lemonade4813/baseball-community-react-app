@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 import type { ViteUserConfig } from "vitest/config";
+import path from "path";
 
 const vitestConfig: ViteUserConfig = {
   test: {
@@ -14,14 +15,15 @@ const vitestConfig: ViteUserConfig = {
 export default defineConfig({
   plugins: [react()],
   ...vitestConfig,
+  base : "/baseball-community-react-app/",
   resolve : {
     alias : [
-      {find : "@", replacement : "/src"},
-      {find : "@assets", replacement : "/src/assets"},
-      {find : "@components", replacement :"/src/components"},
-      {find : "@hooks", replacement :"/src/hooks"},
-      {find : "@store", replacement :"/src/store"},
-      {find : "@util", replacement :"/src/util"},
+      { find: "@", replacement: path.resolve(__dirname, "src") },
+      {find : "@assets", replacement: path.resolve(__dirname, "/src/assets")},
+      {find : "@components", replacement: path.resolve(__dirname, "src/components")},
+      {find : "@hooks", replacement: path.resolve(__dirname, "/src/hooks")},
+      {find : "@store", replacement: path.resolve(__dirname,"/src/store")},
+      {find : "@util", replacement: path.resolve(__dirname,"/src/util")},
     ]
   },
   define : {'global' : {}},

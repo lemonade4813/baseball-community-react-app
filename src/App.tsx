@@ -5,6 +5,7 @@ import Header from './components/ui/Header';
 import { styled } from 'styled-components';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from './contexts/auth/Authcontext';
+import { GlobalModal } from './components/ui/GlobalModal';
 
 const Container = styled.div`
     width : 80vw;
@@ -21,6 +22,7 @@ function App() {
   return (
     <AuthProvider>
     <QueryClientProvider client={queryClient}>
+      <GlobalModal/>
       <Container>
         <Header/>
         <Navigation/>

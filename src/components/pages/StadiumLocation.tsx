@@ -11,7 +11,7 @@ interface IStadiumInfo {
 }
 
 export default function StadiumLocation() {
-  const { data: stadiumInfoList, error, refetch } = useFetch<IStadiumInfo[]>("/stadium");
+  const { data: stadiumInfoList, error } = useFetch<IStadiumInfo[]>("/stadium");
 
   if (error) {
     return <p>데이터를 불러오는 중 오류가 발생했습니다.</p>;

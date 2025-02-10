@@ -1,4 +1,5 @@
 {
+  "homepage": "https://lemonade4813.github.io/baseball-community-react-app",
   "name": "baseball-community-react-app",
   "private": true,
   "version": "0.0.0",
@@ -8,7 +9,9 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "vitest"
+    "test": "vitest",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@stomp/stompjs": "^7.0.0",
@@ -16,6 +19,7 @@
     "@types/testing-library__jest-dom": "^5.14.9",
     "axios": "^1.7.9",
     "date-fns": "^4.1.0",
+    "gh-pages": "^6.3.0",
     "react": "^18.3.1",
     "react-datepicker": "^7.6.0",
     "react-dom": "^18.3.1",

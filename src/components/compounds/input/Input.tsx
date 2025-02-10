@@ -8,7 +8,7 @@ const InputField = styled.input`
     margin: 8px 0;
     padding: 8px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 8px;
 `
 
 

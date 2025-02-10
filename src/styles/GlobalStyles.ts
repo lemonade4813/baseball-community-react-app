@@ -19,9 +19,14 @@ const Globalstyles = createGlobalStyle`
     body {
         font-family : 'Pretendard';
     }
+    
     a{
         text-decoration : none;
         color : inherit;
+    }
+
+    textarea{
+        font-family : 'Pretendard';
     }
 
 `
