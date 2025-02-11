@@ -54,9 +54,6 @@ export default function Posts() {
         ) : 
           <PostItem posts={posts}/>
         }
-      
-          
-      
       </div>
     </Container>
   );

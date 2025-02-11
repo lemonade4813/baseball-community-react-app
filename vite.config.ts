@@ -15,7 +15,7 @@ const vitestConfig: ViteUserConfig = {
 export default defineConfig({
   plugins: [react()],
   ...vitestConfig,
-  base : "/baseball-community-react-app/",
+  base : "/",
   resolve : {
     alias : [
       { find: "@", replacement: path.resolve(__dirname, "src") },

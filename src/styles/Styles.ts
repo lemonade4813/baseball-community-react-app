@@ -8,8 +8,6 @@ export const InputWrapper = styled.div`
 `
 export const Label = styled.label`
     width : 80px;
-
-
 `
 export const Input = styled.input<{ border?: string }>`
   border-radius: 8px;
@@ -35,12 +33,12 @@ export const Button = styled.button`
     color : white;
 `
 
-export const Flex = styled.div`
-    display : flex;
+export const Flex = styled.div<{ gap?: number }>`
+    display: flex;
     align-items: center;
-    justify-content : center;
-    gap : 20px;
-`
+    justify-content: center;
+    gap: ${({ gap = 20 }) => `${gap}px`};
+`;
 
 export const Container = styled.main`
     display : flex;

@@ -1,6 +1,7 @@
 export type Team = '두산' | '키움' | '한화' | 'NC' | 'SSG' | '삼성' | 'LG' | 'KIA' | 'KT' | '롯데' | '';
 
 export interface ScheduleItem {
+    id : string;
     month : string;
     date : string;
     day : string;

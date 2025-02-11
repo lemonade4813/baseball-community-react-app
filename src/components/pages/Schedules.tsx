@@ -159,6 +159,7 @@ export default function Schedule() {
     return <p>{`에러가 발생했습니다. ${error.message}`}</p>
   }
 
+
   return (
     <SchedulesContainer>
       <Title>2025 KBO 경기 일정</Title>
@@ -188,15 +189,21 @@ export default function Schedule() {
           <Th>홈팀</Th>
           <Th>비고</Th>
         </Tr>
-        {filteredItems?.map((game, index : number) => 
-          <Tr key={index}>
-            <Td>{game.month}.{game.date}</Td>
-            <Td>{game.day}</Td>
-            <Td>{game.time}</Td>
-            <Td>{game.awayTeam}</Td>
-            <Td>{game.homeTeam}</Td>
-            <Td>{game.notes}</Td>
-          </Tr>
+        {filteredItems.length ? (
+            filteredItems?.map((item) => (
+              <Tr key={item.id}>
+                <Td>{item.month}.{item.date}</Td>
+                <Td>{item.day}</Td>
+                <Td>{item.time}</Td>
+                <Td>{item.awayTeam}</Td>
+                <Td>{item.homeTeam}</Td>
+                <Td>{item.notes}</Td>
+              </Tr>
+            ))
+          ) : (
+            <Tr>
+              <Td>데이터가 존재하지 않습니다.</Td>
+            </Tr>
         )}
       </Table>
    </SchedulesContainer>

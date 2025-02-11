@@ -97,7 +97,6 @@ export default function Signup() {
     profileImageRef.current?.click();
   };
 
-  console.log(isValid)
 
   return (
     <Container>
@@ -155,7 +154,7 @@ export default function Signup() {
           id="nickname"
           type="text"
           {...register("nickname", {
-            required: "닉네임을 입력하세요",
+            required: "닉네임을 입력하세요.",
           })}
           placeholder="닉네임을 입력하세요"
           border={errors.nickname && 'red'}

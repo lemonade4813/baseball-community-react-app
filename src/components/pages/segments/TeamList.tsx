@@ -11,6 +11,7 @@ const TeamListWrapper = styled.div`
   border: 1px solid #d3d3d3;
   border-radius: 16px;
   flex: 1 0 0;
+  z-index : 999;
 `;
 
 const SelectedTeamWrapper = styled.div`

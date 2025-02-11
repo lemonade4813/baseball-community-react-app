@@ -33,11 +33,11 @@ const MenuItem = styled.li`
     width: 100%;
 
     &.active {
-      background-color: #721f40; /* 더 어두운 와인색 */
+      background-color: #721f40;
     }
 
     &:hover {
-      background-color: #5e1435; /* 중간 와인색 */
+      background-color: #5e1435;
       color: #ffffff;
     }
   }
@@ -56,22 +56,20 @@ const SubMenu = styled.ul`
   border: 1px solid #ddd;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   list-style: none;
-  margin: 0;
-  padding: 10px 0;
 
-  li {
-    margin: 0;
+  padding: 10px 0;
+  width: 100%;
 
     a {
       display: block;
       padding: 8px 12px;
-      color: #4b0e29; /* 와인색 */
+      color: #4b0e29;
 
       &:hover {
         background-color: #f1f1f1;
         color: #721f40;
       }
-    }
+  
   }
 `;
 

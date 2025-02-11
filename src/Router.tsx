@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom'
+import { Navigate, createBrowserRouter } from 'react-router-dom'
 import Schedule from './components/pages/Schedules'
 import App from './App'
 import Posts from './components/pages/Posts'
@@ -18,6 +18,7 @@ const routes = createBrowserRouter([
       path: "/",
       element: <App />,
       children: [
+        { path: "/", element: <Navigate to="/schedule" replace /> },
         { path: "schedule", element: <Schedule /> },
         { path: "posts", element: <Posts /> },
         { path : "posts/detail/:id", element : <PostDetail/>},

@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import { styled } from "styled-components";
 import BallSvg from "@assets/baseball.svg";
 import LogoutSvg from "@assets/logout.svg";
@@ -13,7 +13,6 @@ const HeaderContainer = styled.header`
     display : flex;
     align-items : center; 
     justify-content : space-between;
-  
 `
 
 const Title = styled.h1`
@@ -39,12 +38,19 @@ const AuthLinksWrapper = styled.div`
         border-right : 2px solid #D3D3D3;
         padding-right : 20px;
     }
+
+    & > a:last-child {
+        border : none;
+        padding-right : 0;
+    }
 `
 
 
 export default function Header() {
 
     const navigate = useNavigate();
+
+    const location = useLocation();
 
     const {reset : 
                 resetUserInfo ,
@@ -79,6 +85,47 @@ export default function Header() {
         navigate('/schedule');
     }
 
+    const loginLink = <Link to="/login">로그인</Link>
+    const signupLink = <Link to="/signup">회원가입</Link>
+
+
+    const HeaderAuthButtons = () => {
+        if (!isLogined) {
+            if (location.pathname === '/login') {
+                return signupLink;
+            }
+            if (location.pathname === '/signup') {
+                return loginLink;
+            }
+            return (
+                <>
+                    {loginLink}
+                    {signupLink}
+                </>
+            );
+        }
+    
+        if(isLogined){
+        return (
+            <Flex gap={16}>
+                {`${nickname}님 환영합니다.`}
+                {profileImagePath && (
+                    <img
+                        width={48}
+                        height={48}
+                        src={`${import.meta.env.VITE_API_BASE_URL}${profileImagePath}`}
+                        style={{ borderRadius: '999px' }}
+                        alt="Profile"
+                    />
+                )}
+                <Flex gap={8} style={{ cursor: 'pointer' }} onClick={handleLogout}>
+                    <img src={LogoutSvg} width={24} height={24} alt="Logout" />
+                    <p>로그아웃</p>
+                </Flex>
+            </Flex>
+        );
+        }
+    };
     return (
         <HeaderContainer>
             <TitleWrapper>
@@ -88,29 +135,9 @@ export default function Header() {
                 <img src={BallSvg} width={30}/>
             </TitleWrapper>
             <AuthLinksWrapper>
-                {!isLogined ? 
-                    <>
-                        <Link to="/login">로그인</Link>
-                        <Link to="/signup">회원가입</Link>
-                    </>
-                    :
-                    <Flex style={{ gap : '16px'}}>
-                        {`${nickname}님 환영합니다.`}
-                        {profileImagePath && 
-                            <img 
-                                width={48} 
-                                height={48} 
-                                src={`${import.meta.env.VITE_API_BASE_URL}${profileImagePath}`}
-                                style={{borderRadius : '999px'}}
-                            />}
-                        <Flex style={{gap : '8px', cursor : 'pointer'}} onClick={handleLogout}>
-                            <img src={LogoutSvg}  width={24} height={24}/>
-                            <p>로그아웃</p>
-                        </Flex>
-                    </Flex>
-                }
+                {HeaderAuthButtons()}
             </AuthLinksWrapper>
         </HeaderContainer>
     );
-            }
+    }
 
