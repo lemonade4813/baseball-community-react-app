@@ -3,7 +3,7 @@ import Schedule from './components/pages/Schedules'
 import App from './App'
 import Posts from './components/pages/Posts'
 import Stadium from './components/pages/Stadium'
-import StadiumLocation from './components/pages/StadiumLocation'
+import StadiumStatus from './components/pages/StadiumStatus'
 import StadiumFood from './components/pages/StadiumFood'
 import Chat from './components/pages/Chat'
 import Login from './components/pages/Login'
@@ -35,7 +35,7 @@ const routes = createBrowserRouter([
         { path : "signup", element : <Signup/>},
         { path : "stadium", element: <Stadium /> , 
             children : [
-                {path : 'location', element : <StadiumLocation/>},
+                {path : 'location', element : <StadiumStatus/>},
                 {path : 'food', element : <StadiumFood/>}
             ]},
       ],

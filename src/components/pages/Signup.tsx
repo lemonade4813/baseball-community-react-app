@@ -41,7 +41,15 @@ const SubmitButton = styled.button<{ isValid: boolean }>`
 }
 `;
 
+const SignupForm = styled.form`
+  
+width : 50%;
+display : flex;
+flex-direction : column;
+justify-content : center;
 
+
+`
 
 export default function Signup() {
   const {
@@ -64,18 +72,9 @@ export default function Signup() {
     formData.append("team", data.team);
     formData.append("nickname", data.nickname);
     
-
-    // if (data.profileImage && data.profileImage[0]) {
-    //   formData.append("profileImage", data.profileImage[0]);
-    // }
-
     if (profileImageRef.current && profileImageRef.current?.files?.[0]) {
       formData.append("profileImage", profileImageRef.current?.files?.[0]);
     }
-
-    for (const x of formData) {
-      console.log(x);
-     };
 
     try {
       const res = await axiosInstance.post("/users/register", formData, {
@@ -85,10 +84,9 @@ export default function Signup() {
       if(res.status === 200){
         openModal("회원가입에 성공했습니다. ", () => navigate("/login"));
       }
-      
     } catch (e) {
       if(e instanceof Error){
-        console.error("Error:", e);
+        openModal(`에러가 발생했습니다. ${e.message}`);
       }
     }
   };
@@ -97,10 +95,36 @@ export default function Signup() {
     profileImageRef.current?.click();
   };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    
+    if (!file) return;
+  
+    if (!ACCEPTED_FILE_TYPES.includes(file.type)) {
+      openModal("허용되지 않은 파일 형식입니다. JPEG, JPG, PNG 파일만 업로드 가능합니다.");
+      resetFileInput();
+      return;
+    }
+    
+    if (file.size > MAX_FILE_SIZE) {
+      openModal("파일 크기가 5MB를 초과합니다.");
+      resetFileInput();
+      return;
+    }
+  
+    setProfileImage(URL.createObjectURL(file));
+  };
+  
+  const resetFileInput = () => {
+    if (profileImageRef.current) {
+      profileImageRef.current.value = '';
+    }
+  };
+
 
   return (
     <Container>
-    <form onSubmit={handleSubmit(fetchLoginInfo)} style={{width : '50%', display : 'flex', flexDirection : 'column', justifyContent : 'center'}}>
+    <SignupForm onSubmit={handleSubmit(fetchLoginInfo)}>
       <H2>회원가입</H2>
       <Flex style={{marginTop : '20px'}}>
         <Label htmlFor="userId">아이디</Label>
@@ -115,6 +139,7 @@ export default function Signup() {
           })}
           placeholder="아이디를 입력하세요"
           border={errors.userId && 'red'}
+          onChange={handleFileChange}
         />
       </Flex>
       {errors.userId && <ErrorMessage>{errors.userId.message}</ErrorMessage>}
@@ -161,33 +186,15 @@ export default function Signup() {
         />
       </Flex>
       {errors.nickname && <ErrorMessage>{errors.nickname.message}</ErrorMessage>}
-      <div style={{display : 'flex', alignItems : 'center', marginTop : '20px', gap : '20px'}}>
+      <Flex gap={20} style={{ marginTop : '20px', gap : '20px'}}>
         <Label htmlFor="profileImg">프로필 이미지</Label>
         <Input
           type="file"
           id="profileImg"
+          data-testId="profileImg"
           accept={ACCEPTED_FILE_TYPES.join(", ")}
           style={{ display: "none" }}
-          {...register("profileImage", {
-            validate: {
-              size: (value) =>
-              !value[0] || value[0].size < MAX_FILE_SIZE || "파일 크기는 5MB 이하이어야 합니다.",
-              type: (value) =>
-                !value[0] || ACCEPTED_FILE_TYPES.includes(value[0].type) || "지원하지 않는 파일 형식입니다.",
-              },
-          })}
-          ref={(e) => {
-            register("profileImage").ref(e);
-            profileImageRef.current = e;
-          }}
-          onChange={(e) => {
-            const file = e.target.files?.[0];
-            if (file) {
-              setProfileImage(URL.createObjectURL(file));
-            }
-          }}
         />
-
         {profileImage ? (
           <img
             src={profileImage}
@@ -207,16 +214,20 @@ export default function Signup() {
               alignItems: "center",
               justifyContent: "center",
               cursor: "pointer",
+              borderRadius : "8px"
             }}
             onClick={handleImageClick}
           >
             이미지 업로드
           </div>
         )}
-        {errors.profileImage && <ErrorMessage>{errors.profileImage.message}</ErrorMessage>}
-      </div>
+        {errors.profileImage && 
+        <ErrorMessage data-testId="fileInputErrorMessage">
+          {errors.profileImage.message}
+        </ErrorMessage>}
+      </Flex>
       <SubmitButton isValid={isValid} disabled={!isValid}>가입하기</SubmitButton>
-    </form>
+    </SignupForm>
     </Container>
   );
 }

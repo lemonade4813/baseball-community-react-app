@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import axiosInstance from "../../util/axiosIntance";
 import { getAccessToken } from "../../util/auth";
 
-export const useFetch = <T>(url: string, config?: AxiosRequestConfig) => {
+export const useFetch = <T>(url: string, params? : any, config?: AxiosRequestConfig) => {
     
     const [data, setData] = useState<T | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
@@ -19,10 +19,10 @@ export const useFetch = <T>(url: string, config?: AxiosRequestConfig) => {
                         'Content-type' : "application/json"};
       
       try {
-        const response = await axiosInstance.get<T>(url, {headers});
+        const response = await axiosInstance.get<T>(url,{params, headers});
         setData(response.data);
       } catch (err) {
-        setError(err instanceof Error ? err.message : "An error occurred");
+        setError(err instanceof Error ? err.message : "에러가 발생했습니다.");
       } finally {
         setLoading(false);
       }

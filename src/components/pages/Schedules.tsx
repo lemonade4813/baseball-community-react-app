@@ -3,19 +3,15 @@ import TeamList from "./segments/TeamList";
 import { useSchedulesQuery } from "../../hooks/queries/useScheduleQuery";
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ko } from "date-fns/locale";
-
-import { ScheduleTeamOption, ScheduleFilterOption, ScheduleItem, Team, filterItems } from "../../util/filterItems";
-import { Flex } from "../../styles/Styles";
+import {  ScheduleFilterOption, IScheduleItem, Team, filterItems, ScheduleTeamOption } from "../../util/filterItems";
+import { Button, Flex } from "../../styles/Styles";
 import Calendar from "@assets/calendar.svg";
+import { SpinnerComponent } from "../ui/Spinner";
+import { useModalStore } from "../../store/useModalStore";
+import { Container } from "./StadiumStatus";
 
-
-const SchedulesContainer = styled.main`
-    display : flex;
-    flex-direction : column;
-    align-items : center;
-`
 
 const Table = styled.div`
   width : 80%;
@@ -129,17 +125,18 @@ const TeamSelectWrapper = styled.div`
 
 export default function Schedule() {
 
-  const { data : schedules , error, isLoading } = useSchedulesQuery();
+  const { data : schedules , error, isLoading, refetch } = useSchedulesQuery();
 
   const [date, setDate] = useState<Date | undefined>(undefined); 
 
   const [{team}, setSelectedTeam] = useState<ScheduleTeamOption>({ team : '' })
 
-  const [filteredItems, setFilteredItems] = useState<ScheduleItem[]>([]);
+  const [filteredItems, setFilteredItems] = useState<IScheduleItem[]>([]);
+
 
   useEffect(()=>{
     if (schedules) {
-      const items = filterItems<ScheduleItem, ScheduleFilterOption>(schedules, 
+      const items = filterItems<IScheduleItem, ScheduleFilterOption>(schedules, 
                                                                       { team , 
                                                                         month : date ? String(date.getMonth()+1) : undefined
                                                                       });
@@ -152,16 +149,19 @@ export default function Schedule() {
   }
 
   if(isLoading){
-    return <p>로딩 중입니다.</p>
+    return <SpinnerComponent/>
   }
 
-  if(error){
-    return <p>{`에러가 발생했습니다. ${error.message}`}</p>
-  }
-
+  if(error)
+    return(
+        <Container style={{flexDirection : 'column', height : '50vh', gap : '40px'}}>
+          <p style={{fontSize : '24px', fontWeight : '600px'}}>오류가 발생했습니다 :  {error.message}</p>
+          <Button onClick={() => refetch()}>다시 조회하기</Button>
+        </Container>
+    )
 
   return (
-    <SchedulesContainer>
+    <Container style={{flexDirection : 'column'}}>
       <Title>2025 KBO 경기 일정</Title>
       <Flex style={{alignItems : 'center'}}>
       <TeamSelectWrapper>
@@ -206,6 +206,6 @@ export default function Schedule() {
             </Tr>
         )}
       </Table>
-   </SchedulesContainer>
+   </Container>
   )
 }

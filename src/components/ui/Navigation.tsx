@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 const Nav = styled.nav`
-  background-color: #4b0e29; /* 와인색 */
+  background-color: #4B0229; /* 와인색 */
   padding: 8px 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 `;
@@ -23,7 +23,7 @@ const MenuItem = styled.li`
 
   a {
     text-decoration: none;
-    color: #ffffff;
+    color: #FFF;
     padding: 10px 15px;
     border-radius: 5px;
     transition: background-color 0.3s ease, color 0.3s ease;
@@ -63,11 +63,11 @@ const SubMenu = styled.ul`
     a {
       display: block;
       padding: 8px 12px;
-      color: #4b0e29;
+      color: #A0A0A0;
 
       &:hover {
-        background-color: #f1f1f1;
-        color: #721f40;
+        background-color: #F1F1F1;
+        color: #721F40;
       }
   
   }

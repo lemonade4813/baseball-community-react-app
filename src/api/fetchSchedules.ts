@@ -7,5 +7,5 @@ export const fetchSchedules = async () => {
 
     const { data } = await axiosInstance.get('/schedule',{ headers , withCredentials : true});
 
-    return data.data;
+    return data;
 }

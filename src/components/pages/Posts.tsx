@@ -2,9 +2,11 @@ import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { Container, Flex, H2 } from "../../styles/Styles";
 import { useFetch } from "../../hooks/api/useFetch";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PostSearchComponent from "./segments/PostSearchComponent";
 import PostItem from "./segments/PostItem";
+import { SpinnerComponent } from "../ui/Spinner";
+import { useModalStore } from "../../store/useModalStore";
 
 const Button = styled.button`
   width : 120px;
@@ -27,18 +29,16 @@ interface IPost {
 export default function Posts() {
   const navigate = useNavigate();
   const [creteria, setCreteria] = useState({ title: '', content: '' });
-  const [queryString, setQueryString] = useState('');
-  const { data: posts, loading } = useFetch<IPost[]>(`/posts?${queryString}`);
+  const { data: posts, loading, error, refetch } = useFetch<IPost[]>('/posts', creteria);
 
-  const handleCreteria = () => {
-    const params = new URLSearchParams();
-    Object.entries(creteria).forEach(([key, value]) => {
-      if (value.trim() !== "") {
-        params.append(key, value);
-      }
-    });
-    setQueryString(params.toString());
-  };
+  const { openModal } = useModalStore();
+
+  useEffect(()=>{
+    if(error){
+      openModal(error)
+    }
+  },[error])
+
 
   return (
     <Container>
@@ -46,11 +46,11 @@ export default function Posts() {
         <H2>게시판</H2>
         <Flex>
           <PostSearchComponent creteria={creteria} setCreteria={setCreteria} />
-          <Button onClick={handleCreteria}>조회</Button>
+          <Button onClick={refetch}>조회</Button>
           <Button onClick={() => navigate("/posts/write")}>게시글 작성</Button>
         </Flex>
         {loading ? (
-          <p>로딩 중입니다.</p>
+          <SpinnerComponent/>
         ) : 
           <PostItem posts={posts}/>
         }

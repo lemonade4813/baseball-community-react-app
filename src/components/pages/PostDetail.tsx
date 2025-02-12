@@ -3,11 +3,13 @@ import { useNavigate, useParams } from "react-router-dom"
 import { Button, Flex, H2, Input, Label, Textarea } from "../../styles/Styles";
 import axiosInstance from "../../util/axiosIntance";
 import { getAccessToken } from "../../util/auth";
+import { useModalStore } from "../../store/useModalStore";
 
 export default function PostDetail() {
 
     const { id } = useParams();
     const navigate = useNavigate();
+    const { openModal } = useModalStore();
 
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
@@ -28,7 +30,7 @@ export default function PostDetail() {
         const isAuthor = await isAuthorOfPost(id);
 
         if(!isAuthor){
-          alert('삭제 권한이 없습니다.')
+          openModal('삭제 권한이 없습니다.');
         }
 
         const accessToken = getAccessToken();
@@ -70,7 +72,7 @@ export default function PostDetail() {
         const isAuthor = await isAuthorOfPost(id);
 
         if(!isAuthor){
-          alert('사용자가 작성한 게시물이 아닙니다.');
+          openModal('삭제 권한이 없습니다.');
           return;
         }
         navigate(`/posts/edit/${id}`);

@@ -1,6 +1,6 @@
 export type Team = '두산' | '키움' | '한화' | 'NC' | 'SSG' | '삼성' | 'LG' | 'KIA' | 'KT' | '롯데' | '';
 
-export interface ScheduleItem {
+export interface IScheduleItem {
     id : string;
     month : string;
     date : string;
@@ -12,15 +12,18 @@ export interface ScheduleItem {
     notes : string;
 }
 
-export interface PostItem {
-    id : string;
-    title : string;
-    content : string;
-    author : string;
-    createdAt : string;
-}
+interface IStadiumInfoItem {
+    team: string;
+    stadiumName: string;
+    address: string;
+    seat: number;
+    area: number;
+    features: string[]; 
+    imagePath: string;
+  }
+  
 
-export type PostFilterOption = Pick<PostItem, 'title' | 'author'>;
+export type StadiumInfoFilterOption = Pick<IStadiumInfoItem, 'team'>;
 
 export type ScheduleTeamOption = {
     team : Team
@@ -32,7 +35,12 @@ export type ScheduleMonthOption = {
 
 export type ScheduleFilterOption = ScheduleTeamOption & ScheduleMonthOption;
 
-export const filterItems = <T extends (ScheduleItem | PostItem), C extends (PostFilterOption | ScheduleFilterOption)>(items: T[], criteria: C): T[] => {
+// export interface ScheduleFilterOption {
+//     team : Team
+//     month? : string;
+// }
+
+export const filterItems = <T extends (IScheduleItem | IScheduleItem), C extends (StadiumInfoFilterOption | ScheduleFilterOption)>(items: T[], criteria: C): T[] => {
     if (Object.values(criteria).every(value => !value)) {
         return items;
     }
