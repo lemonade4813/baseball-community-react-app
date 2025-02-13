@@ -20,6 +20,6 @@ const SpinnerImg  = styled.img`
 export const SpinnerComponent = () => 
     (
         <SpinnerOverlay>
-            <SpinnerImg src={SpinnerSvg}/>
+            <SpinnerImg src={SpinnerSvg} data-testId="spinner"/>
         </SpinnerOverlay>
     )

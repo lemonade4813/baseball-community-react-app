@@ -18,6 +18,8 @@ const Globalstyles = createGlobalStyle`
 
     body {
         font-family : 'Pretendard';
+        background-color: ${(props) => props.theme.background};
+        color: ${(props) => props.theme.color};
     }
     
     a{
@@ -27,8 +29,20 @@ const Globalstyles = createGlobalStyle`
 
     textarea{
         font-family : 'Pretendard';
+        background-color: ${(props) => props.theme.background};
+        color: ${(props) => props.theme.color};
     }
 
+    input{
+        background-color: ${(props) => props.theme.background};
+        color: ${(props) => props.theme.color};
+    }
+
+    .global-modal-content {
+        background-color : ${(props) => props.theme.background};
+        border : ${(props) => `1px solid ${props.theme.color}`};
+    }
+        
 `
 
 export default Globalstyles;

@@ -10,12 +10,12 @@ export interface OptionProps {
 const OptionWrapper = styled.div<{ isSelected: boolean }>`
   padding: 10px 14px;
   cursor: pointer;
-  background-color: ${({ isSelected }) => (isSelected ? "#007bff" : "white")};
-  color: ${({ isSelected }) => (isSelected ? "white" : "#333")};
+  background-color: ${({ isSelected }) => (isSelected ? "#007BFF" : "#FFF")};
+  color: ${({ isSelected }) => (isSelected ? "#FFF" : "#333")};
 
   &:hover {
     background-color: ${({ isSelected }) =>
-      isSelected ? "#0056b3" : "#f0f0f0"};
+      isSelected ? "#0056B3" : "#F0F0F0"};
   }
 `;
 

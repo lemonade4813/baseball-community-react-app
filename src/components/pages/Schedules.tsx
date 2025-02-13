@@ -11,7 +11,15 @@ import Calendar from "@assets/calendar.svg";
 import { SpinnerComponent } from "../ui/Spinner";
 import { useModalStore } from "../../store/useModalStore";
 import { Container } from "./StadiumStatus";
+import { Option } from "../compounds/select/Option";
+import { SelectGroup } from "../compounds/select/SelectGroup";
 
+
+const SchedulesContainer = styled.main`
+    display : flex;
+    flex-direction : column;
+    align-items : center;
+`
 
 const Table = styled.div`
   width : 80%;
@@ -48,7 +56,7 @@ const Th = styled.th`
   display : flex;
   align-items : center;
   justify-content : center;
-  background-color : #FFDEE9;
+  background-color : #FF6A89;
   border-right : 1px solid #D3D3D3;
 
   &:last-child{
@@ -127,22 +135,35 @@ export default function Schedule() {
 
   const { data : schedules , error, isLoading, refetch } = useSchedulesQuery();
 
-  const [date, setDate] = useState<Date | undefined>(undefined); 
+  // const [date, setDate] = useState<Date | undefined>(undefined); 
+
+  const [month, setMonth] = useState<string>('');
 
   const [{team}, setSelectedTeam] = useState<ScheduleTeamOption>({ team : '' })
 
   const [filteredItems, setFilteredItems] = useState<IScheduleItem[]>([]);
 
+  const { openModal } = useModalStore();
 
   useEffect(()=>{
-    if (schedules) {
-      const items = filterItems<IScheduleItem, ScheduleFilterOption>(schedules, 
-                                                                      { team , 
-                                                                        month : date ? String(date.getMonth()+1) : undefined
-                                                                      });
+
+    if (schedules && !error) {
+      const items = filterItems<IScheduleItem, ScheduleFilterOption>(schedules, {team, month});
       setFilteredItems(items);
     }
-  },[schedules, team, date])
+
+    else if(!schedules && error){
+      openModal(error.message, refetch, "재시도");
+    }
+
+  },[schedules, team, month, error, openModal])
+
+  const monthOptionItems = useMemo(() =>  Array.from({length:9}, 
+    (_,i)=>i+1).map((month) => 
+        <Option value={String(month)}>
+          {`${month}월`}
+        </Option>),
+    [])
 
   const handleTeam = (team : Team) => {
       setSelectedTeam({ team })
@@ -151,14 +172,6 @@ export default function Schedule() {
   if(isLoading){
     return <SpinnerComponent/>
   }
-
-  if(error)
-    return(
-        <Container style={{flexDirection : 'column', height : '50vh', gap : '40px'}}>
-          <p style={{fontSize : '24px', fontWeight : '600px'}}>오류가 발생했습니다 :  {error.message}</p>
-          <Button onClick={() => refetch()}>다시 조회하기</Button>
-        </Container>
-    )
 
   return (
     <Container style={{flexDirection : 'column'}}>
@@ -170,14 +183,21 @@ export default function Schedule() {
       </TeamSelectWrapper>  
       <DatepickerWrapper>
         <p>월 선택</p>
-        <DatePicker 
+        {/* <DatePicker 
             onChange={(date)=> setDate(date!)} 
             selected={date}
             dateFormat="yyyy년 MM월"
             showMonthYearPicker
             locale={ko}  
             placeholderText="월을 선택해주세요"  
-        />
+        /> */}
+        <SelectGroup 
+            onChange={setMonth} 
+            value={month} 
+            placeholder={!month ? "월을 선택해주세요" : `${month}월`}
+        >
+          {monthOptionItems}
+        </SelectGroup>
         </DatepickerWrapper>
         </Flex>
       <Table>

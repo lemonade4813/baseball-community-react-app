@@ -4,21 +4,20 @@ interface ModalState {
   isOpen: boolean;
   message: string;
   callback: (() => void) | null;
-  openModal: (message: string, callback?: () => void) => void;
+  openModal: (message: string, callback?: () => void, buttonText? : string) => void;
   closeModal: () => void;
+  buttonText : string;
 }
 
 export const useModalStore = create<ModalState>((set) => ({
   isOpen: false,
   message: "",
   callback: null,
-  openModal: (message, callback) =>
-    set({ isOpen: true, message, callback }),
+  buttonText : "",
+  openModal: (message, callback, buttonText) =>
+    set({ isOpen: true, message, callback, buttonText}),
   closeModal: () =>
-    set((state) => {
-      if (state.callback) {
-        state.callback(); 
-      }
-      return { isOpen: false, message: "", callback: null };
+    set(() => {
+      return { isOpen: false, message: "", callback: null , buttonText : ''};
     }),
 }));

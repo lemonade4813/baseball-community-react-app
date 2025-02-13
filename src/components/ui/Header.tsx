@@ -6,6 +6,10 @@ import axiosInstance from "../../util/axiosIntance";
 import { useUserInfo } from "../../store/useUserInfoStore";
 import { useShallow }  from 'zustand/shallow';
 import { Flex } from "../../styles/Styles";
+import { useAtom } from "jotai";
+import { isDarkModeAtom } from "../../store/IsDarkMode";
+import SunSvg from "../../assets/sun.svg";
+import MoonSvg from "../../assets/moon.svg";
 
 
 const HeaderContainer = styled.header`
@@ -30,6 +34,7 @@ const TitleWrapper = styled.div`
 
 const AuthLinksWrapper = styled.div`
     display : flex;
+    align-items : center;
     gap : 24px;
     margin-right : 30px;
     font-size : 16px;
@@ -45,12 +50,13 @@ const AuthLinksWrapper = styled.div`
     }
 `
 
-
 export default function Header() {
 
     const navigate = useNavigate();
 
     const location = useLocation();
+
+    const [isDarkMode, setIsDarkMode] = useAtom(isDarkModeAtom);
 
     const {reset : 
                 resetUserInfo ,
@@ -133,8 +139,14 @@ export default function Header() {
                     Inside The Park
                 </Title>
                 <img src={BallSvg} width={30}/>
-            </TitleWrapper>
+            </TitleWrapper>       
             <AuthLinksWrapper>
+            <img 
+                src={isDarkMode ? MoonSvg : SunSvg} 
+                width={30} 
+                height={30} 
+                onClick={() => setIsDarkMode(!isDarkMode)}
+            />
                 {HeaderAuthButtons()}
             </AuthLinksWrapper>
         </HeaderContainer>

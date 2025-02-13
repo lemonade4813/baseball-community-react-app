@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useModalStore } from "../../store/useModalStore";
 import { Button } from "../../styles/Styles";
+import CloseSvg from "../../assets/close.svg";
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -20,22 +21,34 @@ const ModalContent = styled.div`
   align-items : center;
   gap : 20px;
   flex-direction : column;
-  background: white;
-  padding: 40px;
+  padding: 24px;
   border-radius: 8px;
   width : 180px;
+  opacity : 0.8;
 `;
 
 export const GlobalModal = () => {
-  const { isOpen, message, closeModal } = useModalStore();
+  const { isOpen, message, closeModal, buttonText, callback } = useModalStore();
 
   if (!isOpen) return null;
 
   return (
-    <ModalOverlay onClick={closeModal}>
-      <ModalContent onClick={(e) => e.stopPropagation()}>
+    <ModalOverlay>
+      <ModalContent onClick={(e) => e.stopPropagation()} className="global-modal-content">
+        <img src={CloseSvg} 
+          width={24} 
+          height={24} 
+          style={{alignSelf : 'flex-end'}}
+          onClick={closeModal}
+        />
         {message}
-        <Button onClick={closeModal}>닫기</Button>
+        <Button onClick={() => {
+                                  closeModal();
+                                  callback && callback();
+                                }}
+        >
+          {buttonText || '닫기'}
+        </Button>
       </ModalContent>
     </ModalOverlay>
   );

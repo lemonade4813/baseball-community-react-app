@@ -124,10 +124,10 @@ export default function StadiumLocation() {
             </a>
             <StadiumTitle>{stadium.stadiumName}</StadiumTitle>
             <StadiumInfo>주소: {stadium.address}</StadiumInfo>
-            <StadiumInfo>좌석 수: {stadium.seat.toLocaleString()}</StadiumInfo>
-            <StadiumInfo>면적: {stadium.area.toLocaleString()} m²</StadiumInfo>
+            <StadiumInfo>좌석 수: {stadium.seat?.toLocaleString()}</StadiumInfo>
+            <StadiumInfo>면적: {stadium.area?.toLocaleString()} m²</StadiumInfo>
             <FeatureList>
-              {stadium.features.map((feature, featureIndex) => (
+              {stadium.features?.map((feature, featureIndex) => (
                 <FeatureItem key={featureIndex}>{feature.trim()}</FeatureItem>
               ))}
             </FeatureList>

@@ -29,7 +29,7 @@ describe("Schedules 컴포넌트", () => {
       </QueryClientProvider>
     );
 
-    expect(screen.getByText("로딩 중입니다.")).toBeInTheDocument();
+    expect(screen.getByTestId("spinner")).toBeInTheDocument();
   });
 
   it("데이터가 올바르게 로딩되었는지 확인합니다.", async () => {

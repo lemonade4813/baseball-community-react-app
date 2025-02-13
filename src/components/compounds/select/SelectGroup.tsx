@@ -9,11 +9,9 @@ const SelectGroupContainer = styled.div`
 `;
 
 const Trigger = styled.div`
-  border: 1px solid #ccc;
+  border: 1px solid #CCC;
   border-radius: 8px;
   padding: 10px 14px;
-  background-color: white;
-  color: #333;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
@@ -29,7 +27,7 @@ const Dropdown = styled.div`
   top: calc(100% + 8px);
   left: 0;
   width: 100%;
-  border: 1px solid #ccc;
+  border: 1px solid #CCC;
   border-radius: 8px;
   background-color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -38,7 +36,7 @@ const Dropdown = styled.div`
 
 
 const Placeholder = styled.span`
-  color: #aaa;
+  color: #AAA;
 `;
 
 const Arrow = styled.span`
@@ -52,6 +50,7 @@ interface SelectGroupProps {
     value: string | null;
     onChange: (value: string) => void;
     placeholder? : string;
+    isMonth? : boolean;
 }
 
 
@@ -69,7 +68,8 @@ export const SelectGroup: FC<SelectGroupProps> = ({ children, value, onChange, p
   return (
     <SelectGroupContainer>
       <Trigger onClick={toggleDropdown}>
-        {value ? value : <Placeholder>{placeholder}</Placeholder>}
+        {/* {value ? value : <Placeholder>{placeholder}</Placeholder>} */}
+        <Placeholder>{placeholder}</Placeholder>
         <Arrow>{isOpen ? "▲" : "▼"}</Arrow>
       </Trigger>
       {isOpen && (
