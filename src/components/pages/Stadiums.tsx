@@ -7,7 +7,7 @@ const Title = styled.h2`
   margin-top : 20px;
 `;
 
-export default function Stadium() {
+export default function Stadiums() {
     return (
         <div>
             <Title>경기장 정보</Title>

@@ -93,17 +93,17 @@ const Navigation = () => {
           </NavLink>
         </MenuItem>
         <MenuItem>
-          <NavLink to="/stadium/location" className={({ isActive }) => (isActive ? "active" : undefined)}>
+          <NavLink to="/stadiums/location" className={({ isActive }) => (isActive ? "active" : undefined)}>
             경기장 정보
           </NavLink>
           <SubMenu>
             <li>
-              <NavLink to="/stadium/location" className={({ isActive }) => (isActive ? "active" : undefined)}>
+              <NavLink to="/stadiums/location" className={({ isActive }) => (isActive ? "active" : undefined)}>
                 경기장 위치
               </NavLink>
             </li>
             <li>
-              <NavLink to="/stadium/food" className={({ isActive }) => (isActive ? "active" : undefined)}>
+              <NavLink to="/stadiums/foods" className={({ isActive }) => (isActive ? "active" : undefined)}>
                 주변 맛집
               </NavLink>
             </li>

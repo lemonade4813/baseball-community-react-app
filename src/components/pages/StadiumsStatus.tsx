@@ -4,6 +4,14 @@ import { useModalStore } from "../../store/useModalStore";
 import styled from "styled-components";
 import HomepageSvg from "../../assets/home.svg";
 import { teamImgList } from "../../util/teamList";
+import { MapBox } from "../map/MapBox";
+
+declare global {
+  interface Window {
+    kakao: any;
+  }
+}
+
 
 interface IStadiumInfo {
   team: string;
@@ -14,6 +22,7 @@ interface IStadiumInfo {
   features: string[];
   imagePath: string;
   homepage: string;
+  coordinates : number[];
 }
 
 export const Container = styled.main`
@@ -87,7 +96,7 @@ const FeatureItem = styled.li`
   margin: 3px;
 `;
 
-export default function StadiumLocation() {
+export default function StadiumsStatus() {
   const { openModal } = useModalStore();
   const { data: stadiumInfoList, error } = useFetch<IStadiumInfo[]>("/stadium");
 
@@ -97,11 +106,14 @@ export default function StadiumLocation() {
     }
   }, [error, openModal]);
 
+
+  console.log(stadiumInfoList)
+
   return (
     <Container style={{padding : '20px', flexDirection : 'column'}}>
       <Title>{`> 경기장 현황`}</Title>
       <StadiumContainer>
-        {stadiumInfoList?.map((stadium) => (
+        {stadiumInfoList?.map((stadium, index) => (
           <StadiumCard key={stadium.team}>
             <img width={48} height={48} src={teamImgList.find((t) => t.team === stadium.team)?.src}/>
             <StadiumImage
@@ -131,6 +143,7 @@ export default function StadiumLocation() {
                 <FeatureItem key={featureIndex}>{feature.trim()}</FeatureItem>
               ))}
             </FeatureList>
+            <MapBox latitude={stadium.coordinates?.[0]} longitude={stadium.coordinates?.[1]} index={index} />
           </StadiumCard>
         ))}
       </StadiumContainer>

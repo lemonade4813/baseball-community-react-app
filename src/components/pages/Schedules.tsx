@@ -10,7 +10,7 @@ import { Button, Flex } from "../../styles/Styles";
 import Calendar from "@assets/calendar.svg";
 import { SpinnerComponent } from "../ui/Spinner";
 import { useModalStore } from "../../store/useModalStore";
-import { Container } from "./StadiumStatus";
+import { Container } from "./StadiumsStatus";
 import { Option } from "../compounds/select/Option";
 import { SelectGroup } from "../compounds/select/SelectGroup";
 
