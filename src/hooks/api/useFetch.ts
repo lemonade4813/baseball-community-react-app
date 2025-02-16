@@ -21,8 +21,8 @@ export const useFetch = <T>(url: string, params? : any, config?: AxiosRequestCon
       try {
         const response = await axiosInstance.get<T>(url,{params, headers});
         setData(response.data);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "에러가 발생했습니다.");
+      } catch (e) {
+        setError(e instanceof Error ? e.message : "에러가 발생했습니다.");
       } finally {
         setLoading(false);
       }

@@ -6,16 +6,48 @@ import { Container, Flex, H2, Input, Label } from "../../styles/Styles";
 import axiosInstance from "../../util/axiosIntance";
 import { useModalStore } from "../../store/useModalStore";
 import { useNavigate } from "react-router-dom";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Team } from "../../util/filterItems";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
 const ACCEPTED_FILE_TYPES = ["image/jpeg", "image/png", "image/jpg"];
 
+const schema = yup.object().shape({
+  userId: yup
+    .string()
+    .matches(/^[a-z0-9]+$/, "영소문자와 숫자만 사용 가능합니다.")
+    .min(6, "아이디는 최소 6자 이상이어야 합니다.")
+    .required("아이디를 입력하세요.")
+    .test("checkUsername", "이미 사용 중인 아이디입니다.", async (value) => {
+      if (!value) return false;
+      const response = await axiosInstance.get(`/users/check-username?username=${value}`);
+      return response.data.available;
+    }),
+  password: yup
+    .string()
+    .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/, "영문과 숫자를 포함해야 합니다.")
+    .min(8, "비밀번호는 최소 8자 이상이어야 합니다.")
+    .required("비밀번호를 입력하세요."),
+  nickname: yup
+    .string()
+    .required("닉네임을 입력하세요.")
+    .test("checkNickname", "이미 사용 중인 닉네임입니다.", async (value) => {
+      if (!value) return false;
+      const response = await axiosInstance.get(`/users/check-nickname?nickname=${value}`);
+      return response.data.available;
+    }),
+  team: yup
+    .string()
+    .oneOf(["두산", "KIA", "한화", "롯데", "SSG", "NC", "삼성", "LG", "키움", "KT"], "팀을 선택하세요.")
+    .required("연령을 선택하세요."),
+});
+
 type LoginInputs = {
   userId: string;
   password: string;
-  team: string;
+  team: Exclude<Team, ''>;
   nickname: string;
-  profileImage: FileList;
 };
 
 
@@ -42,13 +74,21 @@ const SubmitButton = styled.button<{ isValid: boolean }>`
 `;
 
 const SignupForm = styled.form`
-  
-width : 50%;
-display : flex;
-flex-direction : column;
-justify-content : center;
+  width : 50%;
+  display : flex;
+  flex-direction : column;
+  justify-content : center;
+`
 
-
+const ImageUploadArea = styled.div`
+  width: 100px;
+  height: 100px;
+  background-color: #ddd;
+  display: flex;
+  align-items: center;
+  justifyContent: center;
+  cursor: pointer;
+  borderRadius : 8px;
 `
 
 export default function Signup() {
@@ -57,7 +97,7 @@ export default function Signup() {
     handleSubmit,
     control,
     formState: { errors, isValid },
-  } = useForm<LoginInputs>({mode : "onChange"});
+  } = useForm<LoginInputs>({mode : "onChange", resolver : yupResolver(schema)});
 
   const { openModal } = useModalStore();
   const navigate = useNavigate();
@@ -130,16 +170,10 @@ export default function Signup() {
         <Label htmlFor="userId">아이디</Label>
         <Input
           id="userId"
-          {...register("userId", {
-            required: "아이디를 입력하세요.",
-            pattern: {
-              value: /^(?=.*[a-z])(?=.*\d)[a-z\d]{6,}$/,
-              message: "아이디는 최소 6자 이상, 영소문자와 숫자를 포함해야 합니다.",
-            },
-          })}
-          placeholder="아이디를 입력하세요"
+          type="text"
+          {...register("userId")}
           border={errors.userId && 'red'}
-          onChange={handleFileChange}
+          placeholder="패스워드를 입력하세요"
         />
       </Flex>
       {errors.userId && <ErrorMessage>{errors.userId.message}</ErrorMessage>}
@@ -148,17 +182,10 @@ export default function Signup() {
         <Input
           id="password"
           type="password"
-          {...register("password", {
-            required: "패스워드를 입력하세요.",
-            pattern: {
-              value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-              message: "패스워드는 최소 8자 이상, 영문과 숫자를 포함해야 합니다.",
-            },
-          })}
+          {...register("password")}
           border={errors.password && 'red'}
           placeholder="패스워드를 입력하세요"
         />
-
       </Flex>
       {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
       <Flex style={{marginTop : '20px'}}>
@@ -166,9 +193,11 @@ export default function Signup() {
         <Controller
           name="team"
           control={control}
-          rules={{ required: "팀을 선택하세요." }}
           render={({ field }) => (
-            <TeamList onClick={field.onChange} selectedTeam={field.value}/>
+            <TeamList 
+                onClick={field.onChange} 
+                selectedTeam={field.value}
+            />
           )}
         />
       </Flex>
@@ -178,9 +207,7 @@ export default function Signup() {
         <Input
           id="nickname"
           type="text"
-          {...register("nickname", {
-            required: "닉네임을 입력하세요.",
-          })}
+          {...register("nickname")}
           placeholder="닉네임을 입력하세요"
           border={errors.nickname && 'red'}
         />
@@ -194,6 +221,7 @@ export default function Signup() {
           data-testId="profileImg"
           accept={ACCEPTED_FILE_TYPES.join(", ")}
           style={{ display: "none" }}
+          onChange={handleFileChange}
         />
         {profileImage ? (
           <img
@@ -201,30 +229,16 @@ export default function Signup() {
             alt="파일 업로드"
             width={100}
             height={100}
-            style={{ cursor: "pointer", border: "1px solid #ddd", borderRadius: "8px" }}
+            style={{ 
+                cursor: "pointer", 
+                border: "1px solid #ddd", 
+                borderRadius: "8px" 
+            }}
             onClick={handleImageClick}
           />
         ) : (
-          <div
-            style={{
-              width: 100,
-              height: 100,
-              backgroundColor: "#ddd",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              cursor: "pointer",
-              borderRadius : "8px"
-            }}
-            onClick={handleImageClick}
-          >
-            이미지 업로드
-          </div>
+          <ImageUploadArea>이미지 업로드</ImageUploadArea>
         )}
-        {errors.profileImage && 
-        <ErrorMessage data-testId="fileInputErrorMessage">
-          {errors.profileImage.message}
-        </ErrorMessage>}
       </Flex>
       <SubmitButton isValid={isValid} disabled={!isValid}>가입하기</SubmitButton>
     </SignupForm>

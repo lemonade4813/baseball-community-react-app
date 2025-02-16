@@ -67,7 +67,13 @@ export default function TeamList({ isSchedulePage, selectedTeam, ...rest }: ITea
       </SelectedTeamWrapper>
       <TeamMenu isOpen={isOpen}>
         {teamList.map((team, index) => (
-          <TeamItem key={index} {...rest} {...team} selectedTeam={selectedTeam} onClose={() => setIsOpen(false)} />
+          <TeamItem 
+            key={index} 
+            {...rest} 
+            {...team} 
+            selectedTeam={selectedTeam} 
+            onClose={() => setIsOpen(false)} 
+          />
         ))}
       </TeamMenu>
     </TeamListWrapper>

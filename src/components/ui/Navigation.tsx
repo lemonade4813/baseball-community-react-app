@@ -99,7 +99,7 @@ const Navigation = () => {
           <SubMenu>
             <li>
               <NavLink to="/stadiums/location" className={({ isActive }) => (isActive ? "active" : undefined)}>
-                경기장 위치
+                경기장 현황
               </NavLink>
             </li>
             <li>

@@ -1,10 +1,10 @@
 import { useEffect } from "react";
-import { useFetch } from "../../hooks/api/useFetch";
 import { useModalStore } from "../../store/useModalStore";
 import styled from "styled-components";
 import HomepageSvg from "../../assets/home.svg";
 import { teamImgList } from "../../util/teamList";
 import { MapBox } from "../map/MapBox";
+import { useStadiumsQuery } from "../../hooks/queries/useStadiumsStatus";
 
 declare global {
   interface Window {
@@ -13,7 +13,7 @@ declare global {
 }
 
 
-interface IStadiumInfo {
+export interface IStadiumInfo {
   team: string;
   stadiumName: string;
   address: string;
@@ -98,16 +98,14 @@ const FeatureItem = styled.li`
 
 export default function StadiumsStatus() {
   const { openModal } = useModalStore();
-  const { data: stadiumInfoList, error } = useFetch<IStadiumInfo[]>("/stadium");
+  const { data: stadiumInfoList, error } = useStadiumsQuery();
 
   useEffect(() => {
     if (error) {
-      openModal(error);
+      openModal(error.message);
     }
   }, [error, openModal]);
 
-
-  console.log(stadiumInfoList)
 
   return (
     <Container style={{padding : '20px', flexDirection : 'column'}}>
@@ -115,7 +113,11 @@ export default function StadiumsStatus() {
       <StadiumContainer>
         {stadiumInfoList?.map((stadium, index) => (
           <StadiumCard key={stadium.team}>
-            <img width={48} height={48} src={teamImgList.find((t) => t.team === stadium.team)?.src}/>
+            <img 
+                width={48} 
+                height={48} 
+                src={teamImgList.find((t) => t.team === stadium.team)?.src}
+            />
             <StadiumImage
               src={`${import.meta.env.VITE_API_BASE_URL}${stadium.imagePath}`}
               alt={`${stadium.stadiumName} 이미지`}
@@ -143,7 +145,11 @@ export default function StadiumsStatus() {
                 <FeatureItem key={featureIndex}>{feature.trim()}</FeatureItem>
               ))}
             </FeatureList>
-            <MapBox latitude={stadium.coordinates?.[0]} longitude={stadium.coordinates?.[1]} index={index} />
+            <MapBox 
+              latitude={stadium.coordinates?.[0]} 
+              longitude={stadium.coordinates?.[1]} 
+              index={index} 
+            />
           </StadiumCard>
         ))}
       </StadiumContainer>

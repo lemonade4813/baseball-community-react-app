@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
 import axiosInstance from "../../util/axiosIntance";
 import { Button, H2, Input, InputWrapper, Label, Textarea } from "../../styles/Styles";
-import { getAccessToken } from "../../util/auth";
+import {  useRequest } from "../../hooks/api/useRequest";
+import { SpinnerComponent } from "../ui/Spinner";
+import { useModalStore } from "../../store/useModalStore";
 
 export default function PostWrite({isEditMode} : {isEditMode? : boolean}) {
   
@@ -11,6 +13,9 @@ export default function PostWrite({isEditMode} : {isEditMode? : boolean}) {
 
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const { openModal } = useModalStore();
+
+    const { requestApi, error : postError, loading } = useRequest();
   
     useEffect(() => {
         if (isEditMode && id) {
@@ -18,33 +23,37 @@ export default function PostWrite({isEditMode} : {isEditMode? : boolean}) {
             .then((res) => {
               setTitle(res.data.title);
               setContent(res.data.content);
-            });
+            }).catch(e => openModal(`게시글 조회에 실패하였습니다. : ${e.message}`));
         }
       }, [isEditMode, id]);
-  
+
+      useEffect(()=>{
+        if(postError){
+          openModal("요청중 오류가 발생했습니다.");
+        }
+      },[postError])
+
+      if(loading){
+        return(<SpinnerComponent/>)
+      }
+
       const handleSubmit = async () => {
+
         const method = isEditMode ? 'PUT' : 'POST';
         const url = isEditMode ? `/posts/${id}` : '/posts';
-
-        const token = getAccessToken();
-
-        console.log(`${token}1111111`)
-
-        try{
-            const { status } = await axiosInstance(url, {
+        const modalMessage = isEditMode ? 
+                             '수정이 완료되었습니다.' : 
+                             '작성이 완료되었습니다.'
+        requestApi(
+                    url, 
                     method,
-                    data : { title, content, author : 'user'},
-                    headers: { "Content-Type": "application/json", Authorization : `Bearer ${token}` },
-            });
-            console.log(status);
-            navigate('/posts');
-        }
-        catch(e){
-            if(e instanceof Error){
-                console.log("에러 발생");
-                console.log(e.message);
-            }
-        }
+                    { title, content}, 
+                    () => 
+                      {
+                        navigate('/posts');
+                        openModal(modalMessage);
+                      } 
+                  )
       };
     
       return (
@@ -71,7 +80,11 @@ export default function PostWrite({isEditMode} : {isEditMode? : boolean}) {
             />
           </InputWrapper>
           <div style={{textAlign : 'right', marginTop : '20px'}}>
-            <Button onClick={handleSubmit} style={{width : '120px'}}>
+            <Button 
+                onClick={handleSubmit} 
+                style={{width : '120px'}} 
+                type="button"
+            >
               {isEditMode ? "수정하기" : "작성하기"}
             </Button>
           </div>
