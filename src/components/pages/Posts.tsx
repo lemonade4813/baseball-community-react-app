@@ -1,12 +1,13 @@
 import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { Container, Flex, H2 } from "../../styles/Styles";
+import { Container, Flex, Title } from "../../styles/Styles";
 import { useFetch } from "../../hooks/api/useFetch";
 import { useEffect, useState } from "react";
 import PostSearchComponent from "./segments/PostSearchComponent";
 import PostItem from "./segments/PostItem";
 import { SpinnerComponent } from "../ui/Spinner";
 import { useModalStore } from "../../store/useModalStore";
+import PostSvg from "../../assets/post.svg";
 
 const Button = styled.button`
   width : 120px;
@@ -42,8 +43,10 @@ export default function Posts() {
 
   return (
     <Container>
-      <div style={{width : '90%'}}>
-        <H2>게시판</H2>
+        <Title>
+            <img src={PostSvg} width={40} height={40} alt="게시판 이미지"/>
+            <span>게시판</span>
+        </Title>
         <Flex>
           <PostSearchComponent creteria={creteria} setCreteria={setCreteria} />
           <Button onClick={refetch}>조회</Button>
@@ -54,7 +57,6 @@ export default function Posts() {
         ) : 
           <PostItem posts={posts}/>
         }
-      </div>
     </Container>
   );
 }

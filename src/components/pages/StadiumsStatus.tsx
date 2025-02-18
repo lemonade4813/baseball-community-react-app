@@ -5,6 +5,7 @@ import HomepageSvg from "../../assets/home.svg";
 import { teamImgList } from "../../util/teamList";
 import { MapBox } from "../map/MapBox";
 import { useStadiumsQuery } from "../../hooks/queries/useStadiumsStatus";
+import { Container, Title } from "../../styles/Styles";
 
 declare global {
   interface Window {
@@ -25,18 +26,7 @@ export interface IStadiumInfo {
   coordinates : number[];
 }
 
-export const Container = styled.main`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
 
-const Title = styled.h2`
-  align-self: flex-start;
-  margin-bottom: 20px;
-  color: #444;
-  font-size : 36px
-`;
 
 const StadiumContainer = styled.div`
   display: flex;
@@ -108,8 +98,8 @@ export default function StadiumsStatus() {
 
 
   return (
-    <Container style={{padding : '20px', flexDirection : 'column'}}>
-      <Title>{`> 경기장 현황`}</Title>
+    <Container>
+      <Title>경기장 현황</Title>
       <StadiumContainer>
         {stadiumInfoList?.map((stadium, index) => (
           <StadiumCard key={stadium.team}>

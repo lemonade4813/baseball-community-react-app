@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
-import { Button, Flex, H2, Input, Label, Textarea } from "../../styles/Styles";
+import { Button, Container, Flex, Input, InputWrapper, Label, Textarea, Title } from "../../styles/Styles";
 import axiosInstance from "../../util/axiosIntance";
 import { getAccessToken } from "../../util/auth";
 import { useModalStore } from "../../store/useModalStore";
 import { useRequest } from "../../hooks/api/useRequest";
+import WriteSvg from "../../assets/write.svg";
 
 export default function PostDetail() {
   const { id } = useParams();
@@ -62,18 +63,24 @@ export default function PostDetail() {
   };
 
   return (
-      <div>
-          <H2>게시글 상세</H2>
-          <Flex style={{ marginTop: '20px' }}>
+      <Container>
+          <Title>
+            <img src={WriteSvg} width={20} height={20} alt="게시글 상세 이미지" />
+            <span>게시글 상세</span>
+          </Title>
+          <InputWrapper style={{ marginTop: '20px' }}>
               <Label htmlFor="title">제목</Label>
-              <Input id="title" value={title} readOnly />
-          </Flex>
-          <Flex style={{ marginTop: '20px' }}>
+              <Input id="title" value={title} readOnly/>
+          </InputWrapper>
+          <InputWrapper style={{ marginTop: '20px' }}>
               <Label htmlFor="content">내용</Label>
               <Textarea id="content" value={content} readOnly />
-          </Flex>
+          </InputWrapper>
           {id && (
-              <Flex style={{ marginTop: '20px', justifyContent: 'flex-end' }}>
+              <Flex 
+                style={{ marginTop: '20px', 
+                alignSelf: 'flex-end' }}
+              >
                   <Button
                       style={{ width: '120px' }}
                       onClick={() => handlePost('write', id, () => navigate(`/posts/edit/${id}`))}
@@ -88,6 +95,6 @@ export default function PostDetail() {
                   </Button>
               </Flex>
           )}
-      </div>
+      </Container>
   );
 }

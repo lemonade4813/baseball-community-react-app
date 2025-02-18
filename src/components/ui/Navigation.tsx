@@ -56,6 +56,7 @@ const SubMenu = styled.ul`
   border: 1px solid #ddd;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   list-style: none;
+  z-index: 9999;
 
   padding: 10px 0;
   width: 100%;
@@ -69,7 +70,6 @@ const SubMenu = styled.ul`
         background-color: #F1F1F1;
         color: #721F40;
       }
-  
   }
 `;
 

@@ -1,25 +1,22 @@
 import { styled } from "styled-components";
 import TeamList from "./segments/TeamList";
 import { useSchedulesQuery } from "../../hooks/queries/useScheduleQuery";
-import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
-import { useEffect, useMemo, useState } from "react";
-import { ko } from "date-fns/locale";
 import {  ScheduleFilterOption, IScheduleItem, Team, filterItems, ScheduleTeamOption } from "../../util/filterItems";
-import { Button, Flex } from "../../styles/Styles";
+import {  Flex, Container } from "../../styles/Styles";
 import Calendar from "@assets/calendar.svg";
 import { SpinnerComponent } from "../ui/Spinner";
 import { useModalStore } from "../../store/useModalStore";
-import { Container } from "./StadiumsStatus";
 import { Option } from "../compounds/select/Option";
 import { SelectGroup } from "../compounds/select/SelectGroup";
+import { useEffect, useMemo, useState } from "react";
+import ScheduleSvg from "../../assets/schedule.svg";
 
-
-const SchedulesContainer = styled.main`
-    display : flex;
-    flex-direction : column;
-    align-items : center;
-`
+// const SchedulesContainer = styled.main`
+//     display : flex;
+//     flex-direction : column;
+//     align-items : center;
+// `
 
 const Table = styled.div`
   width : 80%;
@@ -69,6 +66,8 @@ const Title = styled.h2`
   margin-top : 40px;
   margin-bottom : 40px;
   font-size : 32px;
+  display : flex;
+  align-items: center;
 `
 
 const DatepickerWrapper = styled.div`
@@ -135,8 +134,6 @@ export default function Schedule() {
 
   const { data : schedules , error, isLoading, refetch } = useSchedulesQuery();
 
-  // const [date, setDate] = useState<Date | undefined>(undefined); 
-
   const [month, setMonth] = useState<string>('');
 
   const [{team}, setSelectedTeam] = useState<ScheduleTeamOption>({ team : '' })
@@ -174,8 +171,11 @@ export default function Schedule() {
   }
 
   return (
-    <Container style={{flexDirection : 'column'}}>
-      <Title>2025 KBO 경기 일정</Title>
+    <Container>
+      <Title>
+        <img src={ScheduleSvg} width={40} height={40} alt="경기 일정 이미지"/>
+        <span>2025 KBO 경기 일정</span>
+      </Title>
       <Flex style={{alignItems : 'center'}}>
       <TeamSelectWrapper>
         <p>팀 선택</p>
@@ -183,14 +183,6 @@ export default function Schedule() {
       </TeamSelectWrapper>  
       <DatepickerWrapper>
         <p>월 선택</p>
-        {/* <DatePicker 
-            onChange={(date)=> setDate(date!)} 
-            selected={date}
-            dateFormat="yyyy년 MM월"
-            showMonthYearPicker
-            locale={ko}  
-            placeholderText="월을 선택해주세요"  
-        /> */}
         <SelectGroup 
             onChange={setMonth} 
             value={month} 

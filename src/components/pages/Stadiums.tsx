@@ -1,18 +1,17 @@
 import { Outlet } from "react-router-dom";
-import { styled } from "styled-components";
-const Title = styled.h2`
-  align-self: flex-start;
-  color: #444;
-  font-size : 36px;
-  margin-top : 20px;
-`;
+import StadiumSvg from "../../assets/stadium.svg";
+import { Container, Title } from "../../styles/Styles";
+
 
 export default function Stadiums() {
     return (
-        <div>
-            <Title>경기장 정보</Title>
+        <Container>
+            <Title>
+              <img src={StadiumSvg} width={40} height={40} alt="경기장 이미지"/>
+              <span>경기장 정보</span>
+            </Title>
             <Outlet/>
-        </div>
+        </Container>
     )
   }
   

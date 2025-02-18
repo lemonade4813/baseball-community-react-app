@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
 import axiosInstance from "../../util/axiosIntance";
-import { Button, H2, Input, InputWrapper, Label, Textarea } from "../../styles/Styles";
+import { Button, Input, InputWrapper, Label, Textarea, Title, Container } from "../../styles/Styles";
 import {  useRequest } from "../../hooks/api/useRequest";
 import { SpinnerComponent } from "../ui/Spinner";
 import { useModalStore } from "../../store/useModalStore";
+import WriteSvg from "../../assets/write.svg";
 
 export default function PostWrite({isEditMode} : {isEditMode? : boolean}) {
   
@@ -38,29 +39,23 @@ export default function PostWrite({isEditMode} : {isEditMode? : boolean}) {
       }
 
       const handleSubmit = async () => {
-
         const method = isEditMode ? 'PUT' : 'POST';
         const url = isEditMode ? `/posts/${id}` : '/posts';
-        const modalMessage = isEditMode ? 
-                             '수정이 완료되었습니다.' : 
-                             '작성이 완료되었습니다.'
-        requestApi(
-                    url, 
-                    method,
-                    { title, content}, 
-                    () => 
-                      {
-                        navigate('/posts');
-                        openModal(modalMessage);
-                      } 
-                  )
+        requestApi( url,  method,  {title, content}, callback)
       };
+
+      const callback =  () => {
+        const modalMessage = isEditMode ? '수정이 완료되었습니다.' : '작성이 완료되었습니다.';
+        navigate('/posts');
+        openModal(modalMessage);
+      } 
     
       return (
-        <div>
-          <H2 style={{ marginTop : '48px', marginBottom : '24px'}}>
-            {isEditMode ? "게시글 수정" : "새 게시글 작성"}
-          </H2>
+        <Container>
+          <Title>
+            <img src={WriteSvg} width={40} height={40} alt="게시글 작성 이미지"/>
+            <span>{isEditMode ? "게시글 수정" : "새 게시글 작성"}</span>
+          </Title>
           <InputWrapper>
             <Label htmlFor="title">제목</Label>
             <Input
@@ -79,15 +74,18 @@ export default function PostWrite({isEditMode} : {isEditMode? : boolean}) {
                 onChange={(e) => setContent(e.target.value)}
             />
           </InputWrapper>
-          <div style={{textAlign : 'right', marginTop : '20px'}}>
+    
             <Button 
                 onClick={handleSubmit} 
-                style={{width : '120px'}} 
+                style={{width : '120px', alignSelf : 'flex-end', marginTop : '20px'}} 
                 type="button"
             >
               {isEditMode ? "수정하기" : "작성하기"}
             </Button>
-          </div>
-        </div>
+       
+        </Container>
       );
 }
+
+
+

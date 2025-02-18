@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import TeamList from "./segments/TeamList";
 import { styled } from "styled-components";
-import { Container, Flex, H2, Input, Label } from "../../styles/Styles";
+import { Container, Flex, Input, Label, Title } from "../../styles/Styles";
 import axiosInstance from "../../util/axiosIntance";
 import { useModalStore } from "../../store/useModalStore";
 import { useNavigate } from "react-router-dom";
@@ -165,7 +165,7 @@ export default function Signup() {
   return (
     <Container>
     <SignupForm onSubmit={handleSubmit(fetchLoginInfo)}>
-      <H2>회원가입</H2>
+      <Title>회원가입</Title>
       <Flex style={{marginTop : '20px'}}>
         <Label htmlFor="userId">아이디</Label>
         <Input
@@ -213,7 +213,7 @@ export default function Signup() {
         />
       </Flex>
       {errors.nickname && <ErrorMessage>{errors.nickname.message}</ErrorMessage>}
-      <Flex gap={20} style={{ marginTop : '20px', gap : '20px'}}>
+      <Flex gap={20} style={{ marginTop : '20px', gap : '20px', alignSelf : 'flex-start'}}>
         <Label htmlFor="profileImg">프로필 이미지</Label>
         <Input
           type="file"

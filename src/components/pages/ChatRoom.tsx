@@ -2,36 +2,31 @@ import React, { useState, useEffect } from "react";
 import stompClient from "../../socket";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-
 import axiosInstance from "../../util/axiosIntance";
 import BaseBallSvg from "../../assets/baseball.svg";
 import { teamImgListAll } from "../../util/teamList";
+import { Title, Container, Input, InputWrapper, Button } from "../../styles/Styles";
 
-const TitleWrapper = styled.div`
-    display: flex;
-    align-items: center;
-    gap: 20px;
-`;
 
-const ChatInputWrapper = styled.div`
-    display: flex;
-    height: 40px;
-    margin-top: 20px;
-`;
+// const ChatInputWrapper = styled.div`
+//     display: flex;
+//     height: 40px;
+//     margin-top: 20px;
+// `;
 
-const ChatInput = styled.input`
-    width: 80%;
-    border-radius: 10px;
-    border: 1px solid #D3D3D3;
-    padding-left: 8px;
-`;
+// const ChatInput = styled.input`
+//     width: 80%;
+//     border-radius: 10px;
+//     border: 1px solid #D3D3D3;
+//     padding-left: 8px;
+// `;
 
-const ChatSubmitButton = styled.button`
-    width: 20%;
-    border-radius: 16px;
-    border: 1px solid #D3D3D3;
-    cursor: pointer;
-`;
+// const ChatSubmitButton = styled.button`
+//     width: 20%;
+//     border-radius: 16px;
+//     border: 1px solid #D3D3D3;
+//     cursor: pointer;
+// `;
 
 const ChatMessageWrapper = styled.div`
     height: 300px;
@@ -39,6 +34,7 @@ const ChatMessageWrapper = styled.div`
     border-radius: 20px;
     border: 1px solid #ccc;
     padding: 10px;
+    width : 100%;
 `;
 
 const ChatRoom: React.FC = () => {
@@ -92,26 +88,31 @@ const ChatRoom: React.FC = () => {
     const myTeamObj = teamImgListAll.find((t) => t.team === team);
 
     return (
-        <div>
-            <TitleWrapper style={{marginTop : '20px', marginBottom : '20px'}}>
-                <img width={60} height={60} src={myTeamObj?.src || BaseBallSvg} alt={`${myTeamObj?.name} logo`} />
-                <h2 style={{ fontSize: "20px" }}>{myTeamObj?.name || '전체'} 채팅방</h2>
-            </TitleWrapper>
+        <Container>
+            <Title>
+                <img 
+                    width={60} 
+                    height={60} 
+                    src={myTeamObj?.src || BaseBallSvg} 
+                    alt={`${myTeamObj?.name} logo`} 
+                />
+                <span>{myTeamObj?.name || '전체'} 채팅방</span>
+            </Title>
             <ChatMessageWrapper>
                 {messages.map((msg, index) => (
                     <div key={index}>{msg}</div>
                 ))}
             </ChatMessageWrapper>
-            <ChatInputWrapper>
-                <ChatInput
+            <InputWrapper style={{marginTop : '40px'}}>
+                <Input
                     type="text"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     placeholder="메시지를 입력하세요"
                 />
-                <ChatSubmitButton onClick={sendMessage}>전송</ChatSubmitButton>
-            </ChatInputWrapper>
-        </div>
+                <Button onClick={sendMessage}>전송</Button>
+            </InputWrapper>
+        </Container>
     );
 };
 

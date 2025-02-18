@@ -8,6 +8,7 @@ import { GlobalModal } from './components/ui/GlobalModal';
 import Globalstyles from './styles/GlobalStyles';
 import { useAtomValue } from 'jotai';
 import { isDarkModeAtom } from './store/IsDarkMode';
+import Carousel from './components/ui/Carousel';
 
 const Container = styled.div`
     width : 80vw;
@@ -37,7 +38,9 @@ function App() {
         <GlobalModal/>
         <Container>
           <Header/>
+     
           <Navigation/>
+          <Carousel/>
           {/* <Main> */}
             <Outlet/>
           {/* </Main> */}

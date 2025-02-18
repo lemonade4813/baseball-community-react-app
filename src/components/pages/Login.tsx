@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { Button, Container, Flex, H2, Input, Label } from "../../styles/Styles";
+import { Button, Container, Flex, Input, Label, Title } from "../../styles/Styles";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../util/axiosIntance";
 import { useUserInfo } from "../../store/useUserInfoStore";
@@ -49,7 +49,7 @@ export default function Login() {
   return (
     <Container>
       <form onSubmit={handleSubmit(submitLoginInfo)}>
-        <H2>로그인</H2>
+        <Title>로그인</Title>
         <Flex style={{marginTop : '20px'}}>
           <Label htmlFor="userId">아이디</Label>
           <Input
@@ -82,7 +82,12 @@ export default function Login() {
           {errors.password && <p>{errors.password.message}</p>}
         </Flex>
         <div style={{textAlign : 'center'}}>
-          <Button type="submit" style={{width : '150px', marginTop : '20px'}}>로그인</Button>
+          <Button 
+              type="submit" 
+              style={{width : '150px', marginTop : '20px'}}
+          >
+            로그인
+          </Button>
         </div>
       </form>
     </Container>
