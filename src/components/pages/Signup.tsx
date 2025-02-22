@@ -173,7 +173,7 @@ export default function Signup() {
           type="text"
           {...register("userId")}
           border={errors.userId && 'red'}
-          placeholder="패스워드를 입력하세요"
+          placeholder="아이디를 입력하세요"
         />
       </Flex>
       {errors.userId && <ErrorMessage>{errors.userId.message}</ErrorMessage>}

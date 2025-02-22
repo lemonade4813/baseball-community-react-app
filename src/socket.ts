@@ -1,14 +1,13 @@
 import { Client } from "@stomp/stompjs";
-import SockJS from "sockjs-client";
 
 const stompClient = new Client({
-    brokerURL: "ws://localhost:8080/ws", // WebSocket 엔드포인트
+    brokerURL : "ws://localhost:8080/ws",
     connectHeaders: {},
-    debug: (str) => console.log(str),
-    reconnectDelay: 5000,
+    debug: (str) => console.log("[STOMP DEBUG] " + str), 
     heartbeatIncoming: 4000,
     heartbeatOutgoing: 4000,
-    webSocketFactory: () => new SockJS("http://localhost:8080/ws"),
+    reconnectDelay : 6000
 });
+
 
 export default stompClient;

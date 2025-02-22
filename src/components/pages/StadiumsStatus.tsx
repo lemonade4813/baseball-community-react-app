@@ -4,7 +4,7 @@ import styled from "styled-components";
 import HomepageSvg from "../../assets/home.svg";
 import { teamImgList } from "../../util/teamList";
 import { MapBox } from "../map/MapBox";
-import { useStadiumsQuery } from "../../hooks/queries/useStadiumsStatus";
+import { useStadiumsStatusQuery } from "../../hooks/queries/useStadiumsStatusQuery";
 import { Container, Title } from "../../styles/Styles";
 
 declare global {
@@ -12,7 +12,6 @@ declare global {
     kakao: any;
   }
 }
-
 
 export interface IStadiumInfo {
   team: string;
@@ -88,7 +87,7 @@ const FeatureItem = styled.li`
 
 export default function StadiumsStatus() {
   const { openModal } = useModalStore();
-  const { data: stadiumInfoList, error } = useStadiumsQuery();
+  const { data: stadiumInfoList, error } = useStadiumsStatusQuery();
 
   useEffect(() => {
     if (error) {

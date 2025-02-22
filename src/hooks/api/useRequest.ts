@@ -1,6 +1,4 @@
-// import axios, { AxiosRequestConfig } from "axios";
 import { useCallback, useState } from "react";
-import { getAccessToken } from "../../util/auth";
 import axiosInstance from "../../util/axiosIntance";
 
 // POST 요청 커스텀 훅
@@ -18,19 +16,13 @@ export const useRequest = <T, U>() => {
         // async (url: string,  payload: T, config?: AxiosRequestConfig) => {
         setLoading(true);
         setError(null);
-  
-        const accessToken = getAccessToken();
-        const headers = { 
-                            Authorization : `Bearer ${accessToken}`, 
-                            'Content-type' : "application/json"
-                        };
+    
 
         try {
           await axiosInstance<U>({
                                     method,
                                     url, 
                                     data : payload,
-                                    headers
                                 });
           callback && callback();
         } catch (e) {

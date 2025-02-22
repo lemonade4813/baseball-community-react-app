@@ -1,7 +1,6 @@
 import { AxiosRequestConfig } from "axios";
 import { useCallback, useEffect, useState } from "react";
 import axiosInstance from "../../util/axiosIntance";
-import { getAccessToken } from "../../util/auth";
 
 export const useFetch = <T>(url: string, params? : any, config?: AxiosRequestConfig) => {
     
@@ -13,13 +12,8 @@ export const useFetch = <T>(url: string, params? : any, config?: AxiosRequestCon
       setLoading(true);
       setError(null);
   
-      const accessToken = getAccessToken();
-
-      const headers = { Authorization : `Bearer ${accessToken}`, 
-                        'Content-type' : "application/json"};
-      
       try {
-        const response = await axiosInstance.get<T>(url,{params, headers});
+        const response = await axiosInstance.get<T>(url,{params});
         setData(response.data);
       } catch (e) {
         setError(e instanceof Error ? e.message : "에러가 발생했습니다.");

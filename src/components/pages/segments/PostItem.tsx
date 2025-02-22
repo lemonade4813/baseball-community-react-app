@@ -38,7 +38,7 @@ interface IPostItem {
     author: string;
     content: string;
     createdAt: string;
-  }[] | null;
+  }[]
 }
 
 function PostItem({ posts }: IPostItem) {

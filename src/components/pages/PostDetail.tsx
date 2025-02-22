@@ -4,34 +4,52 @@ import { Button, Container, Flex, Input, InputWrapper, Label, Textarea, Title } 
 import axiosInstance from "../../util/axiosIntance";
 import { getAccessToken } from "../../util/auth";
 import { useModalStore } from "../../store/useModalStore";
-import { useRequest } from "../../hooks/api/useRequest";
 import WriteSvg from "../../assets/write.svg";
+import RecommendPost from "./segments/RecommendPost";
+import { QueryClient, QueryClientProvider, useMutation } from "@tanstack/react-query";
+import { usePostDetailQuery } from "../../hooks/queries/usePostDetailQuery";
 
 export default function PostDetail() {
+
+  const queryClient = new QueryClient();      
+
   const { id } = useParams();
+
+  if(!id){
+    return <p>게시글 ID가 존재하지 않습니다.</p>
+  }
+
   const navigate = useNavigate();
+
   const { openModal } = useModalStore();
-  const { requestApi, error : requestError } = useRequest(); 
+
+  const {data : postDetail , error, refetch} = usePostDetailQuery(id);
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
-  useEffect(() => {
-      if (id) {
-          axiosInstance(`/posts/${id}`)
-              .then((res) => {
-                  setTitle(res.data.title);
-                  setContent(res.data.content);
-              })
-              .catch((e) => openModal(`게시글 조회 중 에러가 발생했습니다. ${e.message}`));
-      }
-  }, [id]);
+  const deletePost = (id : string) => axiosInstance.delete(`/posts/${id}`);
 
-  useEffect(()=>{
-    if(requestError){
-        openModal('처리중 에러가 발생했습니다.')
-    }
-  },[requestError])
+  const mutation = useMutation({
+      mutationFn: deletePost,
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["posts"] }); 
+      },
+      onError : (error) => {
+        openModal(`저장중 오류가 발생했습니다. : ${error.message}`);
+      }
+    });
+
+    useEffect(() => {
+      if (postDetail && !error) {
+        setTitle(postDetail.title);
+        setContent(postDetail.content);
+      }
+      else if(!postDetail && error){
+        openModal('데이터를 조회하는데 실패했습니다.', refetch);
+      }
+    }, [postDetail, error]);  
+
 
   const isAuthorOfPost = async (postId : string) => {
       const accessToken = getAccessToken();
@@ -53,21 +71,24 @@ export default function PostDetail() {
 
       const isAuthor = await isAuthorOfPost(postId);
 
-      const modalMessage = mode === 'write' ? '수정 권한이 없습니다.' : '삭제 권한이 없습니다.';
-
       if (!isAuthor) {
+          const modalMessage = mode === 'write' ? '수정 권한이 없습니다.' : '삭제 권한이 없습니다.';
           openModal(modalMessage);
           return;
       }
       callback && callback(postId);
   };
 
+  
+
   return (
+ 
       <Container>
-          <Title>
+        <Title>
             <img src={WriteSvg} width={20} height={20} alt="게시글 상세 이미지" />
             <span>게시글 상세</span>
           </Title>
+          <RecommendPost id={id}/>
           <InputWrapper style={{ marginTop: '20px' }}>
               <Label htmlFor="title">제목</Label>
               <Input id="title" value={title} readOnly/>
@@ -89,12 +110,14 @@ export default function PostDetail() {
                   </Button>
                   <Button
                       style={{ width: '120px' }}
-                      onClick={() => handlePost('delete', id, () => requestApi(`/posts/${id}`, 'DELETE'))}
+                      onClick={() => handlePost('delete', id, mutation.mutate)}
                   >
                       게시글 삭제
                   </Button>
               </Flex>
           )}
+        
       </Container>
   );
 }
+

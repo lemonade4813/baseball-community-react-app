@@ -3,7 +3,7 @@ import Signup from "../pages/Signup";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import Schedule from "../pages/Schedules";
 
-test('아이디는 최소 6자이상, 영소문사와 숫자를 포함해야 한다.', async () => {
+test('아이디는 최소 6자이상, 영소문자와 숫자를 포함해야 한다.', async () => {
     render(
       <MemoryRouter initialEntries={["/signup"]}>
         <Routes>
