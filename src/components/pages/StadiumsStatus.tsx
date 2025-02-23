@@ -27,7 +27,7 @@ export interface IStadiumInfo {
 
 
 
-const StadiumContainer = styled.div`
+const StadiumsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -41,11 +41,15 @@ const StadiumCard = styled.div`
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  width: 450px;
+  width: 40%;
   padding: 20px;
   transition: transform 0.3s ease;
   &:hover {
     transform: translateY(-5px);
+  }
+
+  @media screen and (max-width : 575px){
+    width : 80%;
   }
 `;
 
@@ -99,7 +103,7 @@ export default function StadiumsStatus() {
   return (
     <Container>
       <Title>경기장 현황</Title>
-      <StadiumContainer>
+      <StadiumsWrapper>
         {stadiumInfoList?.map((stadium, index) => (
           <StadiumCard key={stadium.team}>
             <img 
@@ -141,7 +145,7 @@ export default function StadiumsStatus() {
             />
           </StadiumCard>
         ))}
-      </StadiumContainer>
+      </StadiumsWrapper>
     </Container>
   );
 }

@@ -28,8 +28,11 @@ axiosInstance.interceptors.response.use(
     },
     (error) => {
       if (error.response && error.response.status === 403) {
-        console.log('오류 발생');
-        location.href = '/login'
+        if (error.response?.status === 403) {
+          const currentPath = window.location.pathname; 
+          localStorage.setItem("redirectPath", currentPath);
+          window.location.href = "/login";
+        }
       }
       return Promise.reject(error);
     }

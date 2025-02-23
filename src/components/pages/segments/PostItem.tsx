@@ -15,6 +15,10 @@ const Th = styled.th`
 
 const Tr = styled.tr`
     height: 36px;
+
+    &:nth-child(even){
+      background-color : #808080;
+    }
 `;
 
 const Td = styled.td`

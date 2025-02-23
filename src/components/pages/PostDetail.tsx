@@ -6,7 +6,7 @@ import { getAccessToken } from "../../util/auth";
 import { useModalStore } from "../../store/useModalStore";
 import WriteSvg from "../../assets/write.svg";
 import RecommendPost from "./segments/RecommendPost";
-import { QueryClient, QueryClientProvider, useMutation } from "@tanstack/react-query";
+import { QueryClient, useMutation } from "@tanstack/react-query";
 import { usePostDetailQuery } from "../../hooks/queries/usePostDetailQuery";
 
 export default function PostDetail() {

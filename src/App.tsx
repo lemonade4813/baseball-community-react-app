@@ -7,7 +7,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { GlobalModal } from './components/ui/GlobalModal';
 import Globalstyles from './styles/GlobalStyles';
 import { useAtomValue } from 'jotai';
-import { isDarkModeAtom } from './store/IsDarkMode';
+import { isDarkModeAtom } from './store/isDarkMode';
 import Carousel from './components/ui/Carousel';
 
 const Container = styled.div`
@@ -38,7 +38,6 @@ function App() {
         <GlobalModal/>
         <Container>
           <Header/>
-     
           <Navigation/>
           <Carousel/>
           {/* <Main> */}

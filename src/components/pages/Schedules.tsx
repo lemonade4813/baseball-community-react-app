@@ -3,8 +3,7 @@ import TeamList from "./segments/TeamList";
 import { useSchedulesQuery } from "../../hooks/queries/useScheduleQuery";
 import 'react-datepicker/dist/react-datepicker.css';
 import {  ScheduleFilterOption, IScheduleItem, Team, filterItems, ScheduleTeamOption } from "../../util/filterItems";
-import {  Flex, Container } from "../../styles/Styles";
-import Calendar from "@assets/calendar.svg";
+import {  Container } from "../../styles/Styles";
 import { SpinnerComponent } from "../ui/Spinner";
 import { useModalStore } from "../../store/useModalStore";
 import { Option } from "../compounds/select/Option";
@@ -70,6 +69,18 @@ const Title = styled.h2`
   align-items: center;
 `
 
+const ScheduleSearchWrapper = styled.div`
+  display : flex;
+  justify-content : center;
+  align-items : center;
+
+   @media screen and (max-width : 575px){
+    flex-direction : column;
+  }
+`
+
+
+
 const DatepickerWrapper = styled.div`
 
    display : flex;
@@ -78,48 +89,9 @@ const DatepickerWrapper = styled.div`
    gap : 20px;
    width : 400px;
 
-  .react-datepicker{
-    border : none;
-  }
-
-
-  .react-datepicker__input-container input{
-    height : 48px;
-    width : 160px;
-    // background : #FFFFCC;
-    border-radius : 16px;
-    border : 1px solid #D3D3D3;
-    padding-left : 8px;
-    font-size : 16px;
-    background-image : url(${Calendar});
-    background-repeat: no-repeat;
-    background-position: right 16px center; 
-    background-size: 20px; 
-  }
-
-  .react-datepicker__header {
-    display : none;
-  }
-
-  .react-datepicker__navigation{
-    display : none;
-  }
-
-  .react-datepicker__month-container{
-
-    border : 1px solid #D3D3D3;
-    border-radius : 16px;
-  }
-
-  .react-datepicker__month-text {
-    height : 36px;
-    width : 48px;
-    line-height : 30px;
-    font-size : 16px;
-  }
-
-  .react-datepicker__triangle{
-    display : none;
+  @media screen and (max-width : 575px){
+    flex-direction : column;
+    margin-top : 20px;
   }
 `
 
@@ -128,6 +100,9 @@ const TeamSelectWrapper = styled.div`
   align-items : center;
   gap : 20px;
 
+  @media screen and (max-width : 575px){
+    flex-direction : column;
+  }
 `
 
 export default function Schedule() {
@@ -176,7 +151,7 @@ export default function Schedule() {
         <img src={ScheduleSvg} width={40} height={40} alt="경기 일정 이미지"/>
         <span>2025 KBO 경기 일정</span>
       </Title>
-      <Flex style={{alignItems : 'center'}}>
+      <ScheduleSearchWrapper>
       <TeamSelectWrapper>
         <p>팀 선택</p>
         <TeamList onClick={handleTeam} selectedTeam={team} isSchedulePage/>
@@ -191,7 +166,7 @@ export default function Schedule() {
           {monthOptionItems}
         </SelectGroup>
         </DatepickerWrapper>
-        </Flex>
+        </ScheduleSearchWrapper>
       <Table>
         <Tr>
           <Th>날짜</Th>

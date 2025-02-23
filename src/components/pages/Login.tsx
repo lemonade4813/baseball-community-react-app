@@ -3,11 +3,20 @@ import { Button, Container, Flex, Input, Label, Title } from "../../styles/Style
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../util/axiosIntance";
 import { useUserInfo } from "../../store/useUserInfoStore";
+import styled from "styled-components";
+import { useModalStore } from "../../store/useModalStore";
+import { AxiosError } from "axios";
 
 type LoginInputs = {
   userId: string;
   password: string;
 };
+
+const ErrorMessage = styled.p`
+  font-size : 12px;
+  color : red;
+  margin-top : 4px;
+`
 
 export default function Login() {
   const {
@@ -20,6 +29,8 @@ export default function Login() {
 
   const setUserInfo = useUserInfo((state) => state.setUserInfo);
 
+  const { openModal }  = useModalStore();
+
 
   const submitLoginInfo = async (formData: LoginInputs) => {
     try {
@@ -29,6 +40,7 @@ export default function Login() {
                                 headers : {
                                   "Content-Type" : 'application/json'}
                               });
+      console.log(status)                        
       if(status === 200){
           setUserInfo({
             nickname: data.nickname,
@@ -37,11 +49,15 @@ export default function Login() {
             team : data.team
           });
           sessionStorage.setItem('accessToken' , data.accessToken);
-          navigate('/schedule');
+          
+          const redirectPath = localStorage.getItem("redirectPath") || "/";
+          localStorage.removeItem("redirectPath"); 
+          navigate(redirectPath);
+
       }
-    } catch (e) {
-      if (e instanceof Error) {
-        console.log(e.message);
+    } catch (e : unknown) {
+      if(e instanceof AxiosError){
+          openModal(e.response?.data)
       }
     }
   };
@@ -63,8 +79,8 @@ export default function Login() {
             })}
             placeholder="아이디를 입력하세요"
           />
-          {errors.userId && <p>{errors.userId.message}</p>}
         </Flex>
+        {errors.userId && <ErrorMessage>{errors.userId.message}</ErrorMessage>}
         <Flex style={{marginTop : '20px'}}>
           <Label htmlFor="password">패스워드</Label>
           <Input
@@ -79,8 +95,9 @@ export default function Login() {
             })}
             placeholder="패스워드를 입력하세요"
           />
-          {errors.password && <p>{errors.password.message}</p>}
+     
         </Flex>
+        {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
         <div style={{textAlign : 'center'}}>
           <Button 
               type="submit" 

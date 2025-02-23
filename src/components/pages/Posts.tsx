@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { Container, Flex, Title } from "../../styles/Styles";
+import { Container, Title } from "../../styles/Styles";
 import { useEffect, useState } from "react";
 import PostSearchComponent from "./segments/PostSearchComponent";
 import PostItem from "./segments/PostItem";
@@ -17,6 +17,13 @@ const Button = styled.button`
   background-color : #B80000;
   color : #FFF;
   cursor : pointer;
+`
+
+const PostSearchWrapper = styled.div`
+  display : flex;
+  flex-wrap : wrap;
+  gap : 20px;
+  align-items : center;
 `
 
 
@@ -40,11 +47,11 @@ export default function Posts() {
             <img src={PostSvg} width={40} height={40} alt="게시판 이미지"/>
             <span>게시판</span>
         </Title>
-        <Flex>
+        <PostSearchWrapper>
           <PostSearchComponent creteria={creteria} setCreteria={setCreteria} />
           <Button onClick={() => refetch()}>조회</Button>
           <Button onClick={() => navigate("/posts/write")}>게시글 작성</Button>
-        </Flex>
+        </PostSearchWrapper>
         {isLoading ? (
           <SpinnerComponent/>
         ) : 

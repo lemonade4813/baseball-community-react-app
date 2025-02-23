@@ -1,18 +1,37 @@
+import { useAtomValue } from "jotai";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import { isResponsiveNavOpenAtom } from "../../store/isResponsiveNavOpen";
 
-const Nav = styled.nav`
+const Nav = styled.nav<{isOpen : boolean}>`
   background-color: #4B0229; /* 와인색 */
-  padding: 8px 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  height : 48px;
+
+  @media screen and (max-width : 575px){
+    padding: 0;
+    position : relative;
+    display : ${({isOpen}) => isOpen ? 'block' : 'none'};
+  }
 `;
 
-const Menu = styled.ul`
+const Menu = styled.ul<{isOpen : boolean}>`
   display: flex;
   justify-content: space-around;
   list-style: none;
   margin: 0;
   padding: 0;
+
+  @media screen and (max-width : 575px){
+    position: absolute;
+    flex-direction: column;
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    max-height: ${({ isOpen }) => (isOpen ? "300px" : "0")};
+    transform: translateY(${({ isOpen }) => (isOpen ? "0" : "-120px")});
+    z-index : 9999;
+    background-color : rgba(0, 0, 0, 0.5);
+    width : 100%;
+  }
 `;
 
 const MenuItem = styled.li`
@@ -22,9 +41,9 @@ const MenuItem = styled.li`
   text-align: center;
 
   a {
+    height : 48px;
     text-decoration: none;
     color: #FFF;
-    padding: 10px 15px;
     border-radius: 5px;
     transition: background-color 0.3s ease, color 0.3s ease;
     display: flex;
@@ -34,6 +53,7 @@ const MenuItem = styled.li`
 
     &.active {
       background-color: #721f40;
+      color : #FFF;
     }
 
     &:hover {
@@ -52,31 +72,37 @@ const SubMenu = styled.ul`
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: #ffffff;
-  border: 1px solid #ddd;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 100%; /* MenuItem과 동일한 너비 */
+  background-color: #fff;
+  border-radius: 8px;
+
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   list-style: none;
   z-index: 9999;
+  overflow: hidden;
 
-  padding: 10px 0;
-  width: 100%;
+  a {
+    display: block;
+    color: #333;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    width: 100%;
+    line-height : 48px;
+    height : 48px;
 
-    a {
-      display: block;
-      padding: 8px 12px;
-      color: #A0A0A0;
-
-      &:hover {
-        background-color: #F1F1F1;
-        color: #721F40;
-      }
+    &:hover {
+      background-color:rgb(138, 66, 95);
+      color: #fff;
+    }
   }
 `;
 
 const Navigation = () => {
+  const isResponsiveNavOpen = useAtomValue(isResponsiveNavOpenAtom);
+  
   return (
-    <Nav>
-      <Menu>
+    <Nav isOpen={isResponsiveNavOpen}>
+      <Menu isOpen={isResponsiveNavOpen}>
         <MenuItem>
           <NavLink to="/schedule" className={({ isActive }) => (isActive ? "active" : undefined)}>
             경기 일정
