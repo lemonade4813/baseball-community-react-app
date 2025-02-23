@@ -113,22 +113,16 @@ export default function Schedule() {
 
   const [{team}, setSelectedTeam] = useState<ScheduleTeamOption>({ team : '' })
 
-  const [filteredItems, setFilteredItems] = useState<IScheduleItem[]>([]);
-
   const { openModal } = useModalStore();
 
+  const filteredItems = filterItems<IScheduleItem, ScheduleFilterOption>(schedules, {team, month});
+  
   useEffect(()=>{
-
-    if (schedules && !error) {
-      const items = filterItems<IScheduleItem, ScheduleFilterOption>(schedules, {team, month});
-      setFilteredItems(items);
-    }
-
-    else if(!schedules && error){
+    if(!schedules && error){
       openModal(error.message, refetch, "재시도");
     }
 
-  },[schedules, team, month, error, openModal])
+  },[schedules, error, openModal])
 
   const monthOptionItems = useMemo(() =>  Array.from({length:9}, 
     (_,i)=>i+1).map((month) => 
