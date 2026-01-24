@@ -1,30 +1,19 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
-import type { ViteUserConfig } from "vitest/config";
-import path from "path";
+import { defineConfig } from 'vitest/config'; // 'vite'가 아닌 'vitest/config'에서 가져옵니다.
+import react from '@vitejs/plugin-react-swc';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
-const vitestConfig: ViteUserConfig = {
+export default defineConfig({
+  plugins: [
+    react(),
+    tsconfigPaths()
+  ],
   test: {
     globals: true,
     environment: "jsdom",
     setupFiles: "./setupTest.ts",
   },
-};
-
-// https://vite.dev/config/
-export default defineConfig({
-  plugins: [react()],
-  ...vitestConfig,
-  base : "/",
-  resolve : {
-    alias : [
-      { find: "@", replacement: path.resolve(__dirname, "src") },
-      {find : "@assets", replacement: path.resolve(__dirname, "/src/assets")},
-      {find : "@components", replacement: path.resolve(__dirname, "src/components")},
-      {find : "@hooks", replacement: path.resolve(__dirname, "/src/hooks")},
-      {find : "@store", replacement: path.resolve(__dirname,"/src/store")},
-      {find : "@util", replacement: path.resolve(__dirname,"/src/util")},
-    ]
-  },
-  define : {'global' : {}},
-})
+  base: "/",
+  define: { 'global': {} },
+  // resolve: { alias: { "@": path.resolve(__dirname, "src") } } 
+  // tsconfigPaths() 사용 시 위 alias는 생략 가능합니다.
+});

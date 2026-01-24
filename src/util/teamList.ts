@@ -1,14 +1,14 @@
-import BaseBallSvg from '@assets/baseball.svg';
-import Bears from "@assets/team/bears.webp";
-import Dinos from "@assets/team/dinos.svg";
-import Eagles from "@assets/team/eagles.svg";
-import Giants from "@assets/team/giants.svg";
-import Landers from "@assets/team/landers.svg";
-import Lions from "@assets/team/lions.svg";
-import Twins from "@assets/team/twins.svg";
-import Tigers from "@assets/team/tigers.svg";
-import Wiz from "@assets/team/wiz.svg";
-import Heroes from "@assets/team/heroes.svg";
+import BaseBallSvg from '@/assets/baseball.svg';
+import Bears from "@/assets/team/bears.webp";
+import Dinos from "@/assets/team/dinos.svg";
+import Eagles from "@/assets/team/eagles.svg";
+import Giants from "@/assets/team/giants.svg";
+import Landers from "@/assets/team/landers.svg";
+import Lions from "@/assets/team/lions.svg";
+import Twins from "@/assets/team/twins.svg";
+import Tigers from "@/assets/team/tigers.svg";
+import Wiz from "@/assets/team/wiz.svg";
+import Heroes from "@/assets/team/heroes.svg";
 import { Team } from './filterItems';
 
 

@@ -3,7 +3,7 @@ import { useUserInfo } from "../../store/useUserInfoStore";
 import { useShallow } from "zustand/shallow";
 import axiosInstance from "../../util/axiosIntance";
 import { Flex } from "../../styles/Styles";
-import LogoutSvg from "@assets/logout.svg";
+import LogoutSvg from "@/assets/logout.svg";
 import styled from "styled-components";
 
 const HeaderAuthMenuWrapper = styled.div`

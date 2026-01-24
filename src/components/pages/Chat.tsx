@@ -1,10 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Container, Title } from "../../styles/Styles";
-import { useUserInfo } from "../../store/useUserInfoStore";
-import BaseBallSvg from "@assets/baseball.svg";
-import { teamImgListAll } from "../../util/teamList";
-import ChatSvg from "../../assets/chat.svg";
+import { Container, Title } from "@/styles/Styles";
+import { useUserInfo } from "@/store/useUserInfoStore";
+import BaseBallSvg from "@/assets/baseball.svg";
+import { teamImgListAll } from "@/util/teamList";
+import ChatSvg from "@/assets/chat.svg";
+import axios from "axios";
+import { useState } from "react";
 
 const ButtonWrapper = styled.button`
   background: linear-gradient(135deg, #6eb3f7, #4a90e2);
@@ -64,14 +66,17 @@ export default function Chat() {
 
   return (
     <Container>
+        
         <Title>
           <img src={ChatSvg} width={40} height={40}/>
           <span>채팅방</span>
+       
         </Title>
         <ChatTypeWrapper>
           <ChatTypeButton />
           {myTeam && <ChatTypeButton team={myTeam} />}
         </ChatTypeWrapper>
+        
     </Container>
   );
 }

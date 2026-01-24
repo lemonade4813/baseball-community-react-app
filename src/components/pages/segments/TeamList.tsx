@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { styled } from "styled-components";
-import Arrow from "@assets/arrow-up.svg";
-import { Team } from "../../../util/filterItems";
+import Arrow from "@/assets/arrow-up.svg";
+import { Team } from "@/util/filterItems";
 import TeamItem from "./TeamItem";
-import { teamImgList, teamImgListAll } from "../../../util/teamList";
+import { teamImgList, teamImgListAll } from "@/util/teamList";
 
 
 const TeamListWrapper = styled.div`

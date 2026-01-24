@@ -1,13 +1,15 @@
 
 import { styled } from "styled-components";
-import BallSvg from "@assets/baseball.svg";
+import BallSvg from "@/assets/baseball.svg";
 import { useAtom, useSetAtom } from "jotai";
-import SunSvg from "../../assets/sun.svg";
-import MoonSvg from "../../assets/moon.svg";
-import HambergerSvg from "../../assets/hamburger.svg";
+import SunSvg from "@/assets/sun.svg";
+import MoonSvg from "@/assets/moon.svg";
+import HambergerSvg from "@/assets/hamburger.svg";
 import HeaderAuthMenu from "./HeaderAuthMenu";
-import { isResponsiveNavOpenAtom } from "../../store/isResponsiveNavOpen";
-import { isDarkModeAtom } from "../../store/isDarkMode";
+import { isResponsiveNavOpenAtom } from "@/store/isResponsiveNavOpen";
+import { isDarkModeAtom } from "@/store/isDarkMode";
+import { useState } from "react";
+import axios from "axios";
 
 
 const HeaderContainer = styled.header`
@@ -69,15 +71,19 @@ export default function Header() {
     const [isDarkMode, setIsDarkMode] = useAtom(isDarkModeAtom);
     const setIsResponsiveNavOpen = useSetAtom(isResponsiveNavOpenAtom);
 
+  
     return (
         <HeaderContainer>
             <TitleWrapper>
                 <Title>
+          
                     Inside The Park
                 </Title>
                 <img src={BallSvg} width={30}/>
+                
             </TitleWrapper>       
             <AuthLinksWrapper>
+            
             <img
                 src={isDarkMode ? MoonSvg : SunSvg} 
                 width={30} 
@@ -87,6 +93,7 @@ export default function Header() {
             <HeaderAuthMenu/>
             <HambergerMenu src={HambergerSvg} onClick={()=>setIsResponsiveNavOpen((prev) => !prev)}/>
             </AuthLinksWrapper>
+           
         </HeaderContainer>
     );
 }

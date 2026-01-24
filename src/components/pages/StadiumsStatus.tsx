@@ -1,11 +1,11 @@
 import { useEffect } from "react";
-import { useModalStore } from "../../store/useModalStore";
+import { useModalStore } from "@/store/useModalStore";
 import styled from "styled-components";
-import HomepageSvg from "../../assets/home.svg";
-import { teamImgList } from "../../util/teamList";
-import { MapBox } from "../map/MapBox";
-import { useStadiumsStatusQuery } from "../../hooks/queries/useStadiumsStatusQuery";
-import { Container, Title } from "../../styles/Styles";
+import HomepageSvg from "@/assets/home.svg";
+import { teamImgList } from "@/util/teamList";
+import { MapBox } from "@/components/map/MapBox";
+import { useStadiumsStatusQuery } from "@/hooks/queries/useStadiumsStatusQuery";
+import { Container, Title } from "@/styles/Styles";
 
 declare global {
   interface Window {
