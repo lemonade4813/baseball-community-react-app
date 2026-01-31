@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom';
-import { useUserInfo } from '../../store/useUserInfoStore';
+import { useUserInfo } from '@/store/useUserInfoStore';
 
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {

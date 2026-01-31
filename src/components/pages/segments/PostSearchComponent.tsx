@@ -1,5 +1,5 @@
-import { InputGroup } from "../../compounds/input/InputGroup";
-import { Flex } from "../../../styles/Styles";
+import { InputGroup } from "@/compounds/input/InputGroup";
+import { Flex } from "@/styles/Styles";
 import styled from "styled-components";
 
 const PostSearchWrapper = styled.div`

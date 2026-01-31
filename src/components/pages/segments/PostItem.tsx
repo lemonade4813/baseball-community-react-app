@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
-import { formatTimestamp } from "../../../util/formatTimeStamp";
+import { formatTimestamp } from "@/util/formatTimeStamp";
 import { memo } from "react";
 
 const Table = styled.table`

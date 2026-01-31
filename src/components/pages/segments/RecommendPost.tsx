@@ -1,10 +1,10 @@
-import ThumbUpSvg from "../../../assets/thumbup.svg";
-import ThumbDownSvg from "../../../assets/thumbdown.svg";
+import ThumbUpSvg from "@/assets/thumbup.svg";
+import ThumbDownSvg from "@/assets/thumbdown.svg";
 import styled from "styled-components";
 import { useEffect } from "react";
-import { useModalStore } from "../../../store/useModalStore";
-import axiosInstance from "../../../util/axiosIntance";
-import { usePostRecommendQuery } from "../../../hooks/queries/usePostRecommendQuery";
+import { useModalStore } from "@/store/useModalStore";
+import axiosInstance from "@/util/axiosIntance";
+import { usePostRecommendQuery } from "@/hooks/queries/usePostRecommendQuery";
 
 const RecommendPostWrapper = styled.div`
     display : flex;
@@ -62,13 +62,13 @@ export default function RecommendPost({id} : {id? :  string}) {
   )
 }
 
-// import ThumbUpSvg from "../../../assets/thumbup.svg";
-// import ThumbDownSvg from "../../../assets/thumbdown.svg";
+// import ThumbUpSvg from "../@/assets/thumbup.svg";
+// import ThumbDownSvg from "../@/assets/thumbdown.svg";
 // import styled from "styled-components";
-// import { useFetch } from "../../../hooks/api/useFetch";
-// import { useRequest } from "../../../hooks/api/useRequest";
+// import { useFetch } from "../@/hooks/api/useFetch";
+// import { useRequest } from "../@/hooks/api/useRequest";
 // import { useEffect } from "react";
-// import { useModalStore } from "../../../store/useModalStore";
+// import { useModalStore } from "../@/store/useModalStore";
 
 // const RecommendPostWrapper = styled.div`
 //     display : flex;

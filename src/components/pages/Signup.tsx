@@ -2,13 +2,13 @@ import { useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import TeamList from "./segments/TeamList";
 import { styled } from "styled-components";
-import { Container, Flex, Input, Label, Title } from "../../styles/Styles";
-import axiosInstance from "../../util/axiosIntance";
-import { useModalStore } from "../../store/useModalStore";
+import { Container, Flex, Input, Label, Title } from "@/styles/Styles";
+import axiosInstance from "@/util/axiosIntance";
+import { useModalStore } from "@/store/useModalStore";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Team } from "../../util/filterItems";
+import { Team } from "@/util/filterItems";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
 const ACCEPTED_FILE_TYPES = ["image/jpeg", "image/png", "image/jpg"];

@@ -2,12 +2,12 @@ import React, { useState, useEffect, useRef } from "react";
 import stompClient from "../../socket";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import axiosInstance from "../../util/axiosIntance";
-import BaseBallSvg from "../../assets/baseball.svg";
-import { teamImgListAll } from "../../util/teamList";
-import { Title, Container, Input, InputWrapper, Button, Flex } from "../../styles/Styles";
-import { useUserInfo } from "../../store/useUserInfoStore";
-import UserSvg from "../../assets/user.svg";
+import axiosInstance from "@/util/axiosIntance";
+import BaseBallSvg from "@/assets/baseball.svg";
+import { teamImgListAll } from "@/util/teamList";
+import { Title, Container, Input, InputWrapper, Button, Flex } from "@/styles/Styles";
+import { useUserInfo } from "@/store/useUserInfoStore";
+import UserSvg from "@/assets/user.svg";
 
 const ChatMessagesWrapper = styled.div`
     height: 300px;

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
-import axiosInstance from "../../util/axiosIntance";
-import { Button, Input, InputWrapper, Label, Textarea, Title, Container } from "../../styles/Styles";
-import {  useRequest } from "../../hooks/api/useRequest";
+import axiosInstance from "@/util/axiosIntance";
+import { Button, Input, InputWrapper, Label, Textarea, Title, Container } from "@/styles/Styles";
+import {  useRequest } from "@/hooks/api/useRequest";
 import { SpinnerComponent } from "../ui/Spinner";
-import { useModalStore } from "../../store/useModalStore";
-import WriteSvg from "../../assets/write.svg";
+import { useModalStore } from "@/store/useModalStore";
+import WriteSvg from "@/assets/write.svg";
 
 export default function PostWrite({isEditMode} : {isEditMode? : boolean}) {
   

@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { useModalStore } from "../../store/useModalStore";
-import { Button } from "../../styles/Styles";
-import CloseSvg from "../../assets/close.svg";
+import { useModalStore } from "@/store/useModalStore";
+import { Button } from "@/styles/Styles";
+import CloseSvg from "@/assets/close.svg";
 
 const ModalOverlay = styled.div`
   position: fixed;

@@ -1,5 +1,5 @@
 import { styled } from "styled-components"
-import SpinnerSvg from "../../assets/Spinner.svg"
+import SpinnerSvg from "@/assets/Spinner.svg"
 
 
 export const SpinnerOverlay = styled.div`

@@ -1,5 +1,5 @@
-import FoodSvg from "../../assets/food.svg";
-import { Container, Title } from "../../styles/Styles";
+import FoodSvg from "@/assets/food.svg";
+import { Container, Title } from "@/styles/Styles";
 
 export default function StadiumFoods() {
   return (

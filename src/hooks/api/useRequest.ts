@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import axiosInstance from "../../util/axiosIntance";
+import axiosInstance from "@/util/axiosIntance";
 
 // POST 요청 커스텀 훅
 export const useRequest = <T, U>() => {

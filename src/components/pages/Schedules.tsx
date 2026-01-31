@@ -1,15 +1,15 @@
 import { styled } from "styled-components";
 import TeamList from "./segments/TeamList";
-import { useSchedulesQuery } from "../../hooks/queries/useScheduleQuery";
+import { useSchedulesQuery } from "@/hooks/queries/useScheduleQuery";
 import 'react-datepicker/dist/react-datepicker.css';
-import {  ScheduleFilterOption, IScheduleItem, Team, filterItems, ScheduleTeamOption } from "../../util/filterItems";
-import {  Container } from "../../styles/Styles";
+import {  ScheduleFilterOption, IScheduleItem, Team, filterItems, ScheduleTeamOption } from "@/util/filterItems";
+import {  Container } from "@/styles/Styles";
 import { SpinnerComponent } from "../ui/Spinner";
-import { useModalStore } from "../../store/useModalStore";
-import { Option } from "../compounds/select/Option";
-import { SelectGroup } from "../compounds/select/SelectGroup";
+import { useModalStore } from "@/store/useModalStore";
+import { Option } from "@/compounds/select/Option";
+import { SelectGroup } from "@/compounds/select/SelectGroup";
 import { useEffect, useMemo, useState } from "react";
-import ScheduleSvg from "../../assets/schedule.svg";
+import ScheduleSvg from "@/assets/schedule.svg";
 import axios from "axios";
 
 // const SchedulesContainer = styled.main`

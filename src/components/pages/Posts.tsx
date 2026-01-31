@@ -1,13 +1,13 @@
 import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { Container, Title } from "../../styles/Styles";
+import { Container, Title } from "@/styles/Styles";
 import { useEffect, useState } from "react";
 import PostSearchComponent from "./segments/PostSearchComponent";
 import PostItem from "./segments/PostItem";
 import { SpinnerComponent } from "../ui/Spinner";
-import { useModalStore } from "../../store/useModalStore";
-import PostSvg from "../../assets/post.svg";
-import { usePostsQuery } from "../../hooks/queries/usePostsQuery";
+import { useModalStore } from "@/store/useModalStore";
+import PostSvg from "@/assets/post.svg";
+import { usePostsQuery } from "@/hooks/queries/usePostsQuery";
 
 const Button = styled.button`
   width : 120px;

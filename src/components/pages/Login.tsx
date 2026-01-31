@@ -1,10 +1,10 @@
 import { useForm } from "react-hook-form";
-import { Button, Container, Flex, Input, Label, Title } from "../../styles/Styles";
+import { Button, Container, Flex, Input, Label, Title } from "@/styles/Styles";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from "../../util/axiosIntance";
-import { useUserInfo } from "../../store/useUserInfoStore";
+import axiosInstance from "@/util/axiosIntance";
+import { useUserInfo } from "@/store/useUserInfoStore";
 import styled from "styled-components";
-import { useModalStore } from "../../store/useModalStore";
+import { useModalStore } from "@/store/useModalStore";
 import { AxiosError } from "axios";
 
 type LoginInputs = {

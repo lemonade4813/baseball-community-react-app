@@ -1,8 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useUserInfo } from "../../store/useUserInfoStore";
+import { useUserInfo } from "@/store/useUserInfoStore";
 import { useShallow } from "zustand/shallow";
-import axiosInstance from "../../util/axiosIntance";
-import { Flex } from "../../styles/Styles";
+import axiosInstance from "@/util/axiosIntance";
+import { Flex } from "@/styles/Styles";
 import LogoutSvg from "@/assets/logout.svg";
 import styled from "styled-components";
 

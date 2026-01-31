@@ -1,5 +1,5 @@
 import { css, styled } from "styled-components"
-import { Team } from "../../../util/filterItems"
+import { Team } from "@/util/filterItems"
 
 
 const TeamItemWrapper = styled.button<{isSelected : boolean}>`

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import BgImage1 from "../../assets/background/bg_1.jpg";
-import BgImage2 from "../../assets/background/bg_2.jpg";
-import BgImage3 from "../../assets/background/bg_3.jpg";
+import BgImage1 from "@/assets/background/bg_1.jpg";
+import BgImage2 from "@/assets/background/bg_2.jpg";
+import BgImage3 from "@/assets/background/bg_3.jpg";
 
 import styled from "styled-components";
 

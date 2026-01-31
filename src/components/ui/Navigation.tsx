@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import { isResponsiveNavOpenAtom } from "../../store/isResponsiveNavOpen";
+import { isResponsiveNavOpenAtom } from "@/store/isResponsiveNavOpen";
 
 const Nav = styled.nav<{isOpen : boolean}>`
   background-color: #4B0229; /* 와인색 */

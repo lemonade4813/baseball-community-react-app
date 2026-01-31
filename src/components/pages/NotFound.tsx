@@ -1,6 +1,6 @@
 import { styled } from "styled-components"
-import BatsBallSvg from "../../assets/batsball.png"
-import { Flex } from "../../styles/Styles"
+import BatsBallSvg from "@/assets/batsball.png"
+import { Flex } from "@/styles/Styles"
 
 
 const ErrorText = styled.p`

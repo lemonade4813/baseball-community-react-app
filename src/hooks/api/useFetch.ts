@@ -1,6 +1,6 @@
 import { AxiosRequestConfig } from "axios";
 import { useCallback, useEffect, useState } from "react";
-import axiosInstance from "../../util/axiosIntance";
+import axiosInstance from "@/util/axiosIntance";
 
 export const useFetch = <T>(url: string, params? : any, config?: AxiosRequestConfig) => {
     

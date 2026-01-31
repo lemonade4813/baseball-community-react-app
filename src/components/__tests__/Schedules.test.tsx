@@ -1,10 +1,10 @@
 import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useSchedulesQuery } from "../../hooks/queries/useScheduleQuery";
+import { useSchedulesQuery } from "@/hooks/queries/useScheduleQuery";
 import Schedule from "../pages/Schedules";
 import { vi } from "vitest";
 
-vi.mock("../../hooks/queries/useScheduleQuery");
+vi.mock("@/hooks/queries/useScheduleQuery");
 
 const mockUseSchedulesQuery = useSchedulesQuery as jest.MockedFunction<typeof useSchedulesQuery>;
 

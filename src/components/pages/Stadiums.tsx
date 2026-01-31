@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import StadiumSvg from "../../assets/stadium.svg";
-import { Container, Title } from "../../styles/Styles";
+import StadiumSvg from "@/assets/stadium.svg";
+import { Container, Title } from "@/styles/Styles";
 
 
 export default function Stadiums() {

@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
-import { Button, Container, Flex, Input, InputWrapper, Label, Textarea, Title } from "../../styles/Styles";
-import axiosInstance from "../../util/axiosIntance";
-import { getAccessToken } from "../../util/auth";
-import { useModalStore } from "../../store/useModalStore";
-import WriteSvg from "../../assets/write.svg";
+import { Button, Container, Flex, Input, InputWrapper, Label, Textarea, Title } from "@/styles/Styles";
+import axiosInstance from "@/util/axiosIntance";
+import { getAccessToken } from "@/util/auth";
+import { useModalStore } from "@/store/useModalStore";
+import WriteSvg from "@/assets/write.svg";
 import RecommendPost from "./segments/RecommendPost";
 import { QueryClient, useMutation } from "@tanstack/react-query";
-import { usePostDetailQuery } from "../../hooks/queries/usePostDetailQuery";
+import { usePostDetailQuery } from "@/hooks/queries/usePostDetailQuery";
 
 export default function PostDetail() {
 
