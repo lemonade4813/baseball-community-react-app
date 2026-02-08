@@ -10,7 +10,6 @@ import { Option } from "@/compounds/select/Option";
 import { SelectGroup } from "@/compounds/select/SelectGroup";
 import { useEffect, useMemo, useState } from "react";
 import ScheduleSvg from "@/assets/schedule.svg";
-import axios from "axios";
 
 // const SchedulesContainer = styled.main`
 //     display : flex;
@@ -80,8 +79,6 @@ const ScheduleSearchWrapper = styled.div`
   }
 `
 
-
-
 const DatepickerWrapper = styled.div`
 
    display : flex;
@@ -113,9 +110,6 @@ export default function Schedule() {
   const [{ team }, setSelectedTeam] = useState<ScheduleTeamOption>({ team: '' });
   const { openModal } = useModalStore();
 
-  // 🔴 에러 수정: 아래에 있던 useState를 모든 조건부 return 위로 올립니다.
-  const [file, setFile] = useState<File | null>(null);
-
   const filteredItems = filterItems<IScheduleItem, ScheduleFilterOption>(schedules, { team, month });
 
   useEffect(() => {
@@ -141,40 +135,7 @@ export default function Schedule() {
   };
 
  
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setFile(e.target.files[0]);
-    } else {
-      setFile(null); // 선택 취소 시 상태 초기화
-    }  
-  };
     
-    
-    
-    const handleUpload = async () => {
-      if (!file) {
-        alert("파일을 먼저 선택해주세요!");
-      return;
-    }
-    
-    // 전송할 데이터를 담는 FormData 생성
-    const formData = new FormData();
-    
-      formData.append('file', file); // 스프링 부트의 @RequestParam("file")과 이름이 일치해야 함
-      try { 
-        const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/schedule/upload`, formData, {
-        headers: {
-        'Content-Type': 'multipart/form-data', // 중요: 멀티파트 설정
-        },
-      });
-      
-      alert("서버 응답: " + response.data);
-      } catch (error) {
-        console.error("업로드 실패:", error);
-      alert("업로드 중 오류가 발생했습니다.");
-      }  
-    }
 
 
   return (
@@ -182,14 +143,7 @@ export default function Schedule() {
       <Title>
         <img src={ScheduleSvg} width={40} height={40} alt="경기 일정 이미지"/>
         <span>2025 KBO 경기 일정</span>
-      </Title>
-      <div>
-          <h3>Excel 파일 업로드 (MongoDB 저장)</h3>
-          <input type="file" accept=".xlsx, .xls" onChange={handleFileChange} />
-          <button onClick={handleUpload} style={{ marginLeft: '10px' }}>
-            서버로 전송
-          </button>
-       </div>  
+      </Title>  
       <ScheduleSearchWrapper>
       <TeamSelectWrapper>
         <p>팀 선택</p>
@@ -234,7 +188,5 @@ export default function Schedule() {
         )}
       </Table>
    </Container>
-  )
-
-          
+  )  
 }
