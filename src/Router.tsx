@@ -13,6 +13,7 @@ import Stadiums from './components/pages/Stadiums'
 import StadiumsStatus from './components/pages/StadiumsStatus'
 import StadiumFoods from './components/pages/StadiumsFoods'
 import NotFound from './components/pages/NotFound'
+import StadiumItem from './widgets/StadiumItem'
 
 const routes = createBrowserRouter([
     {
@@ -34,11 +35,12 @@ const routes = createBrowserRouter([
         { path : "chat/:team", element : <ChatRoom/>},
         { path : "login", element : <Login/>},
         { path : "signup", element : <Signup/>},
-        { path : "stadiums", element: <Stadiums /> , 
+        { path : "stadiums", element: <Stadiums /> ,
             children : [
                 {path : 'location', element : <StadiumsStatus/>},
                 {path : 'foods', element : <StadiumFoods/>}
             ]},
+        { path : "stadium/:team", element : <StadiumItem/>},    
         { path : "*", element : <NotFound/>}
       ],
     },

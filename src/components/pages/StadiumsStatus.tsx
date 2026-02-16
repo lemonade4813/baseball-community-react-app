@@ -99,7 +99,6 @@ export default function StadiumsStatus() {
     }
   }, [error, openModal]);
 
-
   return (
     <Container>
       <Title>경기장 현황</Title>
@@ -109,14 +108,14 @@ export default function StadiumsStatus() {
             <img 
                 width={48} 
                 height={48} 
-                src={teamImgList.find((t) => t.team === stadium.team)?.src}
+                src={teamImgList?.find((t) => t.team === stadium.team)?.src}
             />
             <StadiumImage
               src={`${import.meta.env.VITE_API_BASE_URL}${stadium.imagePath}`}
               alt={`${stadium.stadiumName} 이미지`}
             />
             <a 
-              href={stadium.homepage} 
+              href={`/stadium/${stadium.team.toLocaleLowerCase()}`}
               style={{cursor : 'pointer'}} 
               target="_blank" 
               rel="noopener noreferrer"
