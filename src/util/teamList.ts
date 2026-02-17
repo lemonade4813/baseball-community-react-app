@@ -19,16 +19,16 @@ export type TeamImgList = {
   }[];
   
   export const teamImgList: TeamImgList = [
-    { src: Bears, name: "두산 베어스", team: "두산" },
-    { src: Dinos, name: "NC 다이노스", team: "NC" },
-    { src: Eagles, name: "한화 이글스", team: "한화" },
-    { src: Giants, name: "롯데 자이언츠", team: "롯데" },
-    { src: Tigers, name: "기아 타이거즈", team: "KIA" },
-    { src: Landers, name: "SSG 랜더스", team: "SSG" },
-    { src: Lions, name: "삼성 라이온스", team: "삼성" },
-    { src: Twins, name: "LG 트윈스", team: "LG" },
-    { src: Wiz, name: "KT 위즈", team: "KT" },
-    { src: Heroes, name: "키움 히어로즈", team: "키움" },
+    { src: Bears, name: "두산 베어스", team: "doosan" },
+    { src: Dinos, name: "NC 다이노스", team: "nc" },
+    { src: Eagles, name: "한화 이글스", team: "hanwha" },
+    { src: Giants, name: "롯데 자이언츠", team: "lotte" },
+    { src: Tigers, name: "기아 타이거즈", team: "kia" },
+    { src: Landers, name: "SSG 랜더스", team: "ssg" },
+    { src: Lions, name: "삼성 라이온스", team: "samsung" },
+    { src: Twins, name: "LG 트윈스", team: "lg" },
+    { src: Wiz, name: "KT 위즈", team: "kt" },
+    { src: Heroes, name: "키움 히어로즈", team: "kiwoom" },
   ];
   
   export const teamImgListAll: TeamImgList = [

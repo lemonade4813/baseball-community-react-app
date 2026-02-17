@@ -3,11 +3,13 @@ import { useEffect } from "react";
 interface ICoordinate {
     latitude : number;
     longitude : number;
-    index : number;
-}
+    index? : number;
+    width? : number | string;
+    height? : number | string;
+  }
 
 
-export const MapBox = ({latitude, longitude, index} : ICoordinate) => {
+export const MapBox = ({latitude, longitude, index, width = "100%", height = "100%"} : ICoordinate) => {
     useEffect(() => {
       let container = document.getElementById(`map${index}`); // 지도를 담을 영역의 DOM 레퍼런스
       let options = {
@@ -32,5 +34,5 @@ export const MapBox = ({latitude, longitude, index} : ICoordinate) => {
       marker.setMap(map);
     }, []);
   
-    return <div id={`map${index}`} style={{ width: "100%", height: "300px" }}></div>;
+    return <div id={`map${index}`} style={{ width, height }}></div>;
   };

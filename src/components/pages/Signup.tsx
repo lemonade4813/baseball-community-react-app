@@ -39,7 +39,7 @@ const schema = yup.object().shape({
     }),
   team: yup
     .string()
-    .oneOf(["두산", "KIA", "한화", "롯데", "SSG", "NC", "삼성", "LG", "키움", "KT"], "팀을 선택하세요.")
+    .oneOf(["doosan", "kia", "hanwha", "lotte", "ssg", "nc", "samsung", "lg", "kiwoom", "kt"], "팀을 선택하세요.")
     .required("연령을 선택하세요."),
 });
 

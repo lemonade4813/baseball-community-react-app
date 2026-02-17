@@ -48,10 +48,10 @@ export const Button = styled.button`
     color : white;
 `
 
-export const Flex = styled.div<{ gap?: number }>`
+export const Flex = styled.div<{ gap?: number , alignItems? : string, justifyContent? : string}>`
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: ${({ alignItems }) => alignItems || 'center'};
+    justify-content: ${({ justifyContent }) => justifyContent || 'center'};
     gap: ${({ gap = 20 }) => `${gap}px`};
 `;
 

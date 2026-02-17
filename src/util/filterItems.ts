@@ -1,4 +1,4 @@
-export type Team = '두산' | '키움' | '한화' | 'NC' | 'SSG' | '삼성' | 'LG' | 'KIA' | 'KT' | '롯데' | '';
+export type Team = 'doosan' | 'kiwoom' | 'hanwha' | 'nc' | 'ssg' | 'samsung' | 'lg' | 'kia' | 'kt' | 'lotte' | '';
 
 export interface IScheduleItem {
     id : string;

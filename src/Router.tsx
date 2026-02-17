@@ -13,7 +13,7 @@ import Stadiums from './components/pages/Stadiums'
 import StadiumsStatus from './components/pages/StadiumsStatus'
 import StadiumFoods from './components/pages/StadiumsFoods'
 import NotFound from './components/pages/NotFound'
-import StadiumItem from './widgets/StadiumItem'
+import StadiumItem from './components/pages/StadiumItem'
 
 const routes = createBrowserRouter([
     {

@@ -6,6 +6,7 @@ import { teamImgList } from "@/util/teamList";
 import { MapBox } from "@/components/map/MapBox";
 import { useStadiumsStatusQuery } from "@/hooks/queries/useStadiumsStatusQuery";
 import { Container, Title } from "@/styles/Styles";
+import { useNavigate } from "react-router-dom";
 
 declare global {
   interface Window {
@@ -92,6 +93,9 @@ const FeatureItem = styled.li`
 export default function StadiumsStatus() {
   const { openModal } = useModalStore();
   const { data: stadiumInfoList, error } = useStadiumsStatusQuery();
+  const navigate = useNavigate();
+
+  console.log(stadiumInfoList);
 
   useEffect(() => {
     if (error) {
@@ -104,8 +108,7 @@ export default function StadiumsStatus() {
       <Title>경기장 현황</Title>
       <StadiumsWrapper>
         {stadiumInfoList?.map((stadium, index) => (
-          <StadiumCard key={stadium.team}>
-            <img 
+          <StadiumCard key={stadium.team} onClick={() => navigate(`/stadium/${stadium.team.toLowerCase()}`)}>            <img 
                 width={48} 
                 height={48} 
                 src={teamImgList?.find((t) => t.team === stadium.team)?.src}
@@ -115,7 +118,7 @@ export default function StadiumsStatus() {
               alt={`${stadium.stadiumName} 이미지`}
             />
             <a 
-              href={`/stadium/${stadium.team.toLocaleLowerCase()}`}
+              href={stadium.homepage}
               style={{cursor : 'pointer'}} 
               target="_blank" 
               rel="noopener noreferrer"
@@ -136,12 +139,7 @@ export default function StadiumsStatus() {
               {stadium.features?.map((feature, featureIndex) => (
                 <FeatureItem key={featureIndex}>{feature.trim()}</FeatureItem>
               ))}
-            </FeatureList>
-            <MapBox 
-              latitude={stadium.coordinates?.[0]} 
-              longitude={stadium.coordinates?.[1]} 
-              index={index} 
-            />
+            </FeatureList> 
           </StadiumCard>
         ))}
       </StadiumsWrapper>
