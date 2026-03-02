@@ -102,6 +102,7 @@ export default function StadiumsStatus() {
       openModal(error.message);
     }
   }, [error, openModal]);
+  
 
   return (
     <Container>

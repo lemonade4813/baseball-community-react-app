@@ -23,22 +23,27 @@ const Table = styled.div`
   margin-top : 40px;
   height : 480px;
   overflow-y : auto;
+  box-shadow : 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 `
 
 const Tr = styled.tr`
   width : 100%;
   height : 60px;
   display : flex;
+  border-bottom : 1px solid #D3D3D3;
+
+  &:nth-child(even){
+      background-color : #F1F3F5;
+  }
 `
 
 const Td = styled.td`
   flex : 1;
   text-align : center;
-  border-bottom : 1px solid #D3D3D3;
+
   display : flex;
   align-items : center;
   justify-content : center;
-  border-right : 1px solid #D3D3D3;
 
   &:last-child{
     border-right : none;
@@ -48,12 +53,13 @@ const Td = styled.td`
 const Th = styled.th`
   flex : 1;
   text-align : center;
-  border-bottom : 1px solid #D3D3D3;
   display : flex;
   align-items : center;
   justify-content : center;
   background-color : #FF6A89;
-  border-right : 1px solid #D3D3D3;
+  color : #FFF;
+
+  border-right:2px solid #FFF;
 
   &:last-child{
     border-right : none;
@@ -103,6 +109,10 @@ const TeamSelectWrapper = styled.div`
   }
 `
 
+const PageTitle = styled.h2`
+  font-weight : 500;
+`
+
 export default function Schedule() {
 
   const { data: schedules, error, isLoading, refetch } = useSchedulesQuery();
@@ -142,7 +152,7 @@ export default function Schedule() {
     <Container>
       <Title>
         <img src={ScheduleSvg} width={40} height={40} alt="경기 일정 이미지"/>
-        <span>2025 KBO 경기 일정</span>
+        <PageTitle>2026 KBO 경기 일정</PageTitle>
       </Title>  
       <ScheduleSearchWrapper>
       <TeamSelectWrapper>

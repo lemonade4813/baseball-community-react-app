@@ -6,25 +6,34 @@ import { memo } from "react";
 const Table = styled.table`
     width: 100%;
     text-align: center;
+    box-shadow : 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 `;
 
 const Th = styled.th`
-    border: 1px solid #DDD;
+    border-bottom: 1px solid #DDD;
     vertical-align: middle;
+    font-weight : 500;
 `;
 
 const Tr = styled.tr`
-    height: 36px;
+    height: 48px;
 
     &:nth-child(even){
-      background-color : #808080;
+      background-color : #F1F3F5;
+    }
+
+
+    &:first-child{
+      border-bottom : 3px solid #DDD;
     }
 `;
 
 const Td = styled.td`
-    border: 1px solid #DDD;
+    border-bottom: 1px solid #DDD;
     vertical-align: middle;
     text-align: center;
+
+ 
 `;
 
 const NoPostMessage = styled.p`

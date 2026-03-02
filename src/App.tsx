@@ -11,7 +11,8 @@ import { isDarkModeAtom } from './store/isDarkMode';
 import Carousel from './components/ui/Carousel';
 
 const Container = styled.div`
-    width : 80vw;
+    max-width : 1920px;
+    width : 95%;
     height : 100vh;
     margin : 0 auto;
 `

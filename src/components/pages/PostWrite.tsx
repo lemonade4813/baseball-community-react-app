@@ -69,7 +69,7 @@ export default function PostWrite({isEditMode} : {isEditMode? : boolean}) {
           <InputWrapper style={{marginTop : '16px'}}>
             <Label htmlFor="content">내용</Label>
             <Textarea
-                placeholder="내용을 입력하세요"
+                placeholder="내용을 입력하세요" 
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
             />

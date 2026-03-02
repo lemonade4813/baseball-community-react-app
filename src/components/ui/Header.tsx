@@ -8,8 +8,6 @@ import HambergerSvg from "@/assets/hamburger.svg";
 import HeaderAuthMenu from "./HeaderAuthMenu";
 import { isResponsiveNavOpenAtom } from "@/store/isResponsiveNavOpen";
 import { isDarkModeAtom } from "@/store/isDarkMode";
-import { useState } from "react";
-import axios from "axios";
 
 
 const HeaderContainer = styled.header`

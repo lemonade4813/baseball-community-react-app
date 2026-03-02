@@ -21,6 +21,7 @@ export const Input = styled.input<{ border?: string }>`
   height: 32px;
   flex: 1;
   border: 1px solid ${({ border }) => border || "#D3D3D3"};
+  padding : 8px;
 `;
 
 export const Textarea = styled.textarea`
@@ -61,7 +62,8 @@ export const Container = styled.main`
     justify-content : center;
     flex-direction : column;
     padding-bottom : 80px;
-
+    width : 90%;
+    margin : 0 auto;
 `
 
 export const H2 = styled.main`
