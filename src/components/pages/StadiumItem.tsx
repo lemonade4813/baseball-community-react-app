@@ -4,7 +4,9 @@ import { useParams } from "react-router-dom"
 import { WiThermometer, WiHumidity, WiWindy } from "react-icons/wi";
 import { MdCalendarToday } from "react-icons/md";
 import { IoMdMap } from "react-icons/io";
-
+import { FaBusAlt } from "react-icons/fa";
+import { HiOutlineMap } from "react-icons/hi";
+import { HiLocationMarker } from "react-icons/hi";
 
 
 const PageTitle = styled.p`
@@ -17,28 +19,36 @@ const Address = styled.p`
   margin-top : 20px;
   font-size : 24px;
 `
-const SectionTitle = styled.h2`
-  font-size : 24px;
+
+const Description = styled.p`
   margin-top : 20px;
-  margin-bottom : 20px;
+  font-size : 20px;
+`
+
+const SectionTitle = styled.h2`
+  font-size : 32px;
+  margin-top : 60px;
+  margin-bottom : 60px;
   display : flex;
   align-items : center;
   gap : 20px;
+  font-weight : 500;
 `
 
 const WeatherItemWrapper = styled.div`
   display : flex;
   align-items : center;
   flex : 1;
-  background-color : #FFF3EC;
+  background-color : #FBE3CB;
   height : 150px;
-  border : 2px solid orange;
   border-radius : 20px;
+  box-shadow : 5px 5px 10px rgba(0,0,0,0.1); 
 `
 
 const WeatherItemTitle = styled.span`
-  font-size : 20px;
+  font-size : 24px;
   margin-left : 20px;
+  font-weight : 500;
 `
 /*
 const WeatherContentWrapper = styled.div`
@@ -47,9 +57,9 @@ const WeatherContentWrapper = styled.div`
 `
 */
 
-const DayForecastItem = styled(Flex)`
+const DayForecastItem = styled(Flex)<{$bgColor : string}>`
   flex-direction : column;
-  background-color : #D2F7FF;
+  background-color : ${({$bgColor}) => $bgColor};
   border-radius : 20px; 
   padding : 20px; 
   box-shadow : 5px 5px 20px rgba(0,0,0,0.2); 
@@ -58,6 +68,18 @@ const DayForecastItem = styled(Flex)`
 const DayConditionText = styled.p`
   font-weight : 600;
   font-size : 22px;
+`
+
+const ForecastDate = styled.p`
+  font-size : 20px;
+  font-weight : 600;
+`
+
+const ForecastValue = styled.span`
+  font-size : 30px;
+  font-weight : 500;
+  padding : 20px;
+  border-left : 2px solid #fff;
 `
 
 import { MapBox } from "../map/MapBox";
@@ -97,11 +119,11 @@ export default function StadiumItem() {
     const fetchWeather = async () => {
       try {
         const [currentRes, forecastRes, teamInfo] = await Promise.all([
-          axios.get(`${import.meta.env.VITE_WEATHER_BASE_URL}/current.json?key=1d963a8827fb40c48f562527261602&q=${location}&aqi=no`),
-          axios.get(`${import.meta.env.VITE_WEATHER_BASE_URL}/forecast.json?key=1d963a8827fb40c48f562527261602&q=${location}&days=7&lang=ko`),
+          axios.get(`${import.meta.env.VITE_WEATHER_BASE_URL}/current.json?key=a80108e501c64c168c6102431260703&q=${location}&aqi=no`),
+          axios.get(`${import.meta.env.VITE_WEATHER_BASE_URL}/forecast.json?key=a80108e501c64c168c6102431260703&q=${location}&days=7&lang=ko`),
           axios.get(`${import.meta.env.VITE_API_BASE_URL}/stadium/${team}`)
         ]);
-  
+
         // 2. 두 응답 모두 성공했는지 확인
         if (currentRes.status === 200 && forecastRes.status === 200) {
           // 3. 데이터 병합 (동일한 키가 있을 경우 뒤의 데이터가 덮어씌워지니 유의하세요)
@@ -125,8 +147,8 @@ export default function StadiumItem() {
     <div>
       <div>   
         <PageTitle>{weatherData?.stadiumName}</PageTitle>
-        <Address>주소 | {weatherData?.address}</Address>
-        <SectionTitle>지도보기</SectionTitle> 
+        <Address><HiLocationMarker size={20}/>주소 | {weatherData?.address}</Address>
+        <SectionTitle><HiOutlineMap size={20}/>지도보기</SectionTitle> 
         {weatherData?.coordinates ? (
         <MapBox
           latitude={weatherData.coordinates[0]} 
@@ -140,38 +162,41 @@ export default function StadiumItem() {
           지도를 불러오는 중입니다...
         </div>
       )}
+      <SectionTitle><FaBusAlt size={20}/>오시는길</SectionTitle>
+      <Description>{weatherData?.direction}</Description>
       </div>      
       <SectionTitle><MdCalendarToday size={24}/>현재날씨</SectionTitle>
-        <Flex gap={30}>
+        <Flex $gap={40}>
           <WeatherItemWrapper>
-            <WeatherItemTitle>| 기온</WeatherItemTitle>
+            <WeatherItemTitle>기온</WeatherItemTitle>
               <Flex>
-                <WiThermometer size={80} color="#FF4500" /> 
-                <span>{weatherData?.current.temp_c}°C</span>
+                <WiThermometer size={80} color="#FF4500" />
+                <ForecastValue>{weatherData?.current.temp_c}°C</ForecastValue>
               </Flex>
           </WeatherItemWrapper>
           <WeatherItemWrapper>
-            <WeatherItemTitle>| 습도</WeatherItemTitle>
+            <WeatherItemTitle>습도</WeatherItemTitle>
               <Flex>
-                <WiHumidity size={80} color="#3498DB" /> 
-                <span>{weatherData?.current.humidity}%</span>
+                <WiHumidity size={80} color="#3498DB" />
+                <ForecastValue>{weatherData?.current.humidity}%</ForecastValue>
               </Flex>
           </WeatherItemWrapper>
           <WeatherItemWrapper>
-            <WeatherItemTitle> | 풍속</WeatherItemTitle>
+            <WeatherItemTitle>풍속</WeatherItemTitle>
             <Flex>
-              <WiWindy size={80} /> 
-              <span>{weatherData?.current.wind_kph}km/h</span>
+              <WiWindy size={80} />
+              <ForecastValue>{weatherData?.current.wind_kph}km/h</ForecastValue>
             </Flex>
           </WeatherItemWrapper>
         </Flex>
       <div>
         <SectionTitle> <IoMdMap size={24} /> 주간날씨</SectionTitle>
-        <Flex justifyContent="space-between" style={{padding : '20px'}}>
-        {weatherData?.forecast?.forecastday?.map(({date, day}: any) => {
+        <Description>최대 1주간 데이터가 표시됩니다.</Description>
+        <Flex $justifyContent="center" $gap={60}>
+        {weatherData?.forecast?.forecastday?.map(({date, day}: any, index : number) => {
         return (
-          <DayForecastItem key={date}>
-            <p>{date}</p>
+          <DayForecastItem key={date} $bgColor={index % 2 == 0 ? '#BADAF7' : '#CCCCFF'}>
+            <ForecastDate>{date}</ForecastDate>
             <DayConditionText>{day.condition.text}</DayConditionText>
             <img src={`${day.condition.icon}`} width={60} height={60}/>
             <div>

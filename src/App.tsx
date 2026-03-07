@@ -1,4 +1,3 @@
-// import './App.css'
 import { Outlet } from 'react-router-dom';
 import Navigation from './components/ui/Navigation';
 import Header from './components/ui/Header';
@@ -26,6 +25,11 @@ const darkTheme = {
   color: "#FFFFFF"
 };
 
+
+const Main = styled.main`
+  padding-bottom : 100px;
+`
+
 function App() {
 
   const queryClient = new QueryClient();
@@ -41,9 +45,9 @@ function App() {
           <Header/>
           <Navigation/>
           <Carousel/>
-          {/* <Main> */}
-            <Outlet/>
-          {/* </Main> */}
+            <Main>
+              <Outlet/>
+            </Main>
         </Container>
       </QueryClientProvider>
     </ThemeProvider>

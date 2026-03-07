@@ -49,11 +49,11 @@ export const Button = styled.button`
     color : white;
 `
 
-export const Flex = styled.div<{ gap?: number , alignItems? : string, justifyContent? : string}>`
+export const Flex = styled.div<{ $gap?: number , $alignItems? : string, $justifyContent? : string}>`
     display: flex;
-    align-items: ${({ alignItems }) => alignItems || 'center'};
-    justify-content: ${({ justifyContent }) => justifyContent || 'center'};
-    gap: ${({ gap = 20 }) => `${gap}px`};
+    align-items: ${({ $alignItems }) => $alignItems || 'center'};
+    justify-content: ${({ $justifyContent }) => $justifyContent || 'center'};
+    gap: ${({ $gap = 20 }) => `${$gap}px`};
 `;
 
 export const Container = styled.main`
